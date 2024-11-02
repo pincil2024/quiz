@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Welcome Dialog Box -->
+<dialog id="welcomeDialog">
+    <h2>Pengetahuan Kuantitatif</h2>
+    <p>Apakah Anda ingin menantang diri sendiri? Silakan, atur waktunya sesuai keinginan Anda!</p>
+    
+    <!-- Timer Options -->
+    <label>
+        <input type="checkbox" id="enableTimer"> Atur Waktu!
+    </label>
+    <br>
+    
+    <!-- Time Setting Options -->
+    <div id="timerOptions" style="display: none;">
+        <label for="timerDuration">Set Timer Duration (in minutes): </label>
+        <input type="number" id="timerDuration" min="1" max="60" value="20">
+    </div>
+    
+    <!-- Start Quiz Button -->
+    <button id="startQuizBtn">Start Quiz</button>
+</dialog>
+    
+   
+    <h1 id="quizTitle">Let's Study</h1> <!-- Title at the top -->
+    <!-- Timer Display -->
+    <div id="timerDisplay" style="text-align: center; font-size: 20px;">Timer Duration:</div>
+    <div id="quiz"></div>
+    <button id="submitBtn">Submit</button>
+
+    <dialog id="timeUpDialog">
+        <p>Your time is up!</p>
+        <p>Would you like to submit or retake the exam?</p>
+        <button id="againBtn">Submit</button>
+        <button id="retakeBtn">Retake</button>
+    </dialog>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
