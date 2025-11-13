@@ -1,0 +1,129 @@
+<!-- navbar.html -->
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Logo -->
+    <a href="/index.html" class="logo">
+      <img class="lazy" src="assets/icons/favicon.png" alt="Pincil Logo" />
+      Pincil - Fun Educational Games for Kids
+      <span id="navWelcome" style="font-weight:bold; color:#ff9800;"></span>
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <div class="menu-toggle">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <!-- Navigation links -->
+    <ul class="nav-links">
+      <li><a href="/index.html">Home</a></li>
+      <li class="dropdown">
+        <a href="/tk.html" class="dropdown-toggle">TK</a>
+        <ul class="dropdown-menu">
+          <li><a href="/alphabet.html">Belajar Membaca</a></li>
+        </ul>
+      </li>
+      <li><a href="/sdmath.html">Matematika Dasar</a></li>
+      <li><a href="/paidflippingbook.html">Buku-buku</a></li>
+      <li><a href="/quizes.html">Kuis</a></li>
+
+      <!-- Login link (shown when logged out) -->
+      <li id="loginContainer">
+        <a href="#" id="loginLink">Login</a>
+      </li>
+
+      <!-- User menu (shown when logged in) -->
+      <li id="userMenuContainer" style="display:none;" class="dropdown">
+        <a href="#" class="dropdown-toggle" id="userMenuToggle">
+          <span id="userInitials">👤</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><span id="userEmail"></span></li>
+          <li><button id="myTokensBtn" class="navbar-token-btn">🎟️ My Tokens</button></li>
+
+          <!-- Admin link (hidden by default) -->
+          <li class="admin-only" style="display:none;">
+  <a href="#" onclick="showAdminPanel(); return false;" style="color: #ff9800; font-weight: bold;">
+    <i class="fas fa-crown"></i> Admin Panel
+  </a>
+</li>
+          <li><button id="logoutBtn" class="logout-button">Logout</button></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Login/Register/Reset Modal -->
+<div id="accessOverlay" style="display:none;">
+  <div class="modal">
+    <button class="modal-close-btn" id="closeAccessOverlayBtn">❌</button>
+
+    <!-- Thank you section -->
+    <div id="downloadSection" style="display:none;">
+      <h2>Terima Kasih Telah Membeli!</h2>
+      <p>Bonus: akses semua konten Pincil.id selama 30 hari!</p>
+    </div>
+
+    <!-- REGISTER -->
+    <form id="registerSection">
+      <img class="pincillogosmall" src="assets/icons/pincilsmall.png" alt="welcome" 
+           style="width:150px; height:auto; padding:20px; margin:auto">
+      <p>Selamat datang di Pincil.id</p>
+      <p>Pusat Pembelajaran Interaktif Anda!</p>
+
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="nickname" placeholder="Nama Panggilan" required>
+      <input type="password" id="password" placeholder="Kata sandi" autocomplete="new-password" required>
+      <input type="password" id="confirmPassword" placeholder="Konfirmasi kata sandi" autocomplete="new-password" required>
+
+      <button type="submit">Daftar</button>
+      <span id="registerSpinner" class="spinner" style="display:none;">🌸</span>
+      <div id="registerMsg" class="msg"></div>
+
+      <button type="button" id="toLoginFromRegisterBtn">Sudah punya akun? Login</button>
+    </form>
+
+    <!-- LOGIN -->
+    <form id="loginSection" style="display:none;" >
+      <img class="pincillogosmall" src="assets/icons/pincilsmall.png" alt="welcome" 
+           style="width:150px; height:auto; padding:20px; margin:auto">
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Kata sandi" required>
+      <button id="loginBtn" type="submit">Login</button>
+
+      <span id="loginSpinner" class="spinner" style="display:none;">🌸</span>
+      <div id="loginMsg" class="msg"></div>
+
+      <button type="button" id="toRegisterFromLoginBtn">Registrasi</button>
+      <button type="button" id="toResetFromLoginBtn">Lupa password?</button>
+    </form>
+
+    <!-- RESET PASSWORD -->
+    <div id="resetSection" style="display:none;">
+      <img class="pincillogosmall" src="assets/icons/pincilsmall.png" alt="welcome" 
+           style="width:150px; height:auto; padding:20px; margin:auto">
+      <h2>🔐 Reset Password</h2>
+      <p>Masukkan email Anda, kami akan kirim link untuk mengatur ulang password.</p>
+
+      <input type="email" id="resetEmail" placeholder="Email Anda" required>
+      <button id="sendResetEmail">Kirim Link Reset</button>
+      <span id="resetSpinner" class="spinner" style="display:none;">🌞</span>
+      <p id="resetMsg"></p>
+
+      <button id="toLoginFromResetBtn">Kembali ke Login</button>
+    </div>
+
+    <!-- WELCOME BACK -->
+    <div id="welcomeBackSection" style="display:none;">
+      <h3>Selamat Datang! 😊</h3>
+      <img class="pincillogosmall" src="assets/icons/pincilsmall.png" alt="Welcome Back">
+      <p id="welcomeMessageText">Saya senang kamu menyukai Pincil.id!</p>
+    </div>
+  </div>
+</div>
+<!-- Reminder Banner (hidden by default) -->
+<div id="tokenBanner" class="token-banner" style="display:none;">
+  🎟️ Kamu punya token belum diaktifkan. 
+  <button id="openClaimDialogBtn">Aktifkan Sekarang</button>
+  <span id="closeBannerBtn" style="cursor:pointer; margin-left:10px;">❌</span>
+</div>

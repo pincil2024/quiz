@@ -1,0 +1,3317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+   
+  <title>Pengenalan Bangun Datar</title>
+
+<meta name="description" content="Pelajari bentuk bangun datar dan ruang dengan aktivitas interaktif di Pincil. Cocok untuk anak usia sekolah dasar.">
+<meta name="keywords" content="Bangun Datar, Bangun Ruang, Geometri, Matematika Anak, SD, Game Edukasi, Pincil">
+<meta property="og:title" content="Pincil – Bangun Datar & Ruang" />
+<meta property="og:description" content="Kenali bentuk bangun seperti persegi, lingkaran, dan lainnya dengan cara yang menyenangkan!" />
+<meta property="og:url" content="https://pincil.id/bangundatar.html" />
+<meta property="og:type" content="website" />
+
+  <link rel="canonical" href="https://pincil.id/bangundatar.html" />
+  <link rel="stylesheet" href="/static/css/navbar.css">
+  <link rel="stylesheet" href="/static/css/locked.css">
+  <link rel="stylesheet" href="/static/css/secondaryheader.css">
+ 
+  <script>
+            fetch('meta.html').then(res => res.text()).then(html => {
+            document.head.insertAdjacentHTML('beforeend', html);
+            });
+        </script>
+
+
+<script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/navbar.js"></script>
+
+
+    
+
+   
+  
+  <style>
+     body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: #8570ed;
+
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    .intro, .shape-container {
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.1rem;
+      text-align: center;
+      color: #fffafa;
+    }
+    .shape-container {
+      text-align: center;
+      justify-content: center;
+      text-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+  
+    .shape {
+      background: white;
+      width: 100px;
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      flex-wrap: wrap; /* Allows items to wrap to the next row */
+      max-width: 100%; /* Ensures it doesn't overflow */
+      overflow: hidden; /* Prevents content from spilling out */
+    }
+
+    .lesson3D .shape{
+      width: 200px;
+    }    
+    .shape:hover {
+      transform: translateY(-5px);
+    }
+    canvas {
+      margin-top: 10px;
+    }
+    .description {
+      position: relative;
+    
+      color: #666;
+      font-size: 0.95rem;
+      min-height: 40px;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .show {
+      opacity: 1;
+    }
+    #quizSection {
+      display: none;
+      text-align: center;
+      width: 100%;
+      margin: auto;
+      overflow: auto;
+
+    }
+    #progress {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #1aaecc;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1c5e70;
+    }
+    dialog {
+      padding: 20px;
+      border-radius: 10px;
+      border: none;
+    }
+    .correct-anim {
+  animation: pulse 0.6s ease;
+}
+
+.wrong-anim {
+  animation: shake 0.4s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); background-color: #fff; }
+  50% { transform: scale(1.05); background-color: #c8f7c5; }
+  100% { transform: scale(1); background-color: #fff; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Floating message (centered) */
+.temp-msg.center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 0, 0, 0.92);
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.temp-msg.fade-out {
+  opacity: 0;
+  transform: translate(-50%, -45%);
+}
+
+.lesson3D {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+  padding: 10px;
+  max-width: 800px;
+  margin: auto;
+ 
+  border-radius: 12px;
+  text-align: center;
+}
+.Lshape-container {
+      
+    gap: 1rem;
+    width: 150px;
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+    background-color: #dbc3c3;
+  }
+
+  .Lshape-container:hover {
+    background-color: #d0f0ff;
+  }
+
+  .shape-title {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+ .shape-list,
+.list3D {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+  .shape-example {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .shape-example img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  .canvas-wrapper {
+    margin: auto; /* Center the quiz container */
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 100px;
+   margin-top: 20px;
+    text-align: center;
+    width: 90%;
+    text-wrap: wrap;
+    background-color: white;
+    padding: 0px 20px 20px; /* Reduce top padding */
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow:auto;
+  }
+ 
+  .shape canvas,
+  .lesson-container canvas 
+ {
+    width: 100px;
+    height: 100px;
+    max-width: 100%;
+    touch-action: manipulation;
+  }
+  .lesson3D canvas{
+    width: 200px;
+    height: 100px;
+    max-width: 100%;
+    touch-action: manipulation;
+  }
+
+  @media (max-width: 600px) {
+    .shape canvas,
+    .lesson-container canvas {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  .option-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+ /* Footer */
+ footer {
+    margin-top: auto; /* Pushes footer to bottom */
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+
+    bottom: 0; /* Stick to bottom */
+    left: 0;
+    z-index: 1;
+    font-size: 0.9rem;
+  }
+  .next-btn{
+    display: block;
+    text-align: center;
+    margin: auto;
+  }
+  .shape-label-quiz {
+  background: #f0f8ff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  margin: auto;
+}
+.shape-label-quiz label {
+  display: block;
+  margin-bottom: 10px;
+}
+.quiz-nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.prev-btn, .next-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.prev-btn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.next-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+#labelQuizDialog{
+ text-align: center;
+  margin: auto;
+}
+.disabled-button {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+  /*matching game*/
+   .icon { width: 60px; vertical-align: middle; margin-left: 5px; }
+  .shape-target, .match-item {
+    padding: 10px;
+    margin: 10px;
+    border: 2px dashed #aaa;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .shape-target:hover {
+    background-color: #f0f0f0;
+  }
+  .selectable {
+    width: 100px;
+    margin: 10px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  .selectable.selected {
+    border-color: green;
+  }
+  .fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  #endDialog2, #endDialog3{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 20%;
+  height: auto;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  background: #eee;
+  text-align: center;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.shape-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.shape-target {
+  min-height: 80px;
+}
+
+/* Enhanced UI for Children - Quiz Type 2 */
+#quizType2 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 25px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border: 8px solid #ff6b6b;
+  position: relative;
+  overflow: hidden;
+}
+
+#quizType2::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: float 20s infinite linear;
+  z-index: 0;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-30px, -30px) rotate(360deg); }
+}
+
+/* Header Styling */
+.quiz-header {
+  text-align: center;
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.quiz-header h2 {
+  color: #fff;
+  font-size: 2.5em;
+  text-shadow: 3px 3px 0 #ff6b6b;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+/* Progress Indicator */
+#quizProgress2 {
+  background: #ffd93d;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.2em;
+  border: 4px solid #ff6b6b;
+  box-shadow: 0 4px 0 #ff8e8e;
+  display: inline-block;
+  margin: 10px 0;
+}
+
+/* Matching Area Container */
+.matching-area {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .matching-area {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* Objects Container */
+#objects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  border: 6px solid #4ecdc4;
+  box-shadow: 0 8px 0 #2a9d8f;
+  min-height: 200px;
+}
+
+/* Shapes Container */
+#shapes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  border: 6px solid #ffd93d;
+  box-shadow: 0 8px 0 #ffb347;
+}
+
+/* Enhanced Match Wrapper for Children */
+.match-wrapper {
+  position: relative;
+  cursor: grab;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.match-wrapper:active {
+  cursor: grabbing;
+  transform: scale(1.1) rotate(5deg);
+  z-index: 1000;
+}
+
+.match-wrapper.dragging {
+  animation: wiggle 0.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg) scale(1.05); }
+  50% { transform: rotate(3deg) scale(1.05); }
+}
+
+/* Match Items - Fun Design */
+.match-item {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border: 5px solid #6a89cc;
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+  box-shadow: 0 6px 0 #4a69bd, 0 8px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.match-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ffd93d);
+  border-radius: 20px 20px 0 0;
+}
+
+.match-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 0 #4a69bd, 0 12px 20px rgba(0,0,0,0.15);
+}
+
+.match-item img.icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-top: 8px;
+  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+  transition: transform 0.3s ease;
+}
+
+.match-item:hover img.icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* Shape Groups - Fun Design */
+.shape-group {
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.shape-title {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  padding: 12px;
+  border-radius: 15px 15px 0 0;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  border: 4px solid #ff5252;
+  border-bottom: none;
+}
+
+.shape-target {
+  background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+  border: 6px dashed #4ecdc4;
+  border-radius: 0 0 20px 20px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 15px;
+}
+
+.shape-target::before {
+  content: "🎯 Drop Here!";
+  position: absolute;
+  color: #4ecdc4;
+  font-weight: bold;
+  opacity: 0.6;
+  font-size: 1.1em;
+}
+
+.shape-target.highlight {
+  background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+  border: 6px dashed #2196f3;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.shape-target.drag-over {
+  background: linear-gradient(145deg, #c8e6c9, #a5d6a7);
+  border: 6px solid #66bb6a;
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Mark Overlays */
+.mark-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 3em;
+  z-index: 10;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+.mark-overlay.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.correct-mark {
+  color: #4caf50;
+  text-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+}
+
+.wrong-mark {
+  color: #f44336;
+  text-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+}
+
+/* Buttons - Fun Design */
+.quiz-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.quiz-button {
+  background: linear-gradient(135deg, #ffd93d, #ffb347);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 30px;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #ff9500, 0 8px 15px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.quiz-button:hover::before {
+  left: 100%;
+}
+
+.quiz-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 #ff9500, 0 12px 20px rgba(0,0,0,0.25);
+}
+
+.quiz-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #ff9500, 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.quiz-button:disabled {
+  background: linear-gradient(135deg, #cccccc, #aaaaaa);
+  box-shadow: 0 4px 0 #888888;
+  transform: translateY(4px);
+  cursor: not-allowed;
+}
+
+.quiz-button:disabled:hover {
+  transform: translateY(4px);
+  box-shadow: 0 4px 0 #888888;
+}
+
+/* Next Button Animation */
+#nextSetBtn2.slide-in {
+  animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes slideInBounce {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) scale(0.5);
+  }
+  70% {
+    transform: translateX(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Results Display */
+#matchingResult {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 25px;
+  border-radius: 20px;
+  font-size: 1.3em;
+  font-weight: bold;
+  text-align: center;
+  border: 4px solid #4ecdc4;
+  box-shadow: 0 6px 0 #2a9d8f;
+  margin: 15px 0;
+  color: #333;
+}
+
+/* Enhanced Touch Support */
+@media (max-width: 767px) {
+  #quizType2 {
+    padding: 15px;
+    border-width: 6px;
+    margin: 10px;
+  }
+  
+  .matching-area {
+    gap: 15px;
+  }
+  
+  #objects, #shapes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 15px;
+  }
+  
+  .match-item {
+    min-height: 50px;
+    padding: 4px;
+    font-size: .7em;
+  }
+  
+  .match-item img.icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .shape-target {
+    min-height: 100px;
+  }
+  
+  .quiz-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .quiz-button {
+    width: 100%;
+    max-width: 150px;
+    padding: 12px 20px;
+    font-size: 1.2em;
+  }
+}
+
+/* High-contrast mode support */
+@media (prefers-contrast: high) {
+  .match-item {
+    border-width: 4px;
+    background: white;
+  }
+  
+  .shape-target {
+    border-style: solid;
+    background: white;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Quiz Type 3 - Kid-Friendly Design */
+#quizType3 {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  border-radius: 30px;
+  padding: 25px;
+  box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+  border: 10px solid #ff6b8b;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#quizType3::before {
+  content: "🌟";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2em;
+  animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+/* Header Styling */
+.quiz-header-3 {
+  text-align: center;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.quiz-header-3 h2 {
+  color: #fff;
+  font-size: 1em;
+  text-shadow: 4px 4px 0 #ff6b8b, 8px 8px 0 rgba(0,0,0,0.1);
+  margin: 0;
+  font-weight: 900;
+  background: linear-gradient(45deg, #ffeb3b, #ff9800);
+
+  -webkit-text-fill-color: transparent;
+  padding: 10px;
+}
+
+/* Target Shape Display */
+.target-shape-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 6px solid #4ecdc4;
+  box-shadow: 0 8px 0 #2a9d8f, 0 12px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  position: relative;
+}
+
+.target-shape-container::before {
+  content: "🎯";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2em;
+}
+
+#targetShapeName {
+  font-size: 1.5em;
+  font-weight: 900;
+  color: #ff6b8b;
+  text-shadow: 2px 2px 0 #fff;
+  margin: 0;
+  background: linear-gradient(45deg, #ff6b8b, #ff8e53);
+
+  -webkit-text-fill-color: transparent;
+}
+
+/* Selectable Items Grid */
+#selectableItems {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 25px;
+  border: 8px solid #ffd93d;
+  box-shadow: 0 10px 0 #ffb347, inset 0 0 20px rgba(255, 215, 0, 0.2);
+  margin: 20px 0;
+}
+
+/* Selectable Items - Fun Design */
+.selectable-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+}
+
+.selectable-wrapper:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+.selectable-wrapper:hover .selectable {
+  box-shadow: 0 15px 0 #4a69bd, 0 20px 30px rgba(0,0,0,0.2);
+}
+
+.selectable {
+  width: 80%;
+  height: 100px;
+  object-fit: contain;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border: 6px solid #6a89cc;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 8px 0 #4a69bd, 0 12px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.selectable::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ffd93d, #6a89cc);
+  border-radius: 20px 20px 0 0;
+}
+
+.selectable.selected {
+  border: 6px solid #ff6b8b;
+  background: linear-gradient(145deg, #ffeaea, #ffd6d6);
+  box-shadow: 0 8px 0 #ff5252, 0 12px 25px rgba(255, 107, 139, 0.3);
+  animation: selectedPulse 1s infinite;
+}
+
+@keyframes selectedPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.selectable.correct {
+  border: 6px solid #4caf50;
+  background: linear-gradient(145deg, #e8f5e8, #c8e6c9);
+  box-shadow: 0 8px 0 #2e7d32, 0 12px 25px rgba(76, 175, 80, 0.3);
+}
+
+.selectable.incorrect {
+  border: 6px solid #f44336;
+  background: linear-gradient(145deg, #ffebee, #ffcdd2);
+  box-shadow: 0 8px 0 #c62828, 0 12px 25px rgba(244, 67, 54, 0.3);
+}
+
+/* Enhanced Mark Overlays */
+.selectable-wrapper .mark-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 4em;
+  z-index: 10;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+}
+
+.selectable-wrapper .mark-overlay.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.selectable-wrapper .correct-mark {
+  color: #4caf50;
+  animation: celebrate 0.8s ease-out;
+}
+
+.selectable-wrapper .wrong-mark {
+  color: #f44336;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes celebrate {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+  50% { transform: translate(-50%, -50%) scale(1.2) rotate(180deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+}
+
+/* Progress Indicator */
+#quizProgress3 {
+  background: linear-gradient(135deg, #ffd93d, #ffb347);
+  color: #333;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.3em;
+  border: 5px solid #ff6b8b;
+  box-shadow: 0 6px 0 #ff8e8e;
+  display: inline-block;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Results Display */
+#selectionResult {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 30px;
+  border-radius: 25px;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  border: 5px solid #4ecdc4;
+  box-shadow: 0 8px 0 #2a9d8f;
+  margin: 20px 0;
+  color: #333;
+  animation: resultPop 0.5s ease-out;
+}
+
+@keyframes resultPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Enhanced Buttons */
+.quiz-buttons-3 {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.quiz-button-3 {
+  background: linear-gradient(135deg, #ff6b8b, #ff8e53);
+  border: none;
+  border-radius: 50px;
+  padding: 18px 35px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 8px 0 #ff5252, 0 12px 20px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  min-width: 180px;
+}
+
+.quiz-button-3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s;
+}
+
+.quiz-button-3:hover::before {
+  left: 100%;
+}
+
+.quiz-button-3:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 0 #ff5252, 0 16px 25px rgba(0,0,0,0.25);
+}
+
+.quiz-button-3:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 #ff5252, 0 6px 10px rgba(0,0,0,0.2);
+}
+
+.quiz-button-3:disabled {
+  background: linear-gradient(135deg, #cccccc, #aaaaaa);
+  box-shadow: 0 6px 0 #888888;
+  transform: translateY(6px);
+  cursor: not-allowed;
+  color: #666;
+}
+
+/* Next Button Special Animation */
+#nextSetBtn3.slide-in {
+  animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: linear-gradient(135deg, #4ecdc4, #2a9d8f);
+  box-shadow: 0 8px 0 #1e7d74, 0 12px 20px rgba(0,0,0,0.2);
+}
+
+@keyframes slideInBounce {
+  0% {
+    opacity: 0;
+    transform: translateX(100px) scale(0.5) rotate(-30deg);
+  }
+  70% {
+    transform: translateX(-10px) scale(1.1) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+}
+
+/* Enhanced Temp Messages */
+.temp-msg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #ff6b8b, #ff8e53);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 20px;
+  font-size: 1.4em;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 4px solid white;
+  z-index: 1000;
+  text-align: center;
+  animation: messagePop 0.3s ease-out;
+}
+
+.temp-msg.fade-out {
+  animation: messageFade 0.4s ease-in forwards;
+}
+
+@keyframes messagePop {
+  0% { transform: translate(-50%, -50%) scale(0); }
+  80% { transform: translate(-50%, -50%) scale(1.1); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes messageFade {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  #quizType3 {
+    padding: 5px;
+    border-width: 3px;
+    margin: 5px;
+  }
+  
+  #selectableItems {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .selectable {
+    height: 100px;
+    padding: 3px;
+  }
+  
+  .quiz-header-3 h2 {
+    font-size: 1em;
+  }
+  
+  #targetShapeName {
+    font-size: 1em;
+  }
+  
+  .quiz-buttons-3 {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .quiz-button-3 {
+    width: 100%;
+    max-width: 250px;
+    padding: 15px 25px;
+    font-size: 1.2em;
+  }
+}
+
+/* Fun Background Elements */
+.floating-shapes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-shapes::before,
+.floating-shapes::after {
+  content: "⭐";
+  position: absolute;
+  font-size: 1.5em;
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-shapes::before {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.floating-shapes::after {
+  bottom: 10%;
+  right: 5%;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+#nextBtn0 {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.4s ease;
+}
+
+#nextBtn0.slide-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.dialog-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dialog-btn:hover {
+  background-color: #45a049;
+}
+
+
+
+.end-dialog-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.close-dialog-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #555;
+}
+.close-dialog-btn:hover {
+  color: red;
+}
+/* Fullscreen styles for children's app */
+#quizSection.fullscreen-active {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%) !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Ensure content is properly centered in fullscreen */
+#quizSection.fullscreen-active > * {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+
+</style>
+ </head>
+
+<body>
+  <div id="navbar"></div>
+  <!-- Secondary Header -->
+  <div id="secondaryHeader" class="secondaryHeader">
+    <a href='sdmath.html'>
+      <img class="lazy"  alt="Description" title="Kembali" src="assets/image-mainsukukata/gobackbutton.png" width="80vw" height="80vw" >
+    </a>
+         <p>Pengenalan Bangun Datar/Bangun Ruang</p>
+         <a href='index.html'>
+          <img class="lazy"  alt="Description" title="Home" src="assets/icons/favicon.png" width="80vw" height="80vw" >
+      </a>
+  </div>
+ 
+  <div class="intro" id="introSection">
+ 
+    <button onclick="showShapeContainer()">📐 Tampilkan Bentuk</button>
+    <button onclick="showLessonContainer()">📘 Tampilkan Materi</button>
+     <button onclick="showLesson3D()">🧱 Bangun Ruang</button>
+    <button onclick="startQuiz()">Mulai Quiz</button>
+
+   
+     
+</div>
+<div id="myCanvas1" class="canvas-wrapper" >
+     
+
+  <div class="MainShape-container" >
+     <p>Apa itu bangun datar?</p>
+    <p><strong>Bangun dua dimensi</strong> yang memiliki panjang dan lebar, tapi tidak memiliki tinggi.</p>
+    <p>Contoh bangun datar:</p>
+  <div class="shape-container">
+              <div class="shape" onclick="showDescription(this, 'Persegi', 'Memiliki 4 sisi sama panjang dan 4 sudut siku-siku.')">
+                <img src="assets/img/shapes/persegi.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Persegi Panjang', 'Memiliki 2 pasang sisi sejajar yang panjang dan pendek.')">
+                <img src="assets/img/shapes/persegipangjang.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Segitiga', 'Memiliki 3 sisi dan 3 sudut.')">
+                <img src="assets/img/shapes/segitiga.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Lingkaran', 'Memiliki satu garis lengkung tertutup dan tidak memiliki sudut.')">
+                <img src="assets/img/shapes/lingkaran.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Jajar Genjang', 'Memiliki 2 pasang sisi sejajar dan sama panjang.')">
+                <img src="assets/img/shapes/jajargenjang.png" alt="Persegi" width="100" height="100" class="lazy">
+                  <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Trapesium', 'Memiliki sepasang sisi sejajar.')">
+                <img src="assets/img/shapes/trapesiumsamakaki.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Layang-Layang', 'Memiliki 2 pasang sisi yang sama panjang dan berdekatan.')">
+                <img src="assets/img/shapes/layanglayang.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Belah Ketupat', 'Memiliki 4 sisi sama panjang dan bentuk seperti wajik.')">
+                <img src="assets/img/shapes/belahketupat.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+        
+              <div class="shape" onclick="showDescription(this, 'Segitiga Siku-Siku', 'Memiliki satu sudut siku-siku (90°).')">
+                <img src="assets/img/shapes/segitigasikusiku.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+   
+              <div class="shape" onclick="showDescription(this, 'Segitiga Sembarang', 'Memiliki tiga sisi dengan panjang yang berbeda.')">
+                <img src="assets/img/shapes/segitigasembarang.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Trapesium Siku-Siku', 'Memiliki satu pasang sisi sejajar dan satu sudut siku-siku.')">
+                <img src="assets/img/shapes/trapesiumsikusiku.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Segi Lima', 'Memiliki 5 sisi dan 5 sudut.')">
+                <img src="assets/img/shapes/segilima.png" alt="Persegi" width="100" height="100" class="lazy">
+              <div class="description"></div>
+              </div>
+
+              <div class="shape" onclick="showDescription(this, 'Segi Enam', 'Memiliki 6 sisi dan 6 sudut.')">
+                <img src="assets/img/shapes/segienam.png" alt="Persegi" width="100" height="100" class="lazy">
+                <div class="description"></div>
+              </div>
+  </div>
+    </div>
+
+
+
+  <div class="lesson-container" style="display: none;">
+    <h2>🧩 Materi: Bentuk dan Contoh dalam Kehidupan Sehari-hari</h2>
+      <div class="shape-list">
+
+              <div class="Lshape-container">
+                <div class="shape-title">Lingkaran</div>
+                <canvas width="100" height="100" id="shape-circle"></canvas>
+                <div class="shape-example"><img data-src="assets/img/shapes/shapes_jamdinding.png" alt="Jam dinding" class="lazy" />Jam dinding</div>
+              </div>
+  
+              <div class="Lshape-container">
+                <div class="shape-title">Persegi</div>
+                <canvas width="100" height="100" id="shape-square"></canvas>
+                <div class="shape-example"><img data-src="assets/img/shapes/shape_jendela.png" alt="Jendela" class="lazy" />Jendela</div>
+              </div>
+  
+              <div class="Lshape-container">
+                <div class="shape-title">Persegi Panjang</div>
+                <canvas width="100" height="100" id="shape-rectangle"></canvas>
+                <div class="shape-example"><img data-src="assets/img/shapes/shape_meja.png" alt="Meja" class="lazy" />Meja</div>
+              </div>
+  
+              <div class="Lshape-container">
+                <div class="shape-title">Segitiga</div>
+                <canvas width="100" height="100" id="shape-triangle"></canvas>
+                <div class="shape-example"><img data-src="assets/img/shapes/shape_pizza.png" alt="Pizza" class="lazy" />Pizza potongan</div>
+              </div>
+  
+              <div class="Lshape-container">
+                <div class="shape-title">Belah Ketupat</div>
+                <canvas width="100" height="100" id="shape-rhombus"></canvas>
+                <div class="shape-example"><img data-src="assets/img/shapes/shape_layang2.png" alt="Layang-layang" class="lazy" />Layang-layang</div>
+              </div>
+  
+              <div class="Lshape-container">
+                <div class="shape-title">Rambu Segitiga</div>
+                <canvas width="100" height="100" id="shape-traffic"></canvas>
+                <div class="shape-example"><img data-src="assets/img/shapes/shape_rambu.png" alt="Rambu" class="lazy" />Rambu lalu lintas</div>
+              </div>
+      </div>
+  </div>   
+  
+  <div class="lesson3D" style="display: none;">
+       <h2>🧱 Materi: Bangun Ruang (3D Shapes)</h2>
+    <div class="list3D">
+     
+
+        <div class="shape" onclick="showDescription(this, 'Kubus', 'Memiliki 6 sisi berbentuk persegi, 12 rusuk, dan 8 titik sudut.')">
+          <img src="assets/img/solid/kubus.png" alt="Kubus" width="200" height="200" class="lazy">
+          <div class="description"></div>
+        </div>
+
+        <div class="shape" onclick="showDescription(this, 'Balok', 'Memiliki 6 sisi, dengan 3 pasang sisi yang berukuran berbeda.')">
+          <img src="assets/img/solid/balok.png" alt="Balok" width="200" height="200" class="lazy">
+          <div class="description"></div>
+        </div>
+
+        <div class="shape" onclick="showDescription(this, 'Tabung', 'Memiliki 2 sisi alas dan tutup berbentuk lingkaran serta 1 sisi lengkung.')">
+          <img src="assets/img/solid/tabung.png" alt="Tabung" width="200" height="200" class="lazy">
+          <div class="description"></div>
+        </div>
+
+        <div class="shape" onclick="showDescription(this, 'Kerucut', 'Memiliki alas berbentuk lingkaran dan satu titik puncak.')">
+          <img src="assets/img/solid/kerucut.png" alt="Kerucut" width="200" height="200"class="lazy">
+          <div class="description"></div>
+        </div>
+
+        <div class="shape" onclick="showDescription(this, 'Bola', 'Memiliki bentuk bulat sempurna dan hanya memiliki satu sisi lengkung.')">
+          <img src="assets/img/solid/sphere.png" alt="Bola" width="200" height="200" class="lazy">
+          <div class="description"></div>
+        </div>
+
+    <div class="shape" onclick="showDescription(this, 'Limas Segiempat', 'Memiliki alas berbentuk persegi dan sisi samping berbentuk segitiga yang bertemu di satu puncak.')">
+      <img src="assets/img/solid/limassegiempat.png" alt="Limas" width="200" height="200" class="lazy">
+      <div class="description"></div>
+    </div>
+
+      <div class="shape" onclick="showDescription(this, 'Prisma segitiga', 'Memiliki dua alas berbentuk segitiga yang kongruen (sama bentuk dan ukuran) dan tiga sisi tegak berbentuk persegi panjang.')">
+        <img src="assets/img/solid/prismasegitiga.png" alt="Prisma Segitiga"width="200" height="200"class="lazy">
+        <div class="description"></div>
+    </div>
+  </div>
+</div>
+
+            <div id="b2Sbutton" style="display: none; text-align: left;">
+                <button onclick="backToShapes()">⬅ Kembali ke Bangun Datar</button>
+              </div>
+
+  <!--Quiz Area-->
+      <div id="quizSection" style="display: none; text-align:left; max-width: 600px; margin: auto;" fullscreen-container>
+            <h2>Quiz Bangun Datar</h2>
+             
+             <div style="text-align:right;">
+                <label><input type="checkbox" id="muteToggle" onchange="toggleMute()"> Mute Suara</label>
+              </div>
+              <div id="progressBarContainer" style="display: none; width: 100%; background-color: #eee; height: 20px; border-radius: 10px; margin: 20px auto; max-width: 600px;">
+                <div id="progressBar" style="height: 100%; width: 0%; background-color: #4CAF50; border-radius: 10px;"></div>
+              </div>
+
+              <div id="quizType0" class="quiz-type">        
+                <div id="questionContainer" style="border: 2px solid #ddd; border-radius: 12px; padding: 20px; background: #fff; margin: 20px 0;">
+                <div id="progress" style="text-align:right; color: #888; font-size: 0.9rem;"></div>
+                <div id="questionBox" style="margin-bottom: 20px;"></div>
+                <div id="imageBox" style="text-align: center; margin-bottom: 10px;" ></div>
+                <div id="optionsBox" style="margin-left: 20px;"></div>
+                <div id="feedback" style="margin-top:10px; font-weight: bold;"></div>
+                </div>
+                <button id="nextBtn0" class="next-btn" onclick="nextQuestion()">Soal Selanjutnya</button>
+              </div>
+             
+                 <div id="quizType1" class="quiz-type" style="display: none;">
+          
+                  <div class="shape-label-quiz" id="labelQuizContainer"></div> 
+                  <div style="text-align:right; margin-top: 20px; margin-right: 40px;" >
+                  <button id="nextLabelQuizBtn" onclick="nextLabelQuiz()" >Soal Selanjutnya →</button>
+               </div>
+            
+              </div>
+
+              
+                <div id="quizType2" class="quiz-type" style="display: none;">
+                    <!-- Lembar 1: Cocokkan benda ke bangun datar -->
+                <div id="quizProgress2" style="margin-top: 20px; font-weight: bold;">Progress: 1 / 3</div>
+
+                    <h3>Lembar 1: Cocokkan Benda dan Bentuknya</h3>
+                    <p>🎯Tarik benda ke bentuk yang sesuai:🎯</p>
+
+                    <div id="objects" class="object-container"></div>
+                    <div id="shapes" class="shape-container"></div>
+
+                    <button id="submitBtn2" onclick="submitQuizSet2()">Periksa Kecocokan</button>
+                    <div id="matchingResult"></div>
+
+                   <div style="margin-top: 10px;">
+                         <button id="nextSetBtn2" onclick="nextQuizSet2()" disabled>Setelanjutnya</button>
+                    </div>      
+              </div>
+           
+  
+               <div id="quizType3" class="quiz-type" style="display: none;">
+           
+               <div id="quizProgress3" style="margin-top: 20px; font-weight: bold;">Progress: 1 / 3</div>
+
+                    <h3>Lembar 2: Pilih Benda yang Sesuai Bentuk</h3>
+                    <p>Bentuk: <strong id="targetShapeName">Lingkaran</strong></p>
+                    <p>Klik 2 benda yang berbentuk sesuai:</p>
+                    <div id="selectableItems"></div>
+                    <button id="submitBtn3" onclick="submitQuizSet3()">Periksa Pilihan</button>
+                    <div id="selectionResult"></div>
+
+                    <div style="margin-top: 10px;">
+                      <button id="nextSetBtn3" onclick="nextQuizSet3()" disabled>Selanjutnya</button>
+                    </div>
+               </div>
+          
+              <!-- Shared Next Button -->
+              <div class="quiz-nav-buttons">
+                <button class="prev-btn" onclick="goToPreviousQuizType()">← Kembali ke Quiz Sebelumnya</button>
+                <button class="next-btn" onclick="goToNextQuizType()">Quiz Selanjutnya →</button>
+              </div>
+    </div>
+</div>
+
+<div id="endDialog2" style="display:none; margin-top: 20px;">
+  <img src="assets/img/squirel/squirelboy.png" style="height: auto; width: 100px; align-items: center;" class="lazy"></img>
+  <p id="finalScore2">Skor akhir kamu: </p>
+  <button onclick="resetQuizType2()">Mulai Ulang</button>
+</div>
+<div id="endDialog3" style="display:none; margin-top: 20px;">
+   <img src="assets/img/squirel/squirelboysemangat.png" style="height: auto; width: 100px; align-items: center;" class="lazy"></img>
+
+  <p id="finalScore3">Skor akhir kamu: </p>
+  <button onclick="resetQuizType3()">Mulai Ulang</button>
+</div>
+
+
+
+  <audio id="audioPlayer" hidden></audio>
+  <audio id="correctSound" src="assets/sounds/yay-success.mp3"></audio>
+  <audio id="wrongSound" src="assets/sounds/Ooh.mp3"></audio>  
+  <audio id="alertSound" src="assets/sounds/alert.mp3"></audio>  
+ <audio id="level-up" src="assets/sounds/level-up.mp3"></audio>  
+
+  <script>
+
+
+const shapeAudios = {
+      "Persegi": "persegi",
+      "Persegi Panjang": "persegipanjang",
+      "Segitiga": "segitiga",
+      "Lingkaran": "lingkaran",
+      "Jajar Genjang": "jajargenjang",
+      "Trapesium": "trapesium",
+      "Layang-Layang": "layang",
+      "Belah Ketupat": "ketupat",
+      "Segitiga Sama Sisi": "segitigasamasisi",
+      "Segitiga Siku-Siku": "segitigasiku-siku",
+      "Segitigasamakaki": "segitigasamakaki",
+      "Segitiga Sembarang": "segitigasembarang",
+      "Trapesium Siku-Siku": "trapesiumsiku-siku",
+      "Segi Lima":"segilima",
+      "Segi Enam": "segienam",
+      "Kubus": "kubus",
+      "Balok":"balok",
+      "Tabung":"tabung",
+      "Kerucut":"kerucut",
+      "Bola":"bola",
+      "Limas Segiempat":"limassegiempat",
+      "Prisma Segitiga":"prismasegitiga"
+    };
+    let isMuted = false;
+    let answered = false;
+    let shuffledQuestions = [];
+    let currentQ = 0;
+    const maxQuestions = 5;
+    let correctCount = 0;
+    let score = 0;
+    let quizTypeIndex = 0;
+    const quizTypes = document.querySelectorAll(".quiz-type");
+        const feedback = document.getElementById('feedback');
+ 
+
+function toggleMute() {
+  isMuted = document.getElementById('muteToggle').checked;
+}
+
+
+
+function playSound(id) {
+  try {
+    if (!muteToggle.checked) {
+      const audio = document.getElementById(id);
+      if (audio) {
+        audio.play().catch(e => {
+          console.warn(`Audio play failed for ${id}:`, e);
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Audio error:', error);
+  }
+}
+
+let currentAudioTitle = null;
+let wasPaused = false; // Track if it was paused manually
+
+function showDescription(el, title, desc) {
+  const description = el.querySelector('.description');
+  description.innerHTML = `<strong>${title}</strong><br>${desc}`;
+  description.classList.add('show');
+
+  const audio = document.getElementById('audioPlayer');
+  const audioId = shapeAudios[title];
+
+  if (!audioId) return;
+
+  if (currentAudioTitle === title) {
+    if (!audio.paused) {
+      audio.pause(); // Pause if already playing
+      wasPaused = true;
+    } else {
+      if (!muteToggle.checked && wasPaused) {
+        audio.play(); // Resume if it was paused
+        wasPaused = false;
+      }
+    }
+  } else {
+    // New shape clicked, load and play from start
+    audio.src = `assets/sounds/bangundatar/${audioId}.mp3`;
+    if (!muteToggle.checked) {
+      audio.play();
+      wasPaused = false;
+    }
+    currentAudioTitle = title;
+  }
+}
+let quizInitialized = false;
+
+    function startQuiz() {
+
+        if (quizInitialized) return;
+  quizInitialized = true;
+
+        shuffledQuestions = questions.sort(() => Math.random() - 0.5).slice(0, maxQuestions);
+        document.getElementById('introSection').style.display = 'none';
+  document.querySelector('.MainShape-container').style.display = 'none';
+  document.querySelector('.lesson-container').style.display = 'none';
+   document.querySelector('.lesson3D').style.display = 'none';
+  document.querySelector('button[onclick="startQuiz()"]').style.display = 'none'; // Hide the button
+  document.getElementById('quizSection').style.display = 'block';
+  document.getElementById('progressBarContainer').style.display = 'block';
+    document.getElementById('b2Sbutton').style.display = 'block';
+  updateProgressBar();
+  currentQ = 0;
+  score = 0;
+  renderQuestion();
+}
+function backToShapes() {
+  quizInitialized = false;
+  
+  // Remove final score dialog if it exists
+  const existingDialog = document.querySelector('div[style*="position: fixed"]');
+  if (existingDialog && existingDialog.parentElement) {
+    existingDialog.parentElement.removeChild(existingDialog);
+  }
+
+  // Exit fullscreen if active
+  if (window.fullscreenManager?.isFullscreen) {
+    fullscreenManager.exitFullscreen();
+  }
+
+  // Show main content again
+  document.getElementById('introSection').style.display = 'block';
+  document.querySelector('.MainShape-container').style.display = 'grid';
+  document.querySelector('button[onclick="startQuiz()"]').style.display = 'inline-block';
+  document.getElementById('quizSection').style.display = 'none';
+    document.getElementById('b2Sbutton').style.display = 'none';
+  
+}
+
+    function drawShapes() {
+      // Persegi
+      const sq = document.getElementById('square').getContext('2d');
+      sq.fillStyle = '#1e90ff';
+      sq.fillRect(20, 20, 60, 60);
+
+           // Persegi Panjang
+      const rect = document.getElementById('rectangle').getContext('2d');
+      rect.fillStyle = '#32cd32';
+      rect.fillRect(10, 30, 80, 40);
+
+           // Segitiga
+      const tri = document.getElementById('triangle').getContext('2d');
+      tri.fillStyle = '#ffa500';
+      tri.beginPath();
+      tri.moveTo(50, 10);
+      tri.lineTo(90, 90);
+      tri.lineTo(10, 90);
+      tri.closePath();
+      tri.fill();
+
+           // Lingkaran
+      const cir = document.getElementById('circle').getContext('2d');
+      cir.fillStyle = '#dc143c';
+      cir.beginPath();
+      cir.arc(50, 50, 35, 0, Math.PI * 2);
+      cir.fill();
+
+      
+      // Jajar Genjang
+      const par = document.getElementById('parallelogram').getContext('2d');
+      par.fillStyle = '#ff69b4';
+      par.beginPath();
+      par.moveTo(20, 40);
+      par.lineTo(60, 40);
+      par.lineTo(80, 80);
+      par.lineTo(40, 80);
+      par.closePath();
+      par.fill();
+
+      // Trapesium
+      const trap = document.getElementById('trapezoid').getContext('2d');
+      trap.fillStyle = '#8a2be2';
+      trap.beginPath();
+      trap.moveTo(20, 60);
+      trap.lineTo(80, 60);
+      trap.lineTo(65, 90);
+      trap.lineTo(35, 90);
+      trap.closePath();
+      trap.fill();
+
+      // Layang-Layang
+      const kite = document.getElementById('kite').getContext('2d');
+      kite.fillStyle = '#ff8c00';
+      kite.beginPath();
+      kite.moveTo(50, 10);
+      kite.lineTo(80, 50);
+      kite.lineTo(50, 90);
+      kite.lineTo(20, 50);
+      kite.closePath();
+      kite.fill();
+
+      // Belah Ketupat
+      const rhom = document.getElementById('rhombus').getContext('2d');
+      rhom.fillStyle = '#20b2aa';
+rhom.beginPath();
+rhom.moveTo(50, 10);   // Top point
+rhom.lineTo(85, 50);   // Right point
+rhom.lineTo(50, 90);   // Bottom point
+rhom.lineTo(15, 50);   // Left point
+rhom.closePath();
+rhom.fill();
+
+ // Segitiga Sama Sisi
+ const sameSisi = document.getElementById('segitigaSamaSisi').getContext('2d');
+  sameSisi.fillStyle = '#ff69b4';
+  sameSisi.beginPath();
+  sameSisi.moveTo(50, 10);
+  sameSisi.lineTo(85, 80);
+  sameSisi.lineTo(15, 80);
+  sameSisi.closePath();
+  sameSisi.fill();
+  // Equal side markers
+  sameSisi.strokeStyle = 'white';
+  sameSisi.beginPath();
+  sameSisi.moveTo(32, 45);
+  sameSisi.lineTo(38, 45);
+  sameSisi.moveTo(62, 45);
+  sameSisi.lineTo(68, 45);
+  sameSisi.moveTo(48, 80);
+  sameSisi.lineTo(52, 80);
+  sameSisi.stroke();
+
+  // Segitiga Siku-Siku
+  const rightTri = document.getElementById('segitigaSikuSiku').getContext('2d');
+  rightTri.fillStyle = '#8a2be2';
+  rightTri.beginPath();
+  rightTri.moveTo(20, 20);
+  rightTri.lineTo(80, 80);
+  rightTri.lineTo(20, 80);
+  rightTri.closePath();
+  rightTri.fill();
+
+  // Segitiga Sama Kaki
+  const samaKaki = document.getElementById('segitigaSamaKaki').getContext('2d');
+  samaKaki.fillStyle = '#20b2aa';
+  samaKaki.beginPath();
+  samaKaki.moveTo(50, 10);
+  samaKaki.lineTo(80, 80);
+  samaKaki.lineTo(20, 80);
+  samaKaki.closePath();
+  samaKaki.fill();
+  // Side markers
+  samaKaki.strokeStyle = 'white';
+  samaKaki.beginPath();
+  samaKaki.moveTo(28, 45);
+  samaKaki.lineTo(32, 45);
+  samaKaki.moveTo(68, 45);
+  samaKaki.lineTo(72, 45);
+  samaKaki.stroke();
+
+  // Segitiga Sembarang
+  const sembarang = document.getElementById('segitigaSembarang').getContext('2d');
+  sembarang.fillStyle = '#dc143c';
+  sembarang.beginPath();
+  sembarang.moveTo(30, 20);
+  sembarang.lineTo(80, 60);
+  sembarang.lineTo(20, 90);
+  sembarang.closePath();
+  sembarang.fill();
+
+  // Trapesium Siku-Siku
+  const trapS = document.getElementById('trapesiumSikuSiku').getContext('2d');
+  trapS.fillStyle = '#ff8c00';
+  trapS.beginPath();
+  trapS.moveTo(20, 30);  // top-left
+  trapS.lineTo(80, 30);  // top-right
+  trapS.lineTo(60, 80);  // bottom-right
+  trapS.lineTo(20, 80);  // bottom-left (siku-siku here)
+  trapS.closePath();
+  trapS.fill();
+
+  // Segi Lima
+  const pentagon = document.getElementById('segiLima').getContext('2d');
+  pentagon.fillStyle = '#6a5acd';
+  pentagon.beginPath();
+  for (let i = 0; i < 5; i++) {
+    let angle = (Math.PI * 2 / 5) * i - Math.PI / 2;
+    let x = 50 + 35 * Math.cos(angle);
+    let y = 50 + 35 * Math.sin(angle);
+    if (i === 0) pentagon.moveTo(x, y);
+    else pentagon.lineTo(x, y);
+  }
+  pentagon.closePath();
+  pentagon.fill();
+
+  // Segi Enam
+  const hexagon = document.getElementById('segiEnam').getContext('2d');
+  hexagon.fillStyle = '#2e8b57';
+  hexagon.beginPath();
+  for (let i = 0; i < 6; i++) {
+    let angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
+    let x = 50 + 35 * Math.cos(angle);
+    let y = 50 + 35 * Math.sin(angle);
+    if (i === 0) hexagon.moveTo(x, y);
+    else hexagon.lineTo(x, y);
+  }
+  hexagon.closePath();
+  hexagon.fill();
+
+
+    }
+  
+//quiz Type0
+    const questions = [
+    {
+      question: "Bangun datar yang memiliki 3 sisi adalah...",
+      options: ["Persegi", "Segitiga", "Lingkaran", "Trapesium"],
+      answer: "Segitiga"
+    },
+    {
+      question: "Nama Bangun datar adalah...",
+      image: "assets/img/shapes/segitiga.png",
+      options: ["Persegi", "Segitiga", "Lingkaran", "Trapesium"],
+      answer: "Segitiga"
+    },
+    {
+      question: "Nama Bangun datar adalah...",
+      image: "assets/img/shapes/lingkaran.png",
+      options: ["Persegi", "Segitiga", "Lingkaran", "Trapesium"],
+      answer: "Lingkaran"
+    },
+    {
+      question: "Bangun datar yang bentuknya seperti bola tapi datar adalah...",
+      options: ["Layang-layang", "Belah ketupat", "Lingkaran", "Persegi panjang"],
+      answer: "Lingkaran"
+    },
+    {
+      question: "Bangun yang memiliki dua sisi sejajar dan dua sisi miring adalah...",
+      options: ["Trapesium", "Segitiga", "Persegi", "Jajar genjang"],
+      answer: "Trapesium"
+    },
+    {
+      question: "Bangun datar yang semua sisinya sama panjang dan semua sudut siku-siku adalah...",
+      options: ["Persegi", "Segitiga", "Belah Ketupat", "Jajar Genjang"],
+      answer: "Persegi"
+    },
+    {
+      question: "Bangun datar yang memiliki dua pasang sisi sama panjang dan tidak semua sudut siku-siku adalah...",
+      options: ["Lingkaran", "Belah Ketupat", "Persegi Panjang", "Segitiga"],
+      answer: "Belah Ketupat"
+    },
+    {
+      question: "Bangun datar yang memiliki dua sisi panjang dan dua sisi pendek adalah...",
+      options: ["Persegi", "Persegi Panjang", "Segitiga", "Layang-layang"],
+      answer: "Persegi Panjang"
+    },
+    {
+    question: "Nama Bangun datar adalah...",
+    image: "assets/img/shapes/jajargenjang.png",
+      options: ["Layang-layang", "Persiga Panjang", "Belah-ketupat", "Jajar genjang"],
+      answer: "Jajar genjang"
+    },
+    {
+      question: "Bangun datar dengan bentuk seperti wajik adalah...",
+      options: ["Lingkaran", "Segitiga", "Belah Ketupat", "Jajar Genjang"],
+      answer: "Belah Ketupat"
+    },
+    {
+      question: "Nama Bangun datar adalah...",
+      image: "assets/img/shapes/trapesiumsamakaki.png",
+      options: ["Persegi", "Segitiga", "Lingkaran", "Trapesium"],
+      answer: "Trapesium"
+    },
+    {
+      question: "Bangun datar dengan dua sisi berdekatan sama panjang dan membentuk sudut tajam dan tumpul adalah...",
+      options: ["Trapesium", "Layang-layang", "Persegi", "Lingkaran"],
+      answer: "Layang-layang"
+    },
+    {
+      question: "Nama Bangun datar adalah...",
+      image: "assets/img/shapes/layanglayang.png",
+      options: ["Layang-layang", "Segitiga", "Belah-ketupat", "Trapesium"],
+      answer: "Layang-layang"
+    },
+    {
+      question: "Bangun datar dengan empat sisi dan hanya satu pasang sisi sejajar adalah...",
+      options: ["Trapesium", "Layang-layang", "Persegi", "Segitiga"],
+      answer: "Trapesium"
+    },
+    {
+    question: "Nama Bangun datar adalah...",
+    image: "assets/img/shapes/persegipangjang.png",
+      options: ["Layang-layang", "Persigi Panjang", "Belah-ketupat", "Trapesium"],
+      answer: "Persigi Panjang"
+    },
+    {
+      question: "Bangun datar yang tidak memiliki sudut sama sekali adalah...",
+      options: ["Lingkaran", "Segitiga", "Jajar Genjang", "Belah Ketupat"],
+      answer: "Lingkaran"
+    },
+    {
+      question: "Nama Bangun datar adalah...",
+      image: "assets/img/shapes/belahketupat.png",
+      options: ["Persegi", "Segitiga", "Belah-ketupat", "Trapesium"],
+      answer: "Belah-ketupat"
+    },
+  ];
+  
+ 
+
+function showQuizType(index) {
+  quizTypes.forEach((el, i) => {
+    el.style.display = i === index ? "block" : "none";
+  });
+
+  // Initialize specific quiz type if needed
+  if (index === 1) {
+    initLabelQuiz();
+  }
+
+  // Enable/disable navigation buttons
+  document.querySelector('.prev-btn').disabled = index === 0;
+  document.querySelector('.next-btn').disabled = index === quizTypes.length - 1;
+
+  // Optional: Style disabled button
+  updateButtonStates();
+}
+function updateButtonStates() {
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+
+  prevBtn.style.opacity = prevBtn.disabled ? 0.5 : 1;
+  prevBtn.style.cursor = prevBtn.disabled ? 'not-allowed' : 'pointer';
+
+  nextBtn.style.opacity = nextBtn.disabled ? 0.5 : 1;
+  nextBtn.style.cursor = nextBtn.disabled ? 'not-allowed' : 'pointer';
+}
+
+
+function goToNextQuizType() {
+  if (quizTypeIndex < quizTypes.length - 1) {
+    quizTypeIndex++;
+    showQuizType(quizTypeIndex);
+  }
+}
+
+function goToPreviousQuizType() {
+  if (quizTypeIndex > 0) {
+    quizTypeIndex--;
+    showQuizType(quizTypeIndex);
+  }
+}
+function stopAllAudio() {
+  const audios = document.querySelectorAll('audio');
+  audios.forEach(audio => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+  currentAudioTitle = null;
+}
+
+
+function showShapeContainer() {
+    stopAllAudio();
+    document.querySelector('.MainShape-container').style.display = 'grid';
+    document.querySelector('.lesson-container').style.display = 'none';
+     document.querySelector('.lesson3D').style.display = 'none';
+  }
+
+  function showLessonContainer() {
+    document.querySelector('.MainShape-container').style.display = 'none';
+    document.querySelector('.lesson-container').style.display = 'block';
+    document.querySelector('.lesson3D').style.display = 'none';
+  }
+ function showLesson3D() {
+    document.querySelector('.MainShape-container').style.display = 'none';
+    document.querySelector('.lesson-container').style.display = 'none';
+    document.querySelector('.lesson3D').style.display = 'block';
+  }
+
+function renderQuestion() {
+  answered = false;
+  const q = shuffledQuestions[currentQ];
+
+  // Update progress
+  document.getElementById('progress').innerText = `Soal ${currentQ + 1}/${shuffledQuestions.length}`;
+  document.getElementById('questionBox').innerText = q.question;
+
+  // Render answer options
+  const optionsHTML = q.options.map(opt =>
+    `<button class="option-btn" onclick="checkAnswer(this, '${opt}')">${opt}</button>`
+  ).join("<br><br>");
+  document.getElementById('optionsBox').innerHTML = optionsHTML;
+
+  // Clear feedback and image
+  document.getElementById('feedback').innerText = '';
+  const imageBox = document.getElementById('imageBox');
+  imageBox.innerHTML = '';
+
+  // Hide the “Selanjutnya” button at start
+  const nextBtn = document.getElementById('nextBtn0');
+  nextBtn.style.display = "none";
+  nextBtn.classList.remove("slide-in");
+
+  // Render image (lazy loaded)
+  if (q.image) {
+    const img = document.createElement('img');
+    img.classList.add('lazy');
+    img.dataset.src = q.image;
+    img.alt = 'Gambar bangun datar';
+    img.style.maxWidth = '150px';
+    img.style.display = 'block';
+    img.style.margin = '0 auto';
+    imageBox.appendChild(img);
+    initializeLazyLoading();
+  }
+
+  updateProgressBar();
+}
+
+function updateProgressBar() {
+  const percent = ((currentQ) / shuffledQuestions.length) * 100;
+  document.getElementById('progressBar').style.width = `${percent}%`;
+}
+
+function checkAnswer(button, selected) {
+  answered = true;
+  const correct = shuffledQuestions[currentQ].answer;
+  const container = document.getElementById('questionContainer');
+  const nextBtn = document.getElementById('nextBtn0');
+  const feedback = document.getElementById('feedback');
+
+  const allButtons = document.querySelectorAll('.option-btn');
+  allButtons.forEach(btn => {
+    btn.disabled = true;
+    if (btn.innerText === correct) {
+      btn.style.backgroundColor = '#4CAF50';
+      btn.style.color = 'white';
+    } else if (btn.innerText === selected) {
+      btn.style.backgroundColor = '#f44336';
+      btn.style.color = 'white';
+    } else {
+      btn.style.opacity = 0.5;
+    }
+  });
+
+  container.classList.remove('correct-anim', 'wrong-anim');
+  void container.offsetWidth;
+
+  if (selected === correct) {
+    score++;
+    feedback.innerText = "✅ Benar!";
+    container.classList.add('correct-anim');
+    playSound('correctSound');
+  } else {
+    feedback.innerText = `❌ Salah. Jawaban yang benar: ${correct}`;
+    container.classList.add('wrong-anim');
+    playSound('wrongSound');
+  }
+
+  // ✅ Reveal the “Next” button smoothly
+  nextBtn.style.display = "inline-block";
+  setTimeout(() => nextBtn.classList.add("slide-in"), 10);
+}
+
+function nextQuestion() {
+  if (!answered) {
+    const feedback = document.getElementById('feedback');
+    feedback.innerText = "Silakan pilih jawaban terlebih dahulu!";
+    const warningSound = document.getElementById('alertSound');
+    if (warningSound) warningSound.play();
+    return;
+  }
+
+  if (currentQ < shuffledQuestions.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    document.getElementById('progressBar').style.width = `100%`;
+    showFinalScore();
+  }
+}
+
+function showFinalScore() {
+  // Remove existing dialog if any
+  const existingDialog = document.getElementById('quiz-result-dialog');
+  if (existingDialog) existingDialog.remove();
+
+  // Create dialog
+  const dialog = document.createElement('div');
+  dialog.id = 'quiz-result-dialog';
+  dialog.style.position = 'fixed';
+  dialog.style.top = '50%';
+  dialog.style.left = '50%';
+  dialog.style.transform = 'translate(-50%, -50%)';
+  dialog.style.background = '#fff';
+  dialog.style.padding = '30px';
+  dialog.style.borderRadius = '12px';
+  dialog.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+  dialog.style.zIndex = '1000';
+  dialog.style.textAlign = 'center';
+  dialog.style.maxWidth = '300px';
+  dialog.style.width = '80%';
+  dialog.style.position = 'fixed';
+
+  dialog.innerHTML = `
+    <button id="closeDialogBtn" style="
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #444;
+    ">✖</button>
+
+    <h3>Quiz Selesai!</h3>
+    <p>Skor kamu: ${score} dari ${shuffledQuestions.length}</p>
+
+    <button id="restart-quiz-btn" class="dialog-btn">Ulangi Quiz</button>
+    <button id="back-to-shapes-btn" class="dialog-btn">Kembali ke Bangun Datar</button>
+  `;
+
+  document.body.appendChild(dialog);
+
+  // Event listeners
+  document.getElementById('restart-quiz-btn').addEventListener('click', resetAndRestartQuiz);
+  document.getElementById('back-to-shapes-btn').addEventListener('click', () => {
+    backToShapes();
+    dialog.remove();
+  });
+
+  // Close button handler
+  document.getElementById('closeDialogBtn').addEventListener('click', () => {
+    dialog.remove();
+  });
+
+  // Detect fullscreen and append inside the fullscreen element
+    let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fullscreenElement) {
+        fullscreenElement.appendChild(dialog);
+    } else {
+        document.body.appendChild(dialog);
+    }
+
+}
+
+function resetAndRestartQuiz() {
+  currentQ = 0;
+  score = 0;
+  const dialog = document.getElementById('quiz-result-dialog');
+  if (dialog) dialog.remove();
+  renderQuestion();
+}
+
+//shapes 
+
+
+function drawLessonShapes() {
+    const drawCircle = () => {
+      const ctx = document.getElementById("shape-circle").getContext("2d");
+      ctx.beginPath();
+      ctx.arc(50, 50, 40, 0, 2 * Math.PI);
+      ctx.stroke();
+    };
+
+    const drawSquare = () => {
+      const ctx = document.getElementById("shape-square").getContext("2d");
+      ctx.strokeRect(25, 25, 50, 50);
+    };
+
+    const drawRectangle = () => {
+      const ctx = document.getElementById("shape-rectangle").getContext("2d");
+      ctx.strokeRect(20, 35, 60, 30);
+    };
+
+    const drawTriangle = () => {
+      const ctx = document.getElementById("shape-triangle").getContext("2d");
+      ctx.beginPath();
+      ctx.moveTo(50, 20);
+      ctx.lineTo(80, 80);
+      ctx.lineTo(20, 80);
+      ctx.closePath();
+      ctx.stroke();
+    };
+
+    const drawRhombus = () => {
+      const ctx = document.getElementById("shape-rhombus").getContext("2d");
+      ctx.beginPath();
+      ctx.moveTo(50, 10);
+      ctx.lineTo(80, 50);
+      ctx.lineTo(50, 90);
+      ctx.lineTo(20, 50);
+      ctx.closePath();
+      ctx.stroke();
+    };
+
+    const drawTraffic = () => {
+      const ctx = document.getElementById("shape-traffic").getContext("2d");
+      ctx.beginPath();
+      ctx.moveTo(50, 10);
+      ctx.lineTo(90, 90);
+      ctx.lineTo(10, 90);
+      ctx.closePath();
+      ctx.stroke();
+    };
+
+    drawCircle();
+    drawSquare();
+    drawRectangle();
+    drawTriangle();
+    drawRhombus();
+    drawTraffic();
+  }
+window.addEventListener("load", drawLessonShapes);
+// LabelQuiz quizType1
+const labelQuizSets = [
+  { img: 'assets/img/shapes/Ltriangle.png', answers: { a: "sisi", b: "titik sudut", c: "sudut", shape: "segitiga" } },
+  { img: 'assets/img/shapes/Ltrapesium.png', answers: { a: "titik sudut", b: "sisi", c: "sudut", shape: "trapesium" } },
+  { img: 'assets/img/shapes/Lpersegi.png', answers: { a: "titik sudut", b: "sudut", c: "sisi", shape: "persegi" } },
+  { img: 'assets/img/shapes/Llayanglayang.png', answers: { a: "sisi", b: "sudut", c: "titik sudut", shape: "layang-layang" } },
+  { img: 'assets/img/shapes/Ltrianglesikusiku.png', answers: { a: "sisi", b: "titik sudut", c: "sudut", shape: "segitiga siku-siku" } },
+  { img: 'assets/img/shapes/Ljajargenjang.png', answers: { a: "titik sudut", b: "sudut", c: "sisi", shape: "jajargenjang" } }
+];
+
+let shuffledLabelQuizzes = [];
+let currentLabelQuizIndex = 0;
+let totalCorrectAnswers = 0;
+let labelAnswered = false;
+
+// Shuffle helper
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Initialize quiz
+function initLabelQuiz() {
+   cleanupEventListeners();
+  shuffledLabelQuizzes = shuffleArray(labelQuizSets).slice(0, 2);
+  currentLabelQuizIndex = 0;
+  totalCorrectAnswers = 0;
+  showCurrentLabelQuiz();
+
+  const nextBtn = document.getElementById("nextLabelQuizBtn");
+  nextBtn.style.display = "none"; // hide initially
+  nextBtn.disabled = true;
+}
+
+// Show each question
+function showCurrentLabelQuiz() {
+  const quiz = shuffledLabelQuizzes[currentLabelQuizIndex];
+  if (!quiz) return;
+
+  const container = document.getElementById("labelQuizContainer");
+  labelAnswered = false;
+
+  const nextBtn = document.getElementById("nextLabelQuizBtn");
+  if (nextBtn) {
+    nextBtn.disabled = true;
+    nextBtn.style.display = "none";
+  }
+
+  // Dropdown options
+  const options = ["sisi", "sudut", "titik sudut"];
+  const shapes = ["segitiga", "trapesium", "persegi", "layang-layang", "segitiga siku-siku", "jajargenjang"];
+
+  function generateDropdown(name, choices) {
+    return `<select name="${name}" required>
+      <option value="" disabled selected>Pilih jawaban</option>
+      ${choices.map(choice => `<option value="${choice}">${choice}</option>`).join('')}
+    </select> <span class="correct-answer" id="correct-${name}"></span>`;
+  }
+
+  container.innerHTML = `
+    <h3>Identifikasi bagian-bagian bangun datar (${currentLabelQuizIndex + 1}/${shuffledLabelQuizzes.length})</h3>
+    <img class="lazy fade-in" data-src="${quiz.img}" alt="Bangun Datar" style="max-width: 100%; height: auto;">
+    <form id="labelQuizForm" style="margin-top: 10px;">
+      <label>a = ${generateDropdown("a", options)}</label><br>
+      <label>b = ${generateDropdown("b", options)}</label><br>
+      <label>c = ${generateDropdown("c", options)}</label><br>
+      <label>Nama bangun = ${generateDropdown("shape", shapes)}</label><br><br>
+      <button id="submitBtn" type="submit">Periksa Jawaban</button>
+      <div id="labelQuizResult" style="margin-top:10px; font-weight: bold;"></div>
+    </form>
+  `;
+
+  if (typeof initializeLazyLoading === "function") {
+    initializeLazyLoading();
+  }
+
+  const form = document.getElementById("labelQuizForm");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("level-up").play();
+    if (labelAnswered) return;
+
+    const answers = quiz.answers;
+    let correct = 0;
+
+    for (let key in answers) {
+      const select = e.target[key];
+      const userAnswer = select.value.trim().toLowerCase();
+      const isCorrect = userAnswer === answers[key];
+      if (isCorrect) correct++;
+
+      const correctSpan = document.getElementById(`correct-${key}`);
+      correctSpan.textContent = isCorrect ? "✓" : ` → ${answers[key]}`;
+      correctSpan.style.color = isCorrect ? "green" : "red";
+      select.style.borderColor = isCorrect ? "green" : "red";
+      select.disabled = true;
+    }
+
+    document.getElementById("labelQuizResult").textContent =
+      `Skor kamu: ${correct} dari ${Object.keys(answers).length}`;
+
+    totalCorrectAnswers += correct;
+    labelAnswered = true;
+
+    // ✅ Show next button only after answer checked
+    if (nextBtn) {
+      nextBtn.style.display = "inline-block";
+      setTimeout(() => nextBtn.classList.add("slide-in"), 10);
+      nextBtn.disabled = false;
+    }
+
+    submitBtn.disabled = true;
+  });
+}
+
+// Move to next or finish
+function nextLabelQuiz() {
+  if (!labelAnswered) {
+    alert("Silakan periksa jawaban terlebih dahulu sebelum lanjut.");
+    return;
+  }
+
+  if (currentLabelQuizIndex < shuffledLabelQuizzes.length - 1) {
+    currentLabelQuizIndex++;
+    showCurrentLabelQuiz();
+  } else {
+    showLabelQuizSummary();
+  }
+
+  const nextBtn = document.getElementById("nextLabelQuizBtn");
+  if (nextBtn) {
+    nextBtn.disabled = true;
+    nextBtn.style.display = "none";
+  }
+}
+
+// ✅ Final summary dialog (with close button)
+function showLabelQuizSummary() {
+  const existingDialog = document.getElementById("labelQuizDialog");
+  if (existingDialog) existingDialog.remove();
+
+  const dlg = document.createElement("div");
+  dlg.id = "labelQuizDialog";
+  dlg.style.position = "fixed";
+  dlg.style.top = "50%";
+  dlg.style.left = "50%";
+  dlg.style.transform = "translate(-50%, -50%)";
+  dlg.style.background = "#fff";
+  dlg.style.padding = "25px";
+  dlg.style.borderRadius = "12px";
+  dlg.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
+  dlg.style.textAlign = "center";
+  dlg.style.zIndex = "1000";
+  dlg.style.maxWidth = "320px";
+  dlg.style.width = "80%";
+
+  dlg.innerHTML = `
+    <button id="closeDialogBtn" style="
+      position:absolute; top:8px; right:8px;
+      background:none; border:none; font-size:18px; cursor:pointer; color:#444;
+    ">✖</button>
+    <h3>Kuis Selesai 🎉</h3>
+    <img src="assets/img/squirel/squirelboy.png" alt="Selamat!" style="max-width:40%; margin:10px auto; display:block;">
+    <p>Skor akhir kamu: ${totalCorrectAnswers} dari ${shuffledLabelQuizzes.length * 4}</p>
+    <button class="dialog-btn" id="restartLabelQuiz">Ulangi Kuis</button>
+  `;
+
+  document.body.appendChild(dlg);
+
+  // Event listeners
+  document.getElementById("closeDialogBtn").addEventListener("click", () => dlg.remove());
+  document.getElementById("restartLabelQuiz").addEventListener("click", () => {
+    dlg.remove();
+    initLabelQuiz();
+  });
+
+  // Hide next button
+  const nextBtn = document.getElementById("nextLabelQuizBtn");
+  if (nextBtn) nextBtn.style.display = "none";
+
+  // Detect fullscreen and append inside the fullscreen element
+    let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fullscreenElement) {
+        fullscreenElement.appendChild(dlg);
+    } else {
+        document.body.appendChild(dlg);
+    }
+
+}
+
+
+  // Matching logic (Lembar 1)
+ const matchingSets = [
+  {
+    objects: [
+      { name: "Jam", img: "assets/img/shapes/shapes_jamdinding.png", shape: "lingkaran" },
+      { name: "Meja", img: "assets/img/shapes/shape_meja.png", shape: "persegi" },
+       { name: "Kue", img: "assets/img/shapes/kue.png", shape: "segitiga" },
+      { name: "Pizza", img: "assets/img/shapes/shape_pizza.png", shape: "segitiga" },
+    ],
+    shapes: ["lingkaran", "persegi","segitiga"]
+  },
+  {
+    objects: [
+      { name: "Piring", img: "assets/img/shapes/piring.png", shape: "lingkaran" },
+      { name: "Laptop", img: "assets/img/shapes/laptop.png", shape: "persegi panjang" },
+      { name: "Kardus", img: "assets/img/shapes/kardus.png", shape: "persegi" },
+      { name: "Buku", img: "assets/image-mainsukukata/buku.png", shape: "persegi panjang" },
+     
+    ],
+    shapes: ["lingkaran", "persegi panjang", "persegi"]
+  },
+   {
+    objects: [
+      { name: "Jeruk", img: "assets/img/shapes/jeruk.png", shape: "lingkaran" },
+      { name: "Pintu", img: "assets/img/shapes/pintu.png", shape: "persegi panjang" },
+      { name: "Frame", img: "assets/img/shapes/frame.png", shape: "persegi" },
+      { name: "Pelampung", img: "assets/img/shapes/pelampung.png", shape: "lingkaran" }
+    ],
+    shapes: ["lingkaran", "persegi panjang", "persegi"]
+  },
+  {
+    objects: [
+      { name: "Roda", img: "assets/image-mainsukukata/roda.png", shape: "lingkaran" },
+      { name: "kasur", img: "assets/img/shapes/kasur.png", shape: "persegi panjang" },
+      { name: "kaca", img: "assets/img/shapes/kaca.png", shape: "persegi" },
+      { name: "bola", img: "assets/image-mainsukukata/bola.png", shape: "lingkaran" }
+    ],
+    shapes: ["lingkaran", "persegi panjang", "persegi"]
+  }
+];
+
+const selectionSets = [
+  {
+    shape: "lingkaran",
+    items: [
+      { img: "assets/img/shapes/jeruk.png", shape: "lingkaran" },
+      { img: "assets/img/shapes/kaca.png", shape: "persegi" },
+      { img: "assets/img/shapes/matahari.png", shape: "lingkaran" },
+      { img: "assets/image-mainsukukata/televisi.png", shape: "persegi panjang" }
+    ]
+  },
+  {
+    shape: "persegi panjang",
+    items: [
+      { img: "assets/img/shapes/laptop.png", shape: "persegi panjang" },
+      { img: "assets/img/shapes/papan.png", shape: "persegi panjang" },
+      { img: "assets/img/shapes/kardus.png", shape: "persegi" },
+      { img: "assets/image-mainsukukata/bola.png", shape: "lingkaran" }
+    ]
+  },
+  {
+   shape: "persegi",
+    items: [
+      { img: "assets/img/shapes/puzzle.png", shape: "persegi" },
+      { img: "assets/img/shapes/kasur.png", shape: "persegi panjang" },
+      { img: "assets/img/shapes/gift.png", shape: "persegi" },
+      { img: "assets/img/shapes/pelampung.png", shape: "lingkaran" }
+    ]
+  }
+];
+//quizType2
+let currentSetIndex2 = 0;
+let totalSets2 = 0;
+let totalScore2 = 0;
+let draggedItem = null;
+let touchStartX = 0;
+let touchStartY = 0;
+
+
+let shuffledMatchingSets = [];
+
+function shuffleSets() {
+  shuffledMatchingSets = [...matchingSets].sort(() => 0.5 - Math.random());
+  
+  // Limit to 3 sets max, or fewer if there are fewer available
+  totalSets2 = Math.min(3, shuffledMatchingSets.length);
+
+  currentSetIndex2 = 0;
+}
+shuffleSets();  // Call this before starting the quiz
+
+function cleanupEventListeners() {
+  // Remove any existing listeners before adding new ones
+  const oldWrappers = document.querySelectorAll('.match-wrapper');
+  oldWrappers.forEach(wrapper => {
+    wrapper.replaceWith(wrapper.cloneNode(true));
+  });
+  
+  const oldDropZones = document.querySelectorAll('.shape-target');
+  oldDropZones.forEach(zone => {
+    zone.replaceWith(zone.cloneNode(true));
+  });
+}
+
+function initQuizType2() {
+
+    cleanupEventListeners();
+
+  document.getElementById("matchingResult").textContent = "";
+  document.getElementById("nextSetBtn2").disabled = true;
+  document.getElementById("submitBtn2").disabled = false;
+
+  const matchSet = shuffledMatchingSets[currentSetIndex2];
+  const objContainer = document.getElementById("objects");
+  const shapeContainer = document.getElementById("shapes");
+
+  objContainer.innerHTML = "";
+  shapeContainer.innerHTML = "";
+
+   
+  matchSet.objects.forEach((obj, idx) => {
+    // wrapper holds the match-item and the overlays
+    const wrapper = document.createElement("div");
+    wrapper.className = "match-wrapper";
+    wrapper.dataset.id = `obj-wrapper-${idx}`;
+
+    const div = document.createElement("div");
+    div.className = "match-item";
+    div.dataset.shape = obj.shape;
+    div.dataset.id = `obj-${idx}`;
+
+    // image with lazy loading
+    const img = document.createElement("img");
+    img.classList.add("icon", "lazy");
+    img.dataset.src = obj.img;
+
+    div.innerHTML = `${obj.name} `;
+    div.appendChild(img);
+
+    // overlays
+    const correctMark = document.createElement("span");
+    correctMark.classList.add("mark-overlay", "correct-mark");
+    correctMark.textContent = "✅";
+
+    const wrongMark = document.createElement("span");
+    wrongMark.classList.add("mark-overlay", "wrong-mark");
+    wrongMark.textContent = "❌";
+
+    // make the WHOLE wrapper draggable
+    wrapper.draggable = true;
+
+      // Enhanced drag events
+    wrapper.addEventListener("dragstart", handleDragStart);
+    wrapper.addEventListener("dragend", handleDragEnd);
+    wrapper.addEventListener("click", toggleClicked);
+
+    wrapper.appendChild(div);
+    wrapper.appendChild(correctMark);
+    wrapper.appendChild(wrongMark);
+    objContainer.appendChild(wrapper);
+  });
+
+  // shapes (drop zones)
+  matchSet.shapes.forEach(shape => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "shape-group";
+
+    const title = document.createElement("div");
+    title.textContent = shape.charAt(0).toUpperCase() + shape.slice(1);
+    title.className = "shape-title";
+
+      const dropZone = document.createElement("div");
+    dropZone.className = "shape-target";
+    dropZone.dataset.shape = shape;
+    dropZone.setAttribute('aria-label', `Drop zone for ${shape} shaped objects`);
+
+    // Enhanced drop events
+    dropZone.addEventListener("dragover", handleDragOver);
+    dropZone.addEventListener("dragenter", handleDragEnter);
+    dropZone.addEventListener("dragleave", handleDragLeave);
+    dropZone.addEventListener("drop", handleDrop);
+
+    wrapper.appendChild(title);
+    wrapper.appendChild(dropZone);
+    shapeContainer.appendChild(wrapper);
+  });
+
+  if (typeof initializeLazyLoading === "function") initializeLazyLoading();
+
+  document.getElementById("quizProgress2").textContent =
+    `Progress: ${currentSetIndex2 + 1} / ${totalSets2}`;
+}
+
+// Enhanced Drag and Drop Handlers
+function handleDragStart(e) {
+  draggedItem = this;
+  this.classList.add('dragging');
+  
+  try { 
+    e.dataTransfer.setData('text/plain', this.dataset.id); 
+    e.dataTransfer.effectAllowed = 'move';
+  } catch (err) {}
+  
+  // Add drag image for better visual feedback
+  if (e.dataTransfer && draggedItem) {
+    const dragImage = draggedItem.cloneNode(true);
+    dragImage.style.opacity = '0.8';
+    document.body.appendChild(dragImage);
+    e.dataTransfer.setDragImage(dragImage, 0, 0);
+    setTimeout(() => document.body.removeChild(dragImage), 0);
+  }
+}
+
+function handleDragEnd() {
+  this.classList.remove('dragging');
+  document.querySelectorAll('.shape-target').forEach(zone => {
+    zone.classList.remove('drag-over', 'highlight');
+  });
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+}
+
+function handleDragEnter(e) {
+  e.preventDefault();
+  this.classList.add('drag-over', 'highlight');
+}
+
+function handleDragLeave() {
+  this.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  this.classList.remove('drag-over', 'highlight');
+  
+  if (draggedItem) {
+    const innerItem = draggedItem.querySelector('.match-item');
+    if (innerItem) {
+      innerItem.dataset.matched = this.dataset.shape;
+      innerItem.style.transition = "all 0.3s ease";
+      innerItem.style.background = "linear-gradient(145deg, #e3f2fd, #bbdefb)";
+      innerItem.style.borderColor = "#2196f3";
+    }
+
+    this.appendChild(draggedItem);
+    
+    // Play success sound
+    const alertSound = document.getElementById("alertSound");
+    if (alertSound) {
+      alertSound.currentTime = 0;
+      alertSound.play();
+    }
+    
+    // Visual feedback
+    this.style.animation = 'bounce 0.5s';
+    setTimeout(() => this.style.animation = '', 500);
+    
+    draggedItem = null;
+  }
+}
+
+// Enhanced Touch Support
+document.addEventListener('touchstart', function (e) {
+  const target = e.target.closest('.match-wrapper');
+  if (target) {
+    draggedItem = target;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    target.classList.add('dragging');
+  }
+}, { passive: true });
+
+document.addEventListener('touchmove', function (e) {
+  if (!draggedItem) return;
+  
+  e.preventDefault();
+  
+  const touch = e.touches[0];
+  const deltaX = touch.clientX - touchStartX;
+  const deltaY = touch.clientY - touchStartY;
+  
+  // Only consider it a drag if moved more than 10px
+  if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
+    draggedItem.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+    
+    // Highlight potential drop zones
+    const dropZones = document.querySelectorAll('.shape-target');
+    dropZones.forEach(zone => {
+      const zoneRect = zone.getBoundingClientRect();
+      const withinBounds =
+        touch.clientX >= zoneRect.left &&
+        touch.clientX <= zoneRect.right &&
+        touch.clientY >= zoneRect.top &&
+        touch.clientY <= zoneRect.bottom;
+      
+      if (withinBounds) {
+        zone.classList.add('highlight');
+      } else {
+        zone.classList.remove('highlight');
+      }
+    });
+  }
+}, { passive: false });
+
+document.addEventListener('touchend', function (e) {
+  if (!draggedItem) return;
+
+  const touch = e.changedTouches[0];
+  const dropZones = document.querySelectorAll('.shape-target');
+  let dropped = false;
+
+  for (let dropZone of dropZones) {
+    const zoneRect = dropZone.getBoundingClientRect();
+    const withinBounds =
+      touch.clientX >= zoneRect.left &&
+      touch.clientX <= zoneRect.right &&
+      touch.clientY >= zoneRect.top &&
+      touch.clientY <= zoneRect.bottom;
+
+    if (withinBounds) {
+      const innerItem = draggedItem.querySelector('.match-item');
+      if (innerItem) innerItem.dataset.matched = dropZone.dataset.shape;
+      dropZone.appendChild(draggedItem);
+      dropped = true;
+      
+      // Visual feedback
+      dropZone.style.animation = 'bounce 0.5s';
+      setTimeout(() => dropZone.style.animation = '', 500);
+      break;
+    }
+  }
+
+  // Reset dragged item
+  draggedItem.classList.remove('dragging');
+  draggedItem.style.transform = '';
+  draggedItem = null;
+  
+  // Remove highlights
+  dropZones.forEach(zone => zone.classList.remove('highlight'));
+  
+  // Play sound if dropped
+  if (dropped) {
+    const alertSound = document.getElementById("alertSound");
+    if (alertSound) {
+      alertSound.currentTime = 0;
+      alertSound.play();
+    }
+  }
+}, { passive: true });
+
+function toggleClicked(e) {
+  e.preventDefault();
+  const wrapper = this.closest ? this.closest('.match-wrapper') : this;
+  if (!wrapper) return;
+
+  const isAlreadyClicked = wrapper.classList.contains("clicked");
+  document.querySelectorAll(".match-wrapper").forEach((el) => el.classList.remove("clicked"));
+  if (!isAlreadyClicked) wrapper.classList.add("clicked");
+}
+
+function submitQuizSet2() {
+  const wrappers = document.querySelectorAll('.match-wrapper');
+  let allMatched = true;
+
+  wrappers.forEach(wrapper => {
+    const item = wrapper.querySelector('.match-item');
+    if (!item.dataset.matched) allMatched = false;
+  });
+
+  if (!allMatched) {
+    alert("Silakan cocokkan semua benda ke bentuk sebelum mengirim.");
+    return;
+  }
+
+  let correct = 0;
+  wrappers.forEach(wrapper => {
+    const item = wrapper.querySelector('.match-item');
+    const correctMark = wrapper.querySelector('.correct-mark');
+    const wrongMark = wrapper.querySelector('.wrong-mark');
+
+    const correctShape = item.dataset.shape;
+    const selectedShape = item.dataset.matched;
+
+    // Reset visuals
+    item.style.backgroundColor = "white";
+    correctMark.classList.remove("show");
+    wrongMark.classList.remove("show");
+
+    if (correctShape === selectedShape) {
+      item.style.backgroundColor = "rgba(0, 255, 0, 0.2)";
+      correctMark.classList.add("show");
+      correct++;
+    } else {
+      item.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+      wrongMark.classList.add("show");
+    }
+  });
+
+  totalScore2 += correct;
+  document.getElementById("matchingResult").textContent = `Skor kamu: ${correct} cocok.`;
+
+  // ✅ Disable Submit after checking
+  document.getElementById("submitBtn2").disabled = true;
+
+  // ✅ Show and animate Next button
+  const nextBtn = document.getElementById("nextSetBtn2");
+  nextBtn.disabled = false;
+  nextBtn.style.display = "inline-block";
+  nextBtn.classList.add("slide-in");
+
+  document.getElementById("level-up").play();
+}
+
+function nextQuizSet2() {
+  const dialog = document.getElementById("endDialog2");
+  if (dialog) dialog.style.display = "none";
+
+  currentSetIndex2++;
+  if (currentSetIndex2 < totalSets2) {
+    initQuizType2();
+  } else {
+    showEndDialog2(); // 🟢 show the final dialog when finished
+  }
+
+  // Always reset Next button visibility after switching
+  const nextBtn = document.getElementById("nextSetBtn2");
+  if (nextBtn) {
+    nextBtn.disabled = true;
+    nextBtn.style.display = "none";
+  }
+}
+
+function showEndDialog2() {
+  const dialog = document.getElementById("endDialog2");
+  if (!dialog) return;
+
+  const maxScore = totalSets2 * 4;
+  dialog.innerHTML = `
+    <div class="end-dialog-content">
+      <button id="closeEndDialog2" class="close-dialog-btn">✖</button>
+      <h3>Kuis Selesai 🎉</h3>
+      <img src="assets/img/squirel/squirelboy.png" alt="Selamat!" style="max-width: 120px; display: block; margin: 10px auto;">
+      <p id="finalScore2">Skor akhir kamu: ${totalScore2} dari ${maxScore}</p>
+      <button onclick="resetQuizType2()">Ulangi Kuis</button>
+      <button id="closeDialogButton2">Tutup</button>
+    </div>
+  `;
+
+  dialog.style.display = "flex";
+  dialog.style.justifyContent = "center";
+  dialog.style.alignItems = "center";
+
+  // Add close button functionality
+  document.getElementById("closeEndDialog2").addEventListener("click", () => {
+    dialog.style.display = "none";
+  });
+  document.getElementById("closeDialogButton2").addEventListener("click", () => {
+    dialog.style.display = "none";
+  });
+// Detect fullscreen and append inside the fullscreen element
+    let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fullscreenElement) {
+        fullscreenElement.appendChild(dialog);
+    } else {
+        document.body.appendChild(dialog);
+    }
+
+}
+function resetQuizType2() {
+  currentSetIndex2 = 0;
+  totalScore2 = 0;
+  document.getElementById("endDialog2").style.display = "none";
+  initQuizType2();
+}
+
+let currentSetIndex3 = 0;
+let totalSets3 = 0;
+let totalScore3 = 0;
+
+let shuffledSelectionSets = [];
+function shuffleSelectionSets() {
+  shuffledSelectionSets = [...selectionSets].sort(() => 0.5 - Math.random());
+  totalSets3 = Math.min(3, shuffledSelectionSets.length);
+  currentSetIndex3 = 0;
+}
+shuffleSelectionSets(); // Call this before the quiz starts
+
+//quiztype3
+
+function initQuizType3() {
+   cleanupEventListeners();
+  document.getElementById("selectionResult").textContent = "";
+  document.getElementById("nextSetBtn3").disabled = true;
+  document.getElementById("submitBtn3").disabled = false;
+
+  // Hide the "Selanjutnya" button
+  const nextBtn = document.getElementById("nextSetBtn3");
+  nextBtn.style.display = "none";
+  nextBtn.classList.remove("slide-in");
+
+  const selectSet = shuffledSelectionSets[currentSetIndex3];
+  const targetShape = selectSet.shape;
+  const itemsContainer = document.getElementById("selectableItems");
+  const shapeTitle = document.getElementById("targetShapeName");
+
+  // Add fun header if not exists
+  if (!document.querySelector('.quiz-header-3')) {
+    const header = document.createElement('div');
+    header.className = 'quiz-header-3';
+    header.innerHTML = `<h2>🔍 Find the Shapes! 🔍</h2>`;
+    document.getElementById('quizType3').insertBefore(header, itemsContainer);
+  }
+
+  // Add floating shapes background
+  if (!document.querySelector('.floating-shapes')) {
+    const floatingShapes = document.createElement('div');
+    floatingShapes.className = 'floating-shapes';
+    document.getElementById('quizType3').appendChild(floatingShapes);
+  }
+
+  shapeTitle.textContent = targetShape.charAt(0).toUpperCase() + targetShape.slice(1);
+  itemsContainer.innerHTML = "";
+
+  selectSet.items.forEach((item, index) => {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("selectable-wrapper");
+    wrapper.style.animationDelay = `${index * 0.1}s`;
+
+    const img = document.createElement("img");
+    img.classList.add("selectable", "lazy");
+    img.dataset.src = item.img;
+    img.dataset.shape = item.shape;
+    img.alt = item.name;
+    img.loading = "lazy";
+
+    // Enhanced click handler with fun animations
+    img.addEventListener("click", function() {
+      const selected = document.querySelectorAll('.selectable.selected');
+      const targetShape = selectSet.shape;
+      const totalCorrectTargets = selectSet.items.filter(i => i.shape === targetShape).length;
+
+      if (!this.classList.contains('selected')) {
+        if (selected.length >= totalCorrectTargets) {
+          // Fun shake animation for limit reached
+          this.style.animation = "shake 0.5s ease-in-out";
+          showTempMessage("🎯 Pilih dua saja!");
+          setTimeout(() => {
+            this.style.animation = "";
+          }, 500);
+          return;
+        }
+        this.classList.add('selected');
+        // Fun selection animation
+        this.style.animation = "selectedPulse 0.5s ease-out";
+      } else {
+        this.classList.remove('selected');
+        this.style.animation = "deselect 0.3s ease-out";
+      }
+
+      checkIfSelectionMade();
+      
+      // Play fun sound
+      const alertSound = document.getElementById("alertSound");
+      if (alertSound) {
+        alertSound.currentTime = 0;
+        alertSound.play();
+      }
+    });
+
+    // Enhanced overlays
+    const correctMark = document.createElement("span");
+    correctMark.classList.add("mark-overlay", "correct-mark");
+    correctMark.textContent = "✅";
+    correctMark.setAttribute('aria-hidden', 'true');
+
+    const wrongMark = document.createElement("span");
+    wrongMark.classList.add("mark-overlay", "wrong-mark");
+    wrongMark.textContent = "❌";
+    wrongMark.setAttribute('aria-hidden', 'true');
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(correctMark);
+    wrapper.appendChild(wrongMark);
+    itemsContainer.appendChild(wrapper);
+  });
+
+  // Initialize lazy loading
+  if (typeof initializeLazyLoading === "function") {
+    initializeLazyLoading();
+  }
+
+  // Update progress with fun styling
+  document.getElementById("quizProgress3").textContent = 
+    `🎮 Level ${currentSetIndex3 + 1} dari ${totalSets3} 🎮`;
+
+  // Add entrance animation to all elements
+  setTimeout(() => {
+    document.querySelectorAll('.selectable-wrapper').forEach((wrapper, index) => {
+      wrapper.style.animation = `slideInUp 0.6s ease-out ${index * 0.1}s both`;
+    });
+  }, 100);
+}
+
+// Enhanced selection check
+function checkIfSelectionMade() {
+  const selected = document.querySelector('.selectable.selected');
+  const submitBtn = document.getElementById("submitBtn3");
+  submitBtn.disabled = !selected;
+  
+  // Fun button animation when enabled
+  if (selected && submitBtn.disabled === false) {
+    submitBtn.style.animation = "pulse 1s ease-in-out";
+    setTimeout(() => {
+      submitBtn.style.animation = "";
+    }, 1000);
+  }
+}
+
+// Enhanced submit function
+function submitQuizSet3() {
+  const targetShape = document.getElementById("targetShapeName").textContent.toLowerCase();
+  const selectedImages = document.querySelectorAll('.selectable.selected');
+  const totalCorrectAnswers = document.querySelectorAll(`.selectable[data-shape="${targetShape}"]`).length;
+  const nextBtn = document.getElementById("nextSetBtn3");
+
+  // Hide next button
+  nextBtn.style.display = "none";
+  nextBtn.classList.remove("slide-in");
+
+  // Enhanced validation messages
+  if (selectedImages.length === 0) {
+    showTempMessage("🎯 Pilih jawaban dulu!");
+    return;
+  }
+
+  if (selectedImages.length < totalCorrectAnswers) {
+    showTempMessage(`🎯 Pilih ${totalCorrectAnswers} gambar!`);
+    return;
+  }
+
+  let correct = 0, total = 0;
+
+  // Enhanced result display with fun animations
+  document.querySelectorAll('.selectable-wrapper').forEach(wrapper => {
+    const img = wrapper.querySelector('.selectable');
+    const correctMark = wrapper.querySelector('.correct-mark');
+    const wrongMark = wrapper.querySelector('.wrong-mark');
+    const isTarget = img.dataset.shape === targetShape;
+    const selected = img.classList.contains('selected');
+    total += isTarget ? 1 : 0;
+
+    // Reset visuals
+    img.style.backgroundColor = "transparent";
+    correctMark.classList.remove('show');
+    wrongMark.classList.remove('show');
+
+    if (isTarget && selected) {
+      correct++;
+      img.classList.add('correct');
+      correctMark.classList.add('show');
+      
+      // Celebration effect for correct answers
+      setTimeout(() => {
+        wrapper.style.animation = "celebrate 0.8s ease-out";
+      }, correct * 200);
+      
+    } else if (selected && !isTarget) {
+      img.classList.add('incorrect');
+      wrongMark.classList.add('show');
+    } else if (isTarget && !selected) {
+      img.style.backgroundColor = "rgba(0, 255, 0, 0.1)";
+    }
+  });
+
+  totalScore3 += correct;
+  
+  // Fun result message
+  const resultMessages = [
+    `🎉 Hebat! ${correct} dari ${total} ${targetShape} benar!`,
+    `👏 Bagus! ${correct} dari ${total} ${targetShape} tepat!`,
+    `🌟 Luar biasa! ${correct} dari ${total} ${targetShape} benar!`
+  ];
+  const randomMessage = resultMessages[Math.floor(Math.random() * resultMessages.length)];
+  
+  document.getElementById("selectionResult").textContent = randomMessage;
+  document.getElementById("submitBtn3").disabled = true;
+
+  // Show next button with fun animation
+  setTimeout(() => {
+    nextBtn.disabled = false;
+    nextBtn.style.display = "inline-block";
+    nextBtn.classList.add("slide-in");
+  }, 1000);
+
+  // Play celebration sound
+  const levelUp = document.getElementById("level-up");
+  if (levelUp) {
+    levelUp.currentTime = 0;
+    levelUp.play();
+  }
+}
+function showTempMessage(msg) {
+  let msgBox = document.createElement("div");
+  msgBox.className = "temp-msg center";
+  msgBox.textContent = msg;
+  document.body.appendChild(msgBox);
+
+  setTimeout(() => {
+    msgBox.classList.add("fade-out");
+    setTimeout(() => msgBox.remove(), 400);
+  }, 1000);
+
+  // Detect fullscreen and append inside the fullscreen element
+    let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fullscreenElement) {
+        fullscreenElement.appendChild(msgBox);
+    } else {
+        document.body.appendChild(msgBox);
+    }
+}
+
+
+function nextQuizSet3() {
+  document.getElementById("endDialog3").style.display = "none"; // Hide just in case
+
+  // 🔥 FIX: Ensure the button is hidden when moving to next question
+  const nextBtn = document.getElementById("nextSetBtn3");
+  nextBtn.style.display = "none";
+  nextBtn.classList.remove("slide-in");
+  nextBtn.disabled = true;
+
+  currentSetIndex3++;
+  if (currentSetIndex3 < totalSets3) {
+    initQuizType3();
+  } else {
+    showEndDialog3();
+  }
+}
+
+
+function showEndDialog3() {
+  const dialog = document.getElementById("endDialog3");
+  const maxScore = totalSets3 * 2; // assuming 4 items per set
+  dialog.querySelector("#finalScore3").textContent = `Skor akhir kamu: ${totalScore3} dari ${maxScore}`;
+  dialog.style.display = "block";
+
+ // Detect fullscreen and append inside the fullscreen element
+    let fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fullscreenElement) {
+        fullscreenElement.appendChild(dialog);
+    } else {
+        document.body.appendChild(dialog);
+    }
+
+}
+
+function resetQuizType3() {
+  currentSetIndex3 = 0;
+  totalScore3 = 0;
+  document.getElementById("endDialog3").style.display = "none";
+  
+  // 🔥 FIX: Hide the button when resetting
+  const nextBtn = document.getElementById("nextSetBtn3");
+  nextBtn.style.display = "none";
+  nextBtn.classList.remove("slide-in");
+  nextBtn.disabled = true;
+  
+  initQuizType3();
+  
+  if (currentSetIndex3 >= totalSets3) {
+    shuffleSelectionSets();
+  }
+}
+
+
+ window.addEventListener('DOMContentLoaded', () => {
+  initQuizType2(); // Matching quiz
+  initQuizType3(); // Selection quiz
+});
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Checking Firebase status...");
+
+  if (!firebase?.apps?.length) {
+    console.error("❌ Firebase not initialized!");
+  }
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      console.log("✅ Logged in user:", user.email);
+    } else {
+      console.warn("❌ No user - possibly logged out or auth not persisted");
+    }
+  });
+});
+
+ </script>
+
+  <script src="assets/js/fullscreen-module.js"></script>
+<script src="assets/js/lazy-loading.js"></script> <!-- optional, load non-critical -->
+ <script>
+        // Initialize fullscreen for this page
+        const fullscreenManager = new FullscreenManager('quizSection', {
+            enableSound: true,
+            mobileOrientation: true,
+            autoHideControls: true
+        });
+
+    
+    </script>
+</body>
+<footer>
+       
+</footer>
+
+</html>

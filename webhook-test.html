@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lynk.id Webhook Setup</title>
+    <style>
+        :root {
+            --primary: #02807d;
+            --primary-light: #4fb8b5;
+            --dark: #353a3e;
+            --light: #e9ebed;
+            --success: #4caf50;
+            --error: #f44336;
+            --warning: #ff9800;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ebed 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background: var(--primary-light);
+        }
+        
+        .status-box {
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--success);
+            color: #2e7d32;
+        }
+        
+        .error {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid var(--error);
+            color: #c62828;
+        }
+        
+        .warning {
+            background-color: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid var(--warning);
+            color: #ef6c00;
+        }
+        
+        .code-block {
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--light);
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .instructions {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lynk.id Webhook Configuration</h1>
+            <p>Configure and test your webhook integration</p>
+        </header>
+        
+        <div class="content">
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab(0)">Configuration</div>
+                <div class="tab" onclick="switchTab(1)">Testing</div>
+                <div class="tab" onclick="switchTab(2)">Implementation</div>
+            </div>
+            
+            <div class="tab-content active">
+                <div class="section">
+                    <h2>Webhook Secret Configuration</h2>
+                    <p>Enter your Lynk.id webhook secret below. This will be encrypted and stored in your browser.</p>
+                    
+                    <div class="form-group">
+                        <label for="webhookSecret">Webhook Secret from Lynk.id</label>
+                        <input type="password" id="webhookSecret" placeholder="webhook secret">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="encryptionKey">Encryption Key (optional)</label>
+                        <input type="text" id="encryptionKey" placeholder="Encryption key">
+                        <small>If you don't provide one, a secure key will be generated for you</small>
+                    </div>
+                    
+                    <button onclick="saveConfig()">Save Webhook Secret</button>
+                    
+                    <div id="saveStatus" class="status-box" style="display: none;"></div>
+                </div>
+                
+                <div class="section">
+                    <h2>Where to Find Your Webhook Secret</h2>
+                    <ol>
+                        <li>Log in to your Lynk.id merchant dashboard</li>
+                        <li>Go to Settings → Webhooks</li>
+                        <li>Find your webhook configuration</li>
+                        <li>Look for "Webhook Secret", "Secret Key", or "Signature Key"</li>
+                        <li>Copy that value and paste it above</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="tab-content">
+                <div class="section">
+                    <h2>Test Webhook Signature Verification</h2>
+                    <p>Test that your webhook secret is working correctly by verifying a sample signature.</p>
+                    
+                    <div class="form-group">
+                        <label for="testPayload">Test Payload (JSON)</label>
+                        <textarea id="testPayload" style="width: 100%; height: 120px; padding: 14px; border: 2px solid #e9ebed; border-radius: 8px; font-family: monospace;" placeholder='{"type": "payment.completed", "data": {"id": "test_123", "amount": 1000}}'>{"type": "payment.completed", "data": {"id": "test_123", "amount": 1000}}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testSignature">Test Signature</label>
+                        <input type="text" id="testSignature" placeholder="Enter a signature to verify">
+                    </div>
+                    
+                    <button onclick="testSignature()">Test Signature Verification</button>
+                    
+                    <div id="testResult" class="status-box" style="display: none;"></div>
+                    
+                    <div id="signatureDetails" style="display: none; margin-top: 20px;">
+                        <h3>Signature Details</h3>
+                        <div class="code-block" id="signatureCalculation"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content">
+                <div class="section">
+                    <h2>Implementation Code</h2>
+                    <p>Use this code in your TokenManager to verify webhook signatures:</p>
+                    
+                    <div class="code-block">
+
+                    </div>
+                    
+                    <p>Make sure to implement the <code>retrieveWebhookSecret()</code> function that gets the secret from your secure storage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab').forEach((tab, index) => {
+                tab.classList.toggle('active', index === tabIndex);
+            });
+            
+            document.querySelectorAll('.tab-content').forEach((content, index) => {
+                content.classList.toggle('active', index === tabIndex);
+            });
+        }
+        
+        // Encryption functions (as before)
+        async function deriveKey(password, salt) {
+            const encoder = new TextEncoder();
+            const keyMaterial = await window.crypto.subtle.importKey(
+                'raw',
+                encoder.encode(password),
+                'PBKDF2',
+                false,
+                ['deriveBits', 'deriveKey']
+            );
+            
+            return await window.crypto.subtle.deriveKey(
+                {
+                    name: 'PBKDF2',
+                    salt: encoder.encode(salt),
+                    iterations: 100000,
+                    hash: 'SHA-256'
+                },
+                keyMaterial,
+                { name: 'AES-GCM', length: 256 },
+                false,
+                ['encrypt', 'decrypt']
+            );
+        }
+        
+        async function encryptData(data, password) {
+            try {
+                const encoder = new TextEncoder();
+                const salt = window.crypto.getRandomValues(new Uint8Array(16));
+                const iv = window.crypto.getRandomValues(new Uint8Array(12));
+                
+                const key = await deriveKey(password, salt);
+                const encryptedData = await window.crypto.subtle.encrypt(
+                    {
+                        name: 'AES-GCM',
+                        iv: iv
+                    },
+                    key,
+                    encoder.encode(data)
+                );
+                
+                const combined = new Uint8Array(salt.length + iv.length + encryptedData.byteLength);
+                combined.set(salt);
+                combined.set(iv, salt.length);
+                combined.set(new Uint8Array(encryptedData), salt.length + iv.length);
+                
+                return btoa(String.fromCharCode(...combined));
+            } catch (error) {
+                console.error('Encryption error:', error);
+                throw error;
+            }
+        }
+        
+        async function decryptData(encryptedData, password) {
+            try {
+                const decoder = new TextDecoder();
+                const data = new Uint8Array([...atob(encryptedData)].map(c => c.charCodeAt(0)));
+                
+                const salt = data.slice(0, 16);
+                const iv = data.slice(16, 28);
+                const encrypted = data.slice(28);
+                
+                const key = await deriveKey(password, decoder.decode(salt));
+                const decryptedData = await window.crypto.subtle.decrypt(
+                    {
+                        name: 'AES-GCM',
+                        iv: iv
+                    },
+                    key,
+                    encrypted
+                );
+                
+                return decoder.decode(decryptedData);
+            } catch (error) {
+                console.error('Decryption error:', error);
+                throw new Error('Failed to decrypt. Incorrect key?');
+            }
+        }
+        
+        // Configuration management
+        async function saveConfig() {
+            const secret = document.getElementById('webhookSecret').value;
+            let key = document.getElementById('encryptionKey').value;
+            
+            if (!secret) {
+                showStatus('saveStatus', 'Please enter a webhook secret', 'error');
+                return;
+            }
+            
+            if (!key) {
+                key = generateRandomKey();
+                document.getElementById('encryptionKey').value = key;
+            }
+            
+            try {
+                const encrypted = await encryptData(secret, key);
+                localStorage.setItem('lynk_webhook_secret_encrypted', encrypted);
+                
+                showStatus('saveStatus', 
+                    `Webhook secret saved securely! Please save your encryption key: ${key}`, 
+                    'success');
+            } catch (error) {
+                showStatus('saveStatus', 'Error saving secret: ' + error.message, 'error');
+            }
+        }
+        
+        // Test signature verification
+        async function testSignature() {
+            const encrypted = localStorage.getItem('lynk_webhook_secret_encrypted');
+            if (!encrypted) {
+                showStatus('testResult', 'No webhook secret found. Please configure it first.', 'error');
+                return;
+            }
+            
+            const key = prompt('Enter your encryption key to test signature verification:');
+            if (!key) return;
+            
+            try {
+                const secret = await decryptData(encrypted, key);
+                const payload = document.getElementById('testPayload').value;
+                const testSignature = document.getElementById('testSignature').value;
+                
+                if (!testSignature) {
+                    // Generate a test signature if none provided
+                    const generatedSignature = await createHmacSignature(payload, secret);
+                    document.getElementById('testSignature').value = generatedSignature;
+                    
+                    document.getElementById('signatureCalculation').textContent = 
+                        `Generated signature for testing:\n${generatedSignature}\n\n` +
+                        `Payload: ${payload}\n` +
+                        `Secret: ${secret.substring(0, 10)}...`;
+                    
+                    document.getElementById('signatureDetails').style.display = 'block';
+                    showStatus('testResult', 'Test signature generated. Use this to test your webhook handler.', 'success');
+                } else {
+                    // Verify the provided signature
+                    const expectedSignature = await createHmacSignature(payload, secret);
+                    const isValid = timingSafeEqual(testSignature, expectedSignature);
+                    
+                    if (isValid) {
+                        showStatus('testResult', '✓ Signature is valid!', 'success');
+                    } else {
+                        showStatus('testResult', '✗ Signature is invalid!', 'error');
+                    }
+                    
+                    document.getElementById('signatureCalculation').textContent = 
+                        `Expected signature: ${expectedSignature}\n` +
+                        `Provided signature: ${testSignature}\n\n` +
+                        `Payload: ${payload}\n` +
+                        `Secret: ${secret.substring(0, 10)}...`;
+                    
+                    document.getElementById('signatureDetails').style.display = 'block';
+                }
+            } catch (error) {
+                showStatus('testResult', 'Error: ' + error.message, 'error');
+            }
+        }
+        
+        // Create HMAC signature (browser-compatible)
+        async function createHmacSignature(payload, secret) {
+            const encoder = new TextEncoder();
+            const key = await crypto.subtle.importKey(
+                'raw',
+                encoder.encode(secret),
+                { name: 'HMAC', hash: 'SHA-256' },
+                false,
+                ['sign']
+            );
+            
+            const payloadString = typeof payload === 'string' ? payload : JSON.stringify(payload);
+            const signature = await crypto.subtle.sign(
+                'HMAC',
+                key,
+                encoder.encode(payloadString)
+            );
+            
+            // Convert to hex string
+            return Array.from(new Uint8Array(signature))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+        
+        // Timing-safe comparison
+        function timingSafeEqual(a, b) {
+            const aBuffer = new TextEncoder().encode(a);
+            const bBuffer = new TextEncoder().encode(b);
+            
+            if (aBuffer.length !== bBuffer.length) {
+                return false;
+            }
+            
+            let result = 0;
+            for (let i = 0; i < aBuffer.length; i++) {
+                result |= aBuffer[i] ^ bBuffer[i];
+            }
+            
+            return result === 0;
+        }
+        
+        function generateRandomKey() {
+            const array = new Uint8Array(16);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+        }
+        
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `status-box ${type}`;
+            element.style.display = 'flex';
+        }
+        
+        // Function to use in your actual application
+        window.retrieveWebhookSecret = async function() {
+            const encrypted = localStorage.getItem('lynk_webhook_secret_encrypted');
+            if (!encrypted) {
+                throw new Error('No webhook secret found. Please configure it first.');
+            }
+            
+            const key = prompt('Please enter your encryption key to retrieve the webhook secret:');
+            if (!key) {
+                throw new Error('Encryption key required');
+            }
+            
+            return await decryptData(encrypted, key);
+        };
+    </script>
+</body>
+</html>

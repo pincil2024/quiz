@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta name="robots" content="noindex">
+    <link rel="icon" href="assets/icons/favicon.png" type="image/svg+xml">
+  <meta name="description" content="Kuis pilihan ganda untuk berbagai mata pelajaran lengkap dengan penjelasan berupa video atau teks. Cocok untuk latihan siswa SD hingga SMP.">
+<meta name="keywords" content="Kuis Pilihan Ganda, Latihan Soal, Penjelasan Soal, Edukasi SD, Edukasi SMP, Belajar Online, Pincil">
+<meta property="og:title" content="Pincil – Kuis Edukatif dengan Penjelasan" />
+<meta property="og:description" content="Kerjakan kuis interaktif dengan pilihan ganda dan dapatkan penjelasan lengkap tiap soal dalam bentuk video atau teks." />
+<meta property="og:url" content="https://pincil.id/quiz.html" />
+<meta property="og:type" content="website" />
+<link rel="canonical" href="https://pincil.id/quiz.html" />
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="/static/css/quiz.css">
+    <link rel="stylesheet" href="/static/css/navbar.css">
+    <link rel="stylesheet" href="/static/css/lazy-header.css">
+   
+</head>
+
+
+
+<body id="quizPage">
+    <div id="navbar"></div>
+    <header id="header3" class="lazyHeader">
+        <h1>
+            <span class="welcome-text"></span>
+            <span class="to-text"></span>
+            <span class="pincil-text"></span>
+        </h1>
+    </header>
+   
+    <!-- Welcome Dialog Box -->
+<dialog id="welcomeDialog">
+    <h2>Let's Study</h2>
+    <p>Apakah Anda ingin menantang diri sendiri? Silakan, atur waktunya sesuai keinginan Anda!</p>
+    
+    <!-- Timer Options -->
+    <label>
+        <input type="checkbox" id="enableTimer"> Atur Waktu!
+    </label>
+    <br>
+    
+    <!-- Time Setting Options -->
+    <div id="timerOptions" style="display: none;">
+        <label for="timerDuration">Set Timer Duration (in minutes): </label>
+        <input type="number" id="timerDuration" min="1" max="60" value="20">
+    </div>
+    
+    <!-- Start Quiz Button -->
+    <button id="startQuizBtn">Start Quiz</button>
+</dialog>
+    
+   
+    <h1 id="quizTitle">Pengetahuan Kuantitatif</h1> <!-- Title at the top -->
+    <!-- Timer Display -->
+    <div id="statusBar">
+        <span id="progress">Answered: 0/0</span>
+        <span id="timer">Time Remaining: --:--</span>
+    </div>   
+    <div id="quiz"></div>
+    <div id="navigationButtons">
+        <button id="prevBtn" disabled>Previous</button>
+        <button id="nextBtn">Next</button>
+        <button id="submitBtn" style="display: none;">Submit</button> <!-- Initially hidden -->
+    </div>
+   
+
+    <dialog id="timeUpDialog">
+        <p>Your time is up!</p>
+        <p>Would you like to submit or retake the exam?</p>
+        <button id="againBtn">Submit</button>
+        <button id="retakeBtn">Retake</button>
+    </dialog>
+    <footer>
+       
+    </footer>
+    <script src="assets/js/quiz.js"></script>
+    <div id="navbar"></div>
+    <script src="assets/js/lazy-header.js" defer></script> <!-- Link the external JavaScript -->
+    <script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/navbar.js"></script>
+
+</body>
+</html>

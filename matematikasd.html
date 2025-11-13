@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+
+     <title>Matematika SD</title>
+
+
+
+     <meta name="description" content="Latihan matematika SD mulai dari penjumlahan hingga pembagian dengan kuis dan permainan seru.">
+      <meta name="keywords" content="Matematika SD, Penjumlahan, Pengurangan, Perkalian, Pembagian, Game Matematika, Pincil">
+      <meta property="og:title" content="Pincil – Matematika SD" />
+      <meta property="og:description" content="Belajar konsep dasar matematika lewat permainan interaktif dan latihan soal di Pincil." />
+      <meta property="og:url" content="https://pincil.id/matematkasd.html" />
+      <meta property="og:type" content="website" />
+      <link rel="canonical" href="https://pincil.id/matematkasd.html" />
+
+    <link rel="stylesheet" href="/static/css/matematikasd.css">
+     <link rel="stylesheet" href="/static/css/navbar.css">
+    <link rel="stylesheet" href="/static/css/lazy-header.css">
+     <link rel="stylesheet" href="/static/css/locked.css">
+      <script src="assets/js/lazy-header.js" defer></script>
+  <script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/navbar.js"></script>
+ 
+    
+     <script>
+            fetch('meta.html').then(res => res.text()).then(html => {
+            document.head.insertAdjacentHTML('beforeend', html);
+            });
+        </script>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div id="navbar"></div>
+
+    <!-- Header -->
+    <div id="header1" class="lazyHeader">
+        <div class="header-group">
+            <span class="welcome-to">Main</span>
+            <svg class="pincil" xmlns="http://www.w3.org/2000/svg" width="500" height="150">
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" 
+                      font-family="Pacifico, cursive" font-size="40" fill="none" stroke="#333" 
+                      stroke-width="1" letter-spacing="5">
+                      Matematika Dasar
+                </text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Secondary Header -->
+    <div class="secondaryHeader">
+        <p>Selamat datang di Pincil – Pusat Pembelajaran Interaktif Anda!</p>
+    </div>
+
+      
+    <div>
+      
+        <button id="go-back-btn" class="action-btn" >Kembali</button>
+        <button id="again-btn" class="action-btn" >Ada Gambar</button>
+        <button id="level-two-btn" class="action-btn" >Tidak Ada Gambar</button>
+    <!--  <button id="quiz" class="action-btn" >Coba menjawab Quiz</button>-->  
+
+    </div>
+    <div id="game-container" class="quiz-Container" style="display:none;">
+        <label class="fullscreen-toggle">
+            <input type="checkbox" id="fullscreenToggle" >
+            <span class="slider"></span> Layar lebar
+            <div id="pointer-hand" class="pointer-hand">👈</div> <!-- 👈 👉moved after the text -->
+          </label>
+        <div id="level-display">Level: 1</div>
+       
+         <div id="progress-tracker">1/5</div>
+        <div id="question" ></div>
+        
+        <div id="emoji-container" class="emoji-container" ></div>
+<input type="number" id="answer" placeholder="Jawaban" inputmode="none" >
+   <button id="submit-btn" >Submit</button>
+        <button id="next-btn" style="display: none;">Next Question</button>
+              <div id="response"></div>
+         <div>   
+        <div id="numpad" class="numpad" >
+            <div class="numpad-row">
+              <button class="numpad-key">1</button>
+              <button class="numpad-key">2</button>
+              <button class="numpad-key">3</button>
+            </div>
+            <div class="numpad-row">
+              <button class="numpad-key">4</button>
+              <button class="numpad-key">5</button>
+              <button class="numpad-key">6</button>
+            </div>
+            <div class="numpad-row">
+              <button class="numpad-key">7</button>
+              <button class="numpad-key">8</button>
+              <button class="numpad-key">9</button>
+            </div>
+            <div class="numpad-row">
+              <button class="numpad-key">←</button>
+              <button class="numpad-key">0</button>
+              <button class="numpad-key">C</button>
+            </div>
+          </div>
+        </div>  
+    </div>
+
+
+       </div>
+    <div id="congratulations-dialog" style="display: none;">
+        <button id="close-btn" class="close-btn">&times;</button>
+        <h2>Pintar si kecil!</h2>
+        <p>Hebat, Apakah Ade mau belajar lagi!</p>
+        <button id="restart-btn" class="action-btn">Coba lagi level Ini</button>
+        <button id="level-one-btn" class="action-btn" >Jawab yang ada gambar</button>
+        <button id="next-level-btn" class="action-btn" >Jawab yan tidak ada gambar</button>
+    </div>
+    
+    
+
+    <footer>
+       
+    </footer>
+    
+<!-- ✅ Lazy loading images (independent of others) -->
+<script src="assets/js/lazy-loading.js"></script>
+
+<!-- ✅ Reusable login dialog (adds to DOM and defines `window.showLoginDialog()`) -->
+
+
+    <script src="assets/js/matematikasd.js"></script>
+
+
+</body>
+</html>

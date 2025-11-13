@@ -1,0 +1,263 @@
+{
+  "levels": {
+    "level_1": {
+      "multiple_choice": [
+        {
+          "question": "Huruf kapital seharusnya ditulis pada kata ...",
+          "options": ["Lagoi Bay", "ke", "berlibur"],
+          "answer": "Lagoi Bay",
+          "image": ""
+        },
+        {
+          "question": "Haris menyukai bubur ayam, ( dan / tetapi ) menyukai martabak telur.",
+          "options": ["dan", "tetapi"],
+          "answer": "dan",
+          "image": ""
+        },
+        {
+          "question": "Ilham berlibur ke Kota Solo, ( dan / tetapi ) Ayah tidak ikut karena sedang bekerja.",
+          "options": ["dan", "tetapi"],
+          "answer": "tetapi",
+          "image": ""
+        },
+        {
+          "question": "Mengapa hujan yang deras dan lama bisa menakutkan?",
+          "options": [
+            "Karena bisa menyebabkan listrik padam",
+            "Karena bisa membuat selokan meluap",
+            "Karena bisa menyebabkan banjir"
+          ],
+          "answer": "Karena bisa menyebabkan banjir",
+          "image": ""
+        },
+        {
+          "question": "Bagaimana cara mengeluarkan air yang masuk ke rumah?",
+          "options": [
+            "Air yang masuk disedot dengan selang",
+            "Air yang masuk dikeluarkan dengan gayung",
+            "Air yang masuk dikeluarkan dengan ember"
+          ],
+          "answer": "Air yang masuk dikeluarkan dengan ember",
+          "image": ""
+        },
+        {
+          "question": "Kata penghubung yang tepat untuk melengkapi: 'Timun Mas (___) ibunya tinggal di hutan.'",
+          "options": ["dan", "yang", "tetapi"],
+          "answer": "dan",
+          "image": ""
+        },
+        {
+          "question": "Hal yang dialami tokoh Timun Mas dalam cerita adalah...",
+          "options": [
+            "Timun Mas pergi ke rumah temannya",
+            "Timun Mas tinggal bersama raksasa",
+            "Raksasa ingin membawa Timun Mas"
+          ],
+          "answer": "Raksasa ingin membawa Timun Mas",
+          "image": ""
+        },
+        {
+          "question": "Makna peribahasa 'bagai air di daun talas' adalah . . .",
+          "options": [
+            "Orang yang tidak punya pendirian",
+            "Orang yang murah hati",
+            "Orang yang pendiam"
+          ],
+          "answer": "Orang yang tidak punya pendirian",
+          "image": ""
+        },
+        {
+          "question": "Berikut yang merupakan ciri-ciri puisi adalah . . .",
+          "options": ["Berupa narasi", "Menggunakan kalimat tanya", "Mengandung rima dan makna"],
+          "answer": "Mengandung rima dan makna",
+          "image": ""
+        },
+        {
+          "question": "Berikut ini yang merupakan jenis puisi lama adalah . . .",
+          "options": ["Cerpen", "Pantun", "Novel"],
+          "answer": "Pantun",
+          "image": ""
+        },
+        {
+          "question": "Pantun yang berisi nasihat disebut . . .",
+          "options": ["Pantun anak", "Pantun jenaka", "Pantun nasihat"],
+          "answer": "Pantun nasihat",
+          "image": ""
+        },
+        {
+          "question": "Penggunaan huruf kapital yang benar terdapat pada kalimat . . .",
+          "options": [
+            "ibu pergi ke pasar.",
+            "Saya dan Ayah menanam bunga.",
+            "kami makan siang di rumah paman."
+          ],
+          "answer": "Saya dan Ayah menanam bunga.",
+          "image": ""
+        },
+        {
+          "question": "Tanda titik digunakan pada akhir . . .",
+          "options": ["Kalimat tanya", "Kalimat perintah", "Kalimat berita"],
+          "answer": "Kalimat berita",
+          "image": ""
+        },
+        {
+          "question": "Cerita rakyat biasanya mengandung . . .",
+          "options": ["Mitos dan legenda", "Ilmu pengetahuan", "Berita harian"],
+          "answer": "Mitos dan legenda",
+          "image": ""
+        },
+        {
+          "question": "Tujuan utama cerita rakyat adalah . . .",
+          "options": ["Memberi informasi", "Menghibur dan memberi pelajaran", "Mengkritik"],
+          "answer": "Menghibur dan memberi pelajaran",
+          "image": ""
+        },
+        {
+          "question": "Makna kata 'pantun' dalam sastra Indonesia adalah . . .",
+          "options": [
+            "Puisi bebas",
+            "Puisi lama yang bersajak",
+            "Cerita pendek yang lucu"
+          ],
+          "answer": "Puisi lama yang bersajak",
+          "image": ""
+        },
+        {
+          "question": "Pantun memiliki dua bagian yaitu . . .",
+          "options": ["Awal dan akhir", "Sampiran dan isi", "Bait dan paragraf"],
+          "answer": "Sampiran dan isi",
+          "image": ""
+        }
+      ],
+      "fill_in_blank": [
+        {
+          "question": "Perbaiki kalimat: devan ke makasar naik pesawat di hari jumat, 20 september 2025",
+          "answer": "Devan ke Makassar naik pesawat di hari Jumat, 20 September 2025.",
+          "image": ""
+        },
+        {
+          "question": "Salin dan perbaiki: sabila pergi ke jogja hari kamis",
+          "answer": "Sabila pergi ke Jogja hari Kamis.",
+          "image": ""
+        },
+          {
+          "question": "Peribahasa: Air susu dibalas air _____.",
+          "answer": "tuba",
+          "image": ""
+        },
+        {
+          "question": "Pantun memiliki pola rima a-b-a-___.",
+          "answer": "b",
+          "image": ""
+        },
+        {
+          "question": "Puisi lama Indonesia yang terdiri dari sampiran dan isi adalah _____.",
+          "answer": "pantun",
+          "image": ""
+        },
+        {
+          "question": "Makna dari peribahasa 'besar pasak daripada tiang' adalah lebih besar _____ daripada pendapatan.",
+          "answer": "pengeluaran",
+          "image": ""
+        },
+        {
+          "question": "Pantun biasanya terdiri dari ____ baris dalam satu bait.",
+          "answer": "4",
+          "image": ""
+        },
+        {
+          "question": "Puisi terdiri atas baris-baris yang disebut _____.",
+          "answer": "larik",
+          "image": ""
+        },
+        {
+          "question": "Peribahasa 'seperti kacang lupa kulitnya' berarti orang yang lupa _____.",
+          "answer": "asal-usul",
+          "image": ""
+        },
+        {
+          "question": "Pantun terdiri dari sampiran dan _____.",
+          "answer": "isi",
+          "image": ""
+        },
+        {
+          "question": "Pantun memiliki irama dan juga mengandung _____.",
+          "answer": "pesan",
+          "image": ""
+        },
+        {
+          "question": "Puisi biasanya menggunakan bahasa yang _____.",
+          "answer": "indah",
+          "image": ""
+        }
+      ],
+      "matching": [
+        {
+          "question": "Cermati teks petunjuk: \n\n\"Langkah-langkah menanam tanaman tomat di rumah: \n1. Siapkan pot dan media tanam. \n2. Masukkan benih tomat ke dalam tanah. \n3. Siram dengan air secukupnya. \n4. Letakkan pot di tempat yang terkena sinar matahari.\"\n\nCentang pernyataan yang sesuai dengan teks!",
+          "pairs": [
+            { "left": "Menanam tomat dilakukan di dalam pot", "right": "✅" },
+            { "left": "Benih tomat langsung disiram tanpa ditanam", "right": "❌" },
+            { "left": "Tomat tidak perlu sinar matahari", "right": "❌" },
+            { "left": "Air diperlukan dalam proses penanaman", "right": "✅" },
+            { "left": "Langkah pertama adalah memasukkan benih", "right": "❌" }
+          ],
+          "answer": [
+            { "left": "Menanam tomat dilakukan di dalam pot", "right": "✅" },
+            { "left": "Benih tomat langsung disiram tanpa ditanam", "right": "❌" },
+            { "left": "Tomat tidak perlu sinar matahari", "right": "❌" },
+            { "left": "Air diperlukan dalam proses penanaman", "right": "✅" },
+            { "left": "Langkah pertama adalah memasukkan benih", "right": "❌" }
+          ],
+          "image": ""
+        }
+      ],
+      "text_answer": [
+        {
+          "question": "Tulislah kalimat menggunakan kata 'tetapi'.",
+          "answer": "Saya ingin ikut bermain, tetapi saya sedang sakit.",
+          "image": ""
+        },
+        {
+          "question": "Apa yang dimaksud dengan cerita rakyat?",
+          "answer": "Cerita rakyat adalah cerita yang berasal dari masyarakat dan diwariskan secara turun-temurun.",
+          "image": ""
+        },
+        {
+          "question": "Buatlah kalimat menggunakan kata ulang 'menari-nari'.",
+          "answer": "Anak-anak menari-nari dengan riang di taman.",
+          "image": ""
+        },
+        {
+          "question": "Apa yang dimaksud dengan deklamasi?",
+          "answer": "Deklamasi adalah pembacaan puisi dengan ekspresi dan intonasi.",
+          "image": ""
+        },
+        {
+          "question": "Apa kegiatan yang diinformasikan dalam brosur tersebut?",
+          "answer": "Lomba membaca puisi.",
+          "image": "images/brosur_puisi.png"
+        },
+        {
+          "question": "Kapan kegiatan tersebut dilakukan?",
+          "answer": "Hari Sabtu, 21 Juni 2025.",
+          "image": "images/brosur_puisi.png"
+        },
+        {
+          "question": "Siapa saja yang boleh mengikuti acara tersebut?",
+          "answer": "Siswa kelas 1 sampai 3 SD.",
+          "image": "images/brosur_puisi.png"
+        },
+        {
+          "question": "Apa yang wajib dikenakan peserta saat mengikuti lomba?",
+          "answer": "Seragam sekolah.",
+          "image": "images/brosur_puisi.png"
+        },
+        {
+          "question": "Apa tujuan acara bergengsi itu diadakan?",
+          "answer": "Untuk melatih kepercayaan diri siswa.",
+          "image": "images/brosur_puisi.png"
+        }
+      ]
+    }
+  }
+}

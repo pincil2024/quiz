@@ -1,0 +1,4533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Belajar Waktu</title>
+  
+  <meta name="description" content="Ayo belajar membaca jam! Pincil menyediakan kuis interaktif untuk anak-anak SD belajar waktu.">
+<meta name="keywords" content="Belajar Jam, Membaca Jam, Kuis Jam, Waktu, Pincil, Matematika SD, Game Edukasi">
+<meta property="og:title" content="Pincil – Kuis Jam Interaktif" />
+<meta property="og:description" content="Bantu anak-anak belajar waktu melalui permainan membaca jam analog dan digital!" />
+<meta property="og:url" content="https://pincil.id/clockquiz.html" />
+<meta property="og:type" content="website" />
+<link rel="canonical" href="https://pincil.id/clockquiz.html" />
+   
+  <link rel="stylesheet" href="/static/css/navbar.css">
+ 
+  <link rel="stylesheet" href="/static/css/secondaryheader.css">
+  <link rel="stylesheet" href="/static/css/fullscreen-toggle.css">
+  <link rel="stylesheet" href="/static/css/locked.css">
+   
+      <script>
+            fetch('meta.html').then(res => res.text()).then(html => {
+            document.head.insertAdjacentHTML('beforeend', html);
+            });
+        </script>
+<!-- Firebase SDK (must be first) -->
+
+<script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/navbar.js"></script>
+
+
+  <style>
+  :root {
+  --clock-size: 90vw;
+  --max-clock-size: 320px;
+  --min-clock-size: 200px;
+}
+
+
+body {
+
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+   overflow-x:auto;
+ 
+
+}
+
+.main-content {
+  flex: 1; /* 🔑 pushes footer down */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+/* Shared Numpad Base Styling */
+#shared-numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+#shared-numpad button {
+  padding: 15px 8px;
+  font-size: 1.2em;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 50px;
+  font-weight: bold;
+}
+
+#shared-numpad button:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+#shared-numpad button:active {
+  background-color: #dee2e6;
+  transform: scale(0.98);
+}
+
+/* Action buttons */
+#shared-numpad button[data-action="backspace"] {
+  background-color: #dc3545;
+  color: white;
+  border-color: #c82333;
+}
+
+#shared-numpad button[data-action="enter"] {
+  background-color: #28a745;
+  color: white;
+  border-color: #1e7e34;
+}
+
+#shared-numpad button[data-action]:hover {
+  opacity: 0.9;
+}
+
+/* Numpad container */
+.numpad-container {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+}
+.clock-numpad-wrapper {
+    margin-bottom: 10px;
+  }
+/* Mobile-specific numpad styling - CHANGED TO RELATIVE POSITIONING */
+@media (max-width: 768px) {
+ 
+  
+  #shared-numpad {
+    max-width: none;
+    gap: 10px;
+  }
+  
+  #shared-numpad button {
+    min-height: 55px;
+    font-size: 1.3em;
+    padding: 16px 8px;
+  }
+  
+  /* Remove the extra padding since numpad is now in flow */
+  .quiz-container {
+    padding-bottom: 20px !important; /* Reduced from 55vh */
+  }
+  
+  
+  
+  /* Ensure quiz container has proper spacing */
+  #modeB, #modeC, #modeD {
+    padding-bottom: 20px;
+  }
+}
+
+  
+
+
+/* Desktop numpad styling */
+@media (min-width: 769px) {
+  .numpad-container {
+    position: relative;
+    max-width: 200px;
+    margin: 20px auto 0;
+  }
+  
+  #shared-numpad button {
+    min-height: 30px;
+  }
+}
+.left-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#modeA, #modeB  { 
+  margin: auto;
+  width: 100%;
+  max-width: none;
+  border-radius: 20px;
+  padding: 30px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #091ea4, #4d63c5) ;
+ 
+}
+#modeC, #modeD {
+  width: 100%;
+  max-width: 900px; /* Optional: limit on large screens */
+  padding: 20px;
+  margin: 0 auto; /* ✅ centers the block */
+  border-radius: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #091ea4, #4d63c5);
+margin-bottom: 20%;
+}
+
+
+
+/* Mode B specific clock styles */
+#modeB .clock-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 05px 0;
+}
+
+#modeB .clock {
+  width: clamp(var(--min-clock-size), var(--clock-size), var(--max-clock-size));
+  height: clamp(var(--min-clock-size), var(--clock-size), var(--max-clock-size));
+  position: relative;
+  border: 10px solid  #3a5a8f;
+  border-radius: 50%;
+  background: #c6f6ff;
+  
+}
+#modeB h2, #modeA h2, #modeD h2{
+  margin-top: 10px;
+  margin-bottom: 10px;
+ text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+#modeB .hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  transition: transform 0.5s ease-in-out;
+}
+
+ .hour {
+  width: 6px;
+  height: 18%;
+  background: #ff6f61;
+}
+ .minute {
+  width: 4px;
+  height: 28%;
+  background: #29c9c1;
+}
+ .second {
+  width: 2px;
+  height: 31%;
+  background: #ffcc00;
+}
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
+  z-index: 100;
+}
+.clock-ticks,
+.clock-minute-labels{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+ 
+}
+#modeB .clock-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 1.2em;
+  user-select: none;
+}
+#modeB .number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center on the point */
+  font-weight: bold;
+  font-size: 1em;
+  transform-origin: center center;
+ 
+}
+
+#modeB .tick {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center top;
+  z-index: 0;
+}
+
+#modeB .hour-tick {
+  width: 3px;
+  background: #5176cd;
+}
+
+#modeB .minute-tick {
+  width: 3px;
+  background: #c1440e;
+
+}
+#modeB .ticks {
+  width: 100%;
+  height: auto;
+  max-width: 90vw;
+  aspect-ratio: 1 / 1;
+  position: relative;
+
+}
+#ticks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+#modeB .quiz-input {
+  margin-top: 15px;
+  margin-left: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#modeB input[type="text"] {
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 40px;
+  height: auto;
+  text-align: center;
+}
+
+#modeB button, #modeC button {
+    
+    display: inline-flex;
+   margin: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 8px;
+    background-color: #4A6FA5;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* optional, if you have multiple buttons */
+ 
+}
+
+ /* Back Button */
+ button[onclick="resetModeSelection()"],[onclick="submitTimeAddition()"] {
+    background-color: #4A6FA5;
+    padding-left: 20px;
+  }
+
+  button[onclick="resetModeSelection()"]:hover,[onclick="submitTimeAddition()"]:hover {
+    background-color: #3a5a8f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  /* Minutes Button */
+  button[onclick="startExplanation()"] {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+  }
+
+  button[onclick="startExplanation()"]:hover {
+    background: linear-gradient(135deg, #5d7dea, #9666d8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  /* Hours Button */
+  button#how-hour-btn {
+    background: linear-gradient(135deg, #831599, #c949b6);
+    position: relative;
+    overflow: hidden;
+  }
+
+  button#how-hour-btn:hover {
+    background: linear-gradient(135deg, #640669, #8c5de3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  button#how-hour-btn::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.1);
+    transform: rotate(30deg);
+    transition: all 0.3s;
+  }
+
+  button#how-hour-btn:hover::after {
+    left: 100%;
+  }
+
+  /* Icon styles */
+  button::before {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+
+  
+
+#modeB .explanation {
+  margin-top: 15px;
+  font-size: 1em;
+  color: #333;
+}
+
+#modeB .minute-label {
+  position: absolute;
+  font-size: 1em;
+  color: #1a1919;
+  font-weight: bold;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+#modeB .minute-label.active {
+  z-index: 1000;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+#modeB .highlight-hour {
+  color: #e60000;
+  font-size: 1.5em;
+  transform: scale(1.4) translate(-50%, -50%);
+  transition: transform 0.4s ease;
+}
+
+#modeB .highlight-minute {
+  background-color: #ffcc00;
+  width: 4px;
+  height: 20px;
+  font-size: 0.8em;
+  color: #000;
+  text-align: center;
+  transform: scale(1.8) rotate(var(--rotation, 0deg)) translate(-50%, -140px);
+  border-radius: 5px;
+  z-index: 10;
+}
+
+
+#minute-numbers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.minute-number  {
+  font-size: 0.7em;
+  font-weight: bold;
+  color: black;
+  
+}
+
+
+.hour-guide-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 20;
+  text-align: center;
+  max-width: 120px;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.hour-guide-label .hour-number {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 4px 0;
+}
+
+.hour-guide-label .until-text {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+.disabled-button {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.mode-selector {
+  display: flex;
+  flex-direction: column; /* Stacks children vertically (h2 above buttons) */
+  align-items: center; /* Centers horizontally */
+}
+
+.mode-selector h2 {
+  text-align: center;
+  margin-bottom: 20px; /* Space between heading and button row */
+  color: #07444f;
+}
+
+.mode-selector .buttons-container {
+  display: flex; /* Creates horizontal row of buttons */
+  flex-direction: row; /* Explicit row layout (default value) */
+  gap: 10px; /* Space between buttons */
+  margin-bottom: 20px;
+  transition: opacity 0.3s ease;
+}
+
+/* Your button styles */
+.mode-selector button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: #45c50e;
+  padding: 10px;
+  color: #eee;
+  border-radius: 10px;
+
+}
+.mode-selector.hidden {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.mode-selector:not(.hidden) {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mode-content.hidden {
+  display: none;
+}
+.back-button {
+  margin: 20px auto;
+  display: none;
+}
+
+.back-button.visible {
+  display: block;
+}
+
+#animation-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+}
+
+.animation-arrow {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background-color: red;
+  transform-origin: left center;
+  transition: transform 1s ease;
+}
+
+.animation-label {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.clock-numbers {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+.clock-numbers span {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-size: 16px;
+      font-weight: bold;
+    }
+#target-time-display {
+      font-size: 24px;
+      font-weight: bold;
+     }
+     .targettime {
+  /* Box styling */
+  display: inline-block; /* or 'flex' if centering content */
+  padding: 10px 20px; /* Adjust padding for size */
+  border: 2px solid #333; /* Box border */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f8f8f8; /* Light background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+  
+  /* Text styling */
+  font-family: monospace; /* Makes digits evenly spaced */
+  font-size: 24px; /* Adjust size as needed */
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  
+  /* Center the box if needed */
+  margin: 10px auto; /* Centers horizontally if parent allows */
+} 
+.target-time-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.target-label {
+  font-size: 14px;
+  color: #666;
+}
+.targettime {
+  border-color: var(--border-color, #333);
+  background-color: var(--bg-color, #f8f8f8);
+  color: var(--text-color, #333);
+}
+@media (prefers-color-scheme: dark) {
+  .targettime {
+    --border-color: #555;
+    --bg-color: #222;
+    --text-color: #eee;
+  }
+}
+/* Mode A */
+.clock-container {
+  position: relative;
+  width: 300px; /* Must match the JS clockSize */
+  height: 300px;
+  border-radius: 50%;
+}
+
+
+#modeA-clock {
+  margin: auto;
+  width: 80vw;
+  height: 80vw;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  position: relative;
+  margin: 20px auto;
+  background: linear-gradient(135deg, #b8dfe7, #9dddf3) ;
+  border: 4px solid #444;
+}
+.modeA-button{
+  
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background: #45c50e;
+  margin: 5px;
+
+  padding: 10px;
+  color: #eee;
+  border-radius: 10px;
+}
+.tick {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  transform-origin: 0% 0%;
+}
+#modeA{
+position: relative; /* or absolute */
+  z-index: 0; /* optional but helpful */
+}
+
+#modeA .hand {
+  cursor: grab;
+  pointer-events: auto;
+  z-index: 10;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  transition: transform 0.15s ease; /* faster feedback */
+  touch-action: none;
+  user-select: none;
+}
+
+/* 👇 Larger invisible draggable area */
+#modeA .hand::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+}
+#modeA .hand:hover,
+#modeA .hand:active {
+  filter: brightness(1.2);
+  cursor: grabbing;
+  transform: scale(1.05); /* small visual bump */
+}
+
+#modeA .hand.dragging {
+  cursor: grabbing;
+  filter: brightness(.5);
+  transform: scale(1.1);
+}
+
+#Ahour-hand  {
+ width: 10px;
+  height: 20%;
+  background: #ff6f61;
+  pointer-events: auto;
+  
+}
+#Aminute-hand{
+   width: 10px;
+  height: 32%;
+ 
+  background: #29c9c1;
+  pointer-events: auto;
+}
+/* Add to your existing CSS */
+.clock-number {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#minute-display {
+  z-index: 20;
+  background: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+#modeA button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.result-message {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.result-message.correct {
+  color: green;
+}
+
+.result-message.incorrect  {
+  color: red;
+}
+#modeB .result-message{
+  color: rgb(181, 162, 37);
+}
+
+/* Footer */
+footer {
+   
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    margin: 0%;
+    padding: 15px 0;
+    position:fixed; /* Allow normal flow */
+  
+    font-size: 0.9rem;
+}
+/*modeC */
+.Cclock{
+  margin: auto;
+}
+#Cactivity-image{
+  display: block;
+ margin:auto;
+ justify-content: center;
+ align-items: center;
+}
+.Cclock-animation {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+  }
+
+  .Chighlight-step {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  .Chighlight-visible {
+    opacity: 1;
+  }
+
+  .Chighlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+/* Clock Styles */
+#Ctime-addition-clock {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#Cclock-face circle {
+  fill: #f8f8f8;
+  stroke: #333;
+  stroke-width: 2;
+}
+
+#Chour-hand {
+  stroke: #333;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+#Cminute-hand {
+  stroke: #666;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.Chighlight-arc {
+  opacity: 0.7;
+}
+
+/* Explanation Styles */
+.Cclock-explanation {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color:#000;
+}
+
+.Cexplanation-step {
+  color: #000;
+  margin: 10px 0;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  border-left: 4px solid #36A2EB;
+}
+
+.Cclock-result {
+  color: #000;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #e6f7ff;
+  border-radius: 4px;
+}
+
+.hidden {
+  display: none!important;
+}
+
+#Chighlight {
+  margin-top: 15px;
+}
+.Cprogress-bar {
+    font-size: 1.2em;
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+
+
+
+/* Enhanced feedback styling */
+.feedback-message {
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.feedback-message.correct-feedback {
+    background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+    border: 2px solid #4caf50;
+    box-shadow: 0 2px 10px rgba(76, 175, 80, 0.2);
+}
+
+.feedback-message.incorrect-feedback {
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+    border: 2px solid #f44336;
+    box-shadow: 0 2px 10px rgba(244, 67, 54, 0.2);
+}
+
+.feedback-message strong {
+    color: #2c5aa0;
+    font-size: 1.1em;
+}
+
+.feedback-message div {
+    margin: 5px 0;
+}
+
+.correct-feedback {
+    background-color: #e6f7e6;
+    color: #2e7d32;
+}
+
+.incorrect-feedback {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+
+.buttons, .button-group{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.buttons button, .button-group button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #6f1cb4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.buttons button::after{
+  background-color: #4CAF50;
+  color: white;
+
+}
+#Dexplanation-steps{
+  color:  white;
+}
+/* Add this to your CSS stylesheet */
+#modeC .buttons button:disabled {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Optional: Add specific styles for each button when disabled */
+#modeC .buttons button:nth-child(1):disabled { /* Submit button */
+    background-color: #e0e0e0 !important;
+    border-color: #bdbdbd !important;
+}
+
+#modeC .buttons button:nth-child(2):disabled { /* New Question button */
+    background-color: #e0e0e0 !important;
+    border-color: #bdbdbd !important;
+}
+
+#modeC .buttons button:nth-child(3):disabled { /* Explanation button */
+    background-color: #e0e0e0 !important;
+    border-color: #bdbdbd !important;
+}
+#Creset-quiz-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.textStyle{
+  font-size: 20px;
+  font-family: 'The Season', cursive;
+  color: white;
+   text-align: center;
+  width: 100%;
+
+}
+.row input{
+  margin-top: 10px;
+  width: 60px;
+  font-size: 1em;
+  text-align: center;
+  font-weight: bold;
+ }
+ .row {
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  text-align: center;
+}
+
+ .hourStyle{
+  color: #7bf340;
+ }
+ /* modeD */
+/* Mode D Styles */
+.time-addition-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
+  font-size: 1.1em;
+  color: white;
+}
+
+.time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 8px;
+}
+
+.time-input-boxes {
+  display: flex;
+  align-items: center;
+}
+
+.time-input-boxes input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.1em;
+  margin: 0 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.colon {
+  font-size: 1.3em;
+  margin: 0 5px;
+}
+
+.conversion-row {
+  background-color: #f0f8ff;
+  border-radius: 8px;
+}
+
+.conversion-row.hidden {
+  display: none;
+}
+
+
+
+.button-group button {
+  padding: 8px 16px;
+}
+
+.button-group button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.feedback-message {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+/* Existing progress bar styles can be reused */
+
+
+
+.progress-bar {
+  height: 100%;
+  background-color: #4CAF50;
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+/* Overflow input styles */
+#Doverflow-container {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+#Doverflow-container.hidden {
+  display: none;
+}
+
+.overflow-hour {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 1em;
+  margin: 0 5px;
+}
+
+.plus, .equals {
+  font-size: 1.2em;
+  margin: 0 5px;
+}
+
+.final-hour {
+  font-weight: bold;
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+}
+.method-explanation {
+  position: relative;
+  width: 100%;
+  max-width: 120%; /* or 300px, adjust as needed */
+  background-color: #f0f8ff;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* for left-aligned text like list */
+  box-sizing: border-box;
+}
+
+.method-explanation ol {
+  margin: 5px 0 0 20px;
+}
+/* Progress bar styles */
+.progress-container {
+  width: 20%;
+  color: white;
+  margin: auto;
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+/* Hide audio elements */
+audio {
+  display: none;
+}
+
+#time-calculation-mode-selector {
+  text-align: center;
+  padding: 20px;
+}
+
+#time-calculation-mode-selector .buttons-container {
+  width: 200px;
+  height: auto;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+#time-calculation-mode-selector button {
+  text-wrap: wrap;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: #183d67;
+  padding: 10px;
+  color: #eee;
+  border-radius: 10px;
+}
+#time-calculation-mode-selector h2 {
+
+  color: #1f76b4;
+
+}
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+#score-progress {
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  animation: grow 0.5s ease-out;
+}
+
+@keyframes grow {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+#Bscore-progress {
+  background: linear-gradient(90deg, #5d8ed7, #112154);
+  animation: grow 0.5s ease-out;
+}
+
+@keyframes grow {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+#modeD .explanation {
+
+  margin-top: 15px;
+  font-size: 1em;
+  color: #151111;
+}
+
+
+/* RESPONSIVE: Stack vertically under 600px */
+@media (max-width: 600px) {
+ 
+  .clock {
+    width: 60vw;
+    height: 60vw;
+  }
+  .hour {
+    height: 45px;
+  }
+  .minute {
+    height: 70px;
+  }
+  .number {
+    font-size: 0.9em;
+  }
+ .quiz-input {
+  display: flex;
+  flex-direction: row; /* Layout inputs side by side */
+  flex-wrap: wrap;     /* Wrap if space runs out */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;           /* spacing between inputs */
+  margin: 10px auto;
+  max-width: 100%;
+}
+
+  input[type="number"] {
+    width: 40px;
+    font-size: 1em;
+  }
+  button {
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+  .fullscreen-toggle {
+    font-size: 0.8em;
+  }
+  .ticks {
+    width: 80%;
+    height: auto;
+    max-width: 60vw;
+  }
+  .clock-numpad-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .numpad {
+    grid-template-columns: repeat(3, 60px);
+    margin-top: 15px;
+  }
+}
+@media (max-width: 400px) {
+  #modeA, #modeB, #modeC, #modeD {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+  
+  .quiz-input input {
+    width: 100px;
+  }
+}
+/* ===== FIXED MODAL/DIALOG STYLES ===== */
+.modalJam {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-sizing: border-box !important;
+}
+
+/* Remove conflicting dialog styles */
+#end-dialog, #final-dialog, #Cend-dialog {
+  /* Remove individual positioning - use .modal class instead */
+  position: static;
+  background: transparent;
+  display: contents; /* Let .modal handle the display */
+}
+
+.modal-content {
+  background: white !important;
+  padding: 2rem !important;
+  border-radius: 15px !important;
+  text-align: center !important;
+  max-width: 400px !important;
+  width: 90% !important;
+  margin: auto !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+/* Remove conflicting content styles */
+.dialog-content, .Cmodal-content {
+  /* Use .modal-content instead */
+  display: none;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  min-width: 120px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.modal-buttons button:first-child {
+  background: #4CAF50;
+  color: white;
+}
+
+.modal-buttons button:first-child:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.modal-buttons button:last-child {
+  background: #f44336;
+  color: white;
+}
+
+.modal-buttons button:last-child:hover {
+  background: #da190b;
+  transform: translateY(-2px);
+}
+
+/* Hide modal when not needed */
+.hidden {
+  display: none !important;
+}
+
+/* Ensure consistent text colors in modals */
+.modal-content,
+.modal-content p,
+.modal-content h3 {
+  color: #333 !important;
+}
+
+/* ===== RESPONSIVE MODAL ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 90% !important;
+    width: 85% !important;
+    padding: 1.5rem !important;
+    margin: 20px !important;
+  }
+  
+  .modal-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modal-buttons button {
+    min-width: 80%;
+    margin: 5px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem !important;
+    margin: 10px !important;
+  }
+  
+  .modal-buttons button {
+    min-width: 90%;
+    padding: 12px 16px;
+  }
+}
+
+ </style>
+</head>
+<body>
+     <div id="navbar"></div>
+  <main id="main-content">
+
+   <!-- Secondary Header -->
+  <div class="secondaryHeader">
+    <a href="sdmath.html">
+      <img class="lazy"  alt="Description" title="Kembali" src="assets/image-mainsukukata/gobackbutton.png" width="80vw" height="80vw" >
+    </a>
+         <p>Selamat datang di Pincil – Pusat Pembelajaran Interaktif Anda!</p>
+         <a href="index.html">
+          <img class="lazy"  alt="Description" title="Home" src="assets/icons/favicon.png" width="80vw" height="80vw" >
+      </a>
+  </div>
+
+ 
+   <!-- 🔹 Controls -->
+           
+  <div class="quiz-container">
+       
+                <label class="fullscreen-toggle">
+                  <input type="checkbox" id="fullscreenToggle" onchange="toggleFullscreen()">
+                  (android only)<span class="slider"></span> Layar lebar
+                  <div id="pointer-hand" class="pointer-hand">👈</div> <!-- 👈 👉moved after the text -->
+                </label>
+
+                      <div class="controls">
+                        <div class="mode-selector">
+                            <h2>Menentukan Waktu</h2>
+                            <div class="buttons-container">
+                              <button onclick="showMode('modeB', true)">🧠 A. Belajar Mengenal Jam</button>
+                              <button onclick="showMode('modeA')">B. Cara Membaca Jam (Pergerakan)</button>
+                              <button onclick="showMode('modeB')">C. Cara Membaca Jam (Input Nomor)</button>
+                              <button onclick="showMode('modeCD')">D. Menghitung Waktu</button>
+                            
+                            </div>
+                        </div>
+                      </div>
+
+                          <!-- 🔹 Sub Mode CD Selector -->
+                      <div id="time-calculation-mode-selector" class="hidden mode-content">
+                          <button onclick="resetModeSelection()">⬅️ Kembali ke Menu</button>
+                          <h2>Pilih Jenis Perhitungan Waktu</h2>
+                        <div class="buttons-container">
+                          <button onclick="showTimeCalculationMode('modeC')">Menentukan Lama Waktu</button>
+                          <button onclick="showTimeCalculationMode('modeD')">Penjumlahan Waktu</button>
+                        </div>
+                      </div>
+        
+       
+      
+            <!-- Mode A -->
+            <div id="modeAclock">
+              <div id="modeA" class="mode-content hidden">
+
+                  <div class="button-wrapper">
+                  <button class="modeA-button" onclick="resetModeSelection()">⬅️ Kembali ke Menu</button>
+                  </div><!--button-wrapper-->
+
+                  <div id="score-bar-container" style="width: 100%; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 10px 0;">
+                  <div id="score-progress" style="height: 100%; width: 0%; background-color: #4caf50; transition: width 0.5s;"></div>
+                  </div> <!--score bar-->
+                  <div class="score-board hidden" id="score-modeA"></div>
+                  <h2>Cocokkan Waktu</h2>
+
+                  <div class="button-wrapper">
+                  <div class="targettime" id="target-time-display">00:00</div>
+                  </div><!--button-wrapper-->
+
+
+                <!-- Separate Clock Structure for Mode A -->
+                <div class="clock-wrapper">
+                  <div class="clock" id="modeA-clock">
+                    <div class="hand hour" id="Ahour-hand"></div>  
+                    <div class="hand minute" id="Aminute-hand"></div>
+                    <div class="center-dot">😊</div>
+                    <div class="clock-numbers" id="modeA-numbers"></div>
+                    <div class="clock-ticks" id="modeA-ticks"></div>
+                  </div> <!--modeA-->
+                <div id="modeA-result-message" class="result-message"></div>
+                 <div class="button-wrapper"> 
+                  
+                  <button class="modeA-button" id="submit-btn" onclick="checkDraggedTime()">Submit Jawaban</button>
+                  <button class="modeA-button" id="next-question-btn" onclick="generateTargetTime()" disabled>Pertanyaan Baru</button>
+                  </div><!--button-wrapper-->
+                  
+                  
+                </div> <!--clock wrapper-->
+              </div><!--clock-->
+              
+
+  <!-- Mode B -->
+  
+      <div  id="modeB-clock">
+        <div id="modeB" class="mode-content hidden">
+
+          <div class="button-wrapper">
+            <button class="" onclick="resetModeSelection()">⬅️</button>
+            <button id="explanationBtn" class="button-clocks hidden" onclick="startExplanation()">🕒</button>
+            <button id="how-hour-btn" class="button-clocks hidden" >🕒</button>
+          <button id="toggle-tick-sound">🔇 Suara Detik</button>
+
+          </div>
+
+            <div id="Bscore-bar-container" style="width: 50%; height: 20px; background-color: #eee; border-radius: 10px; overflow: hidden; margin: 10px 0; margin: auto;">
+              <div id="Bscore-progress" style="height: 100%; width: 0%; background-color: #1d239e; transition: width 0.5s;"></div>
+            </div> <!--Bscore-bar-container-->
+   <div class="button-wrapper">
+            <div class="score-board hidden" id="score-board" style="color: white; font-weight: bold; margin-top: 10px;"></div>
+            </div>
+               <h2>Jam Berapa Sekarang?</h2>
+                  
+                        <div class="left-side">
+                            <div class="clock-wrapper">
+                                <div class="clock">
+                                  <div class="hand hour" id="hour-hand"></div>
+                                  <div class="hand minute" id="minute-hand"></div>
+                                  <div class="hand second" id="second-hand"></div>
+                                  <div class="center-dot">😊</div>
+                                  <div class="clock-numbers" id="numbers"></div>
+                                  <div class="clock-ticks" id="ticks"></div>
+                                  <div class="minute-numbers" id="minute-numbers"></div>
+                                  <div class="clock-minute-labels" id="minute-labels"></div>
+                              </div> <!--clock-->
+                              
+                            </div>  <!--clock wrapper-->   
+                   
+                          <div class="quiz-input hidden">
+                            <input type="text" id="hour-input" placeholder="00" inputmode="none" min="1" max="12" pattern="[0-9]*">  :
+                            <input type="text" id="minute-input" placeholder="00" inputmode="none" min="0" max="59" pattern="[0-9]*">
+                            <button id="submit" onclick="checkAnswer()">Submit</button>
+                          </div><!--quiz input-->
+                          
+                               <button id="study-show-again" class="modeB-button hidden" onclick="showRandomStudyClock()">🔁 Tampilkan Lagi</button>
+
+                            <div class="result-message" id="explanation"></div>
+                              <button id="next-question" onclick="newQuestion()" >Next Question</button>
+                              <div class="clock-numpad-wrapper">
+                              <div class="numpad-container">
+                              </div>
+                            
+                        </div><!--left side--> 
+                      </div>
+                     </div>   
+              
+          
+   
+         <!-- Mode C -->
+<div id="modeC-clock">
+  <div id="modeC" class="mode-content hidden">
+    <div class="button-wrapper">
+      <button onclick="showTimeCalculationMode('modeCD')">⬅️ Kembali ke Pilihan</button>
+    </div>
+            <!-- ADD THIS PROGRESS BAR CONTAINER FOR MODE C -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span id="Cprogress-text">Soal 0/10</span>
+        </div>
+        <div class="progress-bar">
+            <div id="Cprogress-bar" class="progress-fill"></div>
+        </div>
+    </div><!-- progress-container -->
+                
+    <div class="textStyle">
+      <div class="time-question">
+        <img class="lazy" id="Cactivity-image" src="" alt="Activity" style="max-height:100px;">
+        <p id="Cactivity-question">Mereka bermain selama ... jam</p>
+      </div> <!--time question-->
+
+      <div class="Ctime-addition-layout">
+        <div class="row">
+          <span>Mulai jam</span>
+          <span class="hourStyle" id="Cstart-time">08:14</span>
+          <span>+</span>
+          <span class="hourStyle" id="Cadded-hours">4 jam</span>
+        </div><!--row-->
+                    
+        <div>Jam berapa dia selesai?</div>
+        <div class="row separator"><hr></div><!--separator-->
+          
+        <!-- CHANGED: Separate hour and minute inputs -->
+        <div class="row time-input-boxes">
+          <input type="text" maxlength="2" class="hour-box" id="Cend-hour" placeholder="HH" inputmode="none">
+          <span class="colon">:</span>
+          <input type="text" maxlength="2" class="minute-box" id="Cend-minute" placeholder="MM" inputmode="none">
+        </div>
+
+        <div class="buttons">
+          <button onclick="submitTimeAddition()">Submit Jawaban</button>
+          <button onclick="generateTimeAdditionQuestion()">Pertanyaan Baru</button>
+          <button onclick="showTimeAdditionExplanation()">Penjelasan</button>
+        </div>
+        
+        <div id="Cfeedback-message" class="feedback-message"></div>
+        
+        <div id="Cclock-explanation" class="clock-explanation hidden">
+          <div id="Cclock-animation-container">
+            <!-- SVG Clock Animation -->
+            <svg id="Ctime-addition-clock" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#000" stroke-width="5"/>
+              <line id="Chour-hand" x1="100" y1="100" x2="100" y2="20" stroke="blue" stroke-width="5"/>
+              <line id="Cminute-hand" x1="100" y1="100" x2="100" y2="10" stroke="red" stroke-width="2"/>
+              <text id="Ctime-label" x="100" y="160" font-size="18" text-anchor="middle">Start Time</text>
+            </svg>
+            <div id="Chighlight"></div>
+          </div> <!-- Cclock-animation-container -->
+        </div><!--Cclock-explanation-->
+      </div><!-- textStyle -->
+      <div class="numpad-container"></div>
+    </div> 
+  </div> 
+</div>
+     
+
+  <!--modeD-->
+
+      <div id="modeD" class="mode-content hidden">
+
+          <div class="button-wrapper">
+          <button class="modeA-button" onclick="showTimeCalculationMode('modeCD')">⬅️ Kembali ke Pilihan</button>  <!-- Progress bar section -->
+          </div>
+              <div class="progress-container">
+                  <div class="progress-info">
+                    <span id="Dprogress-text">Soal 0/10</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div id="Dprogress-bar" class="progress-fill"></div>
+                  </div>
+              </div><!-- progress-container -->
+
+              <div class="score-board hidden" id="score-modeD"></div>
+              <h2>Penjumlahan Waktu</h2>
+    
+            <div class="time-addition-container">
+              
+              <div class="time-row">
+                <span>Ia Mulai Jam:</span>
+                <div class="time-input-display" id="Dstart-time">08:40</div>
+              </div>
+
+              <div class="time-row">
+                <span>Beraktivitas selama (jam/menit):</span>
+                <div class="time-input-display" id="Dadded-time">01:45</div>
+              </div>
+               <div class="separator-row">
+              <hr>
+              </div><!-- separator-row -->
+
+          <div class="time-row result-row">
+                <span>Selesai Jam:</span>
+              <div class="time-input-boxes">
+                  <input type="text" maxlength="2" class="hour-box" id="Dinitial-hour" placeholder="HH" inputmode="none" >
+                  <span class="colon">:</span>
+                  <input type="text" maxlength="2" class="minute-box" id="Dinitial-minute" placeholder="MM" inputmode="none" >
+              </div>
+          </div><!-- time-row result-row -->
+   
+          <div id="Dconversion-row" class="time-row conversion-row hidden">
+            <span style="color: #000;">Konversi:</span>
+            <div class="time-input-boxes">
+              <input type="text" maxlength="2" class="hour-box" id="Dconverted-hour" placeholder="HH" inputmode="none" >
+              <span class="colon">:</span>
+              <input type="text" maxlength="2" class="minute-box" id="Dconverted-minute" placeholder="MM" inputmode="none" >
+            </div>
+          </div><!-- Dconversion-row -->
+        </div><!-- time-addition-container -->
+
+            <div id="Dfeedback-message" class="feedback-message"></div>
+
+          <div class="method-explanation">
+              <h3>✅ Metode:</h3>
+              <ol>
+                <li>Jumlahkan jam dan menit secara terpisah</li>
+                <li>Jika menit ≥ 60, kurangi 60 dan tambah 1 jam</li>
+              </ol>
+          </div>
+
+          <div id="Dexplanation" class="explanation hidden">
+              <h3>Penjelasan:</h3>
+              <div id="Dexplanation-steps"></div>
+          </div>
+  
+            <div class="button-group">
+              <button id="Dcheck-button" onclick="checkTimeAddition()">Periksa Jawaban</button>
+              <button id="Dnew-question-button" onclick="generateTimeAddition()" disabled>Pertanyaan Baru</button>
+            </div>
+            <div class="numpad-container"></div>
+ 
+      </div> <!--end of modeD-->
+  
+ 
+
+
+  <!---dialog-->
+ <!-- Mode B Final Dialog -->
+<div id="final-dialog" class="modalJam hidden">
+  <div class="modal-content">
+    <p id="final-message"></p>
+    <div class="modal-buttons">
+      <button onclick="restartQuiz()">🔁 Try Again</button>
+      <button onclick="closeFinalDialog()">❌ Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mode C Final Dialog -->  
+<div id="Cend-dialog" class="modalJam hidden">
+  <div class="modal-content">
+    <h3>Hasil Quiz</h3>
+    <p id="Cfinal-score-text"></p>
+    <div class="modal-buttons">
+      <button id="Creset-quiz-btn">Ulangi Quiz</button>
+      <button id="Cclose-modal-btn">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mode A/D Final Dialog -->
+<div id="end-dialog" class="modalJam hidden">
+  <div class="modal-content">
+    <p id="final-score-text"></p>
+    <div class="modal-buttons">
+      <button id="play-again-btn">Main Lagi</button>
+      <button id="end-game-btn">Selesai</button>
+    </div>
+  </div>
+</div>
+
+<!-- Shared Numpad -->
+<div id="shared-numpad" class="numpad" style="display: none;">
+  <button data-value="1">1</button>
+  <button data-value="2">2</button>
+  <button data-value="3">3</button>
+  <button data-value="4">4</button>
+  <button data-value="5">5</button>
+  <button data-value="6">6</button>
+  <button data-value="7">7</button>
+  <button data-value="8">8</button>
+  <button data-value="9">9</button>
+  <button data-value="0">0</button>
+  <button data-action="backspace">⌫</button>
+  <button data-action="enter">⏎</button>
+</div>
+
+  <!-- Audio elements -->
+<audio id="correct-sound" src="assets/sounds/pincil.mp3" preload="auto"></audio>
+<audio id="wrong-sound" src="assets/sounds/Ooh.mp3" preload="auto"></audio>
+<audio id="click-sound" src="assets/sounds/alert.mp3" preload="auto"></audio>
+<audio id="tick-sound" src="assets/sounds/tick.mp3" preload="auto"></audio>
+
+
+</div> <!--end of container-->
+</main>
+ 
+  <script>
+   
+      // Global variables
+let quizTime = {};
+let score = 0;
+let total = 0;
+let isAnimationRunning = false;
+let maxQuestions = 5;
+let submitted = false;
+let canSubmit = true;
+let handsMoved = false;
+let currentActiveInput = null;
+let activeInput = null;
+let scale = 1;
+let currentMode = null;
+let submitFunction = null;
+let isNumpadInitialized = false;
+let isStudyMode = false;
+let tickAudioInterval = null;
+let secondHandInterval = null;
+let tickingMuted = false;
+
+
+
+// Mode A Elements
+// Global variables
+let selectedHand = null;
+let currentDraggedHour = 0;
+let currentDraggedMinute = 0;
+let targetHour = 0;
+let targetMinute = 0;
+let answered = false;
+
+let modeAScore = 0;
+let modeAQuestionCount = 0;
+const modeAMaxQuestions = 5;
+
+const scoremodeA = document.getElementById('score-modeA')
+
+// Mode B Elements
+const hourEl = document.getElementById('hour-hand');
+const minuteEl = document.getElementById('minute-hand');
+const secondEl = document.getElementById('second-hand');
+const modeBNumbers = document.getElementById('numbers');
+const modeBTicks = document.getElementById('ticks');
+const explanation = document.getElementById('explanation');
+const scoreBoard = document.getElementById('score-board');
+const hourInput = document.getElementById('hour-input');
+const minuteInput = document.getElementById('minute-input');
+const submitBtn = document.getElementById('submit');
+const nextBtn = document.getElementById("next-question");
+
+document.getElementById('how-hour-btn').addEventListener('click', () => {
+  playClickSound();
+  showHourReadingGuide(); // your existing function
+});
+
+
+// Hide next question button initially on page load
+document.getElementById('next-question').style.display = 'none';
+
+//Mode C Elements
+let currentQuestion = 0;
+const totalQuestions = 5;
+let Cscore = 0;
+let progressBar = null; // Will store our progress bar element
+let CprogressBar;
+let CsubmitBtn, CexplanationBtn, CnewQuestionBtn;
+//modeD Elements
+let DcurrentScore = 0;
+let DtotalQuestions = 0;
+let Dprogress = 0;
+
+// Track if conversion is needed
+let DneedsConversion = false;
+const DTOTAL_QUESTIONS = 5; // Total questions per session
+let DcurrentQuestion = 0; // Track current question number
+
+//Tick sound handling
+function setTickingMuted(state) {
+  tickingMuted = state;
+  const tickBtn = document.getElementById('toggle-tick-sound');
+  const audio = document.getElementById('tick-sound');
+
+  if (tickingMuted) {
+    tickBtn.textContent = '🔇 Suara Mati';
+    stopTickingSound(); // ✅
+  } else {
+    tickBtn.textContent = '🔔 Suara Detik';
+    startTickingSound(); // ✅
+  }
+}
+
+document.getElementById('toggle-tick-sound').addEventListener('click', () => {
+  setTickingMuted(!tickingMuted);
+});
+
+function startTickingSound() {
+  stopTickingSound(); // prevent stacking
+
+  if (!tickingMuted) {
+    const tickingAudio = document.getElementById('tick-sound');
+    tickAudioInterval = setInterval(() => {
+      if (tickingAudio) {
+        tickingAudio.currentTime = 0;
+        tickingAudio.play();
+      }
+    }, 1000);
+  }
+}
+
+function stopTickingSound() {
+  if (tickAudioInterval) {
+    clearInterval(tickAudioInterval);
+    tickAudioInterval = null;
+  }
+  const tickingAudio = document.getElementById('tick-sound');
+  if (tickingAudio) {
+    tickingAudio.pause();
+    tickingAudio.currentTime = 0;
+  }
+}
+
+
+
+
+// numpad handling
+
+function setupSharedNumpad() {
+  if (isNumpadInitialized) return;
+  isNumpadInitialized = true;
+
+  const numpad = document.getElementById('shared-numpad');
+
+  numpad.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', function() {
+      if (!activeInput) return;
+      
+      const value = this.getAttribute('data-value');
+      const action = this.getAttribute('data-action');
+      
+      if (action === 'backspace') {
+        activeInput.value = activeInput.value.slice(0, -1);
+      } 
+      else if (action === 'enter') {
+        if (submitFunction) submitFunction();
+      }
+      else if (action === 'clear') {
+        activeInput.value = '';
+      }
+      else if (value) {
+        if (activeInput.value.length < activeInput.maxLength || activeInput.maxLength === -1) {
+          activeInput.value += value;
+          
+          // Auto-advance logic
+          if (activeInput.value.length >= 2 && activeInput.maxLength === 2) {
+            const allInputs = Array.from(activeInput.form?.querySelectorAll('input[type="text"]') || 
+                                       activeInput.closest('.quiz-input')?.querySelectorAll('input[type="text"]') || 
+                                       []);
+            const currentIndex = allInputs.indexOf(activeInput);
+            if (currentIndex !== -1 && currentIndex < allInputs.length - 1) {
+              setTimeout(() => {
+                const nextInput = allInputs[currentIndex + 1];
+                if (nextInput) {
+                  activeInput = nextInput;
+                  // Just update activeInput, don't focus on mobile to avoid keyboard
+                  if (!isMobileDevice()) {
+                    nextInput.focus();
+                  }
+                }
+              }, 100);
+            }
+          }
+        }
+      }
+      
+      activeInput.dispatchEvent(new Event('input'));
+    });
+  });
+
+  // Simplified mobile handling - just prevent keyboard
+  document.querySelectorAll('input[type="text"]').forEach(input => {
+    if (isMobileDevice()) {
+      input.setAttribute('readonly', 'true');
+    }
+    
+    input.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      activeInput = this;
+      // Visual feedback without focus
+      this.style.backgroundColor = '#f0fff0';
+      this.style.borderColor = '#4CAF50';
+    }, { passive: false });
+
+    input.addEventListener('focus', function(e) {
+      activeInput = this;
+      // On mobile, blur immediately to prevent keyboard
+      if (isMobileDevice()) {
+        setTimeout(() => this.blur(), 100);
+      }
+    });
+
+    input.addEventListener('blur', function() {
+      this.style.backgroundColor = '';
+      this.style.borderColor = '';
+    });
+  });
+}
+
+function initModeWithNumpad(modeId) {
+  const mode = document.getElementById(modeId);
+  const numpadContainer = mode.querySelector('.numpad-container');
+  const numpad = document.getElementById('shared-numpad');
+  
+  // Move and show numpad
+  numpadContainer.innerHTML = '';
+  numpadContainer.appendChild(numpad);
+  numpad.style.display = 'grid';
+  
+  // Set active input to first input
+  if (!activeInput) {
+    const firstInput = mode.querySelector('input[type="text"]');
+    if (firstInput) {
+      activeInput = firstInput;
+      // Visual indication without actual focus on mobile
+      if (isMobileDevice()) {
+        firstInput.style.backgroundColor = '#f0fff0';
+        firstInput.style.borderColor = '#4CAF50';
+      } else {
+        firstInput.focus();
+      }
+    }
+  }
+}
+// Common Functions
+function clockCenter(clockElement) {
+  const rect = clockElement.getBoundingClientRect();
+  return {
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2
+  };
+}
+
+function toggleFullscreen() {
+  const quizContainer = document.querySelector('.quiz-container');
+  const isFullscreen = document.fullscreenElement === quizContainer;
+
+  if (!isFullscreen) {
+    if (quizContainer.requestFullscreen) {
+      quizContainer.requestFullscreen().then(() => {
+      document.getElementById('pointer-hand').style.display = 'none';
+    });
+  } else if (quizContainer.webkitRequestFullscreen) {
+      quizContainer.webkitRequestFullscreen();
+    } else if (quizContainer.msRequestFullscreen) {
+      quizContainer.msRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().then(() => {
+      document.getElementById('pointer-hand').style.display = 'inline-flex';
+    });
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+}
+document.getElementById('pointer-hand').addEventListener('click', () => {
+  document.getElementById('fullscreenToggle').click();
+});
+
+
+// Add this to your window load event
+window.addEventListener('DOMContentLoaded', function() {
+  setupSharedNumpad();
+});
+document.addEventListener('fullscreenchange', () => {
+  const quizContainer = document.querySelector('.quiz-container');
+   const footer = document.getElementById('site-footer');
+  const isFullscreen = document.fullscreenElement === quizContainer;
+
+  if (isFullscreen) {
+    quizContainer.style.backgroundColor = '#001f3f';
+      if (footer) footer.style.display = 'none';
+  } else {
+    quizContainer.style.backgroundColor = '';
+    if (footer) footer.style.display = '';
+  }
+});
+// Enhanced mobile detection
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+         window.innerWidth <= 768;
+}
+
+// Mode A Functions
+
+
+function initModeA() {
+  modeAScore = 0;
+  modeAQuestionCount = 0;
+  
+  generateTargetTime();
+  renderClockNumbers();
+  renderTicks("modeA-ticks");
+  initDraggableClockHands();
+  positionClockHands();
+  answered = false;
+  resetQuizState();
+ 
+}
+document.getElementById("play-again-btn").addEventListener("click", () => {
+  // FIXED: Use classList instead of style.display
+  document.getElementById("end-dialog").classList.add("hidden");
+  modeAScore = 0;
+  modeAQuestionCount = 0;
+  generateTargetTime();
+  enableDragging(true);
+  positionClockHands();
+});
+
+document.getElementById("end-game-btn").addEventListener("click", () => {
+  // FIXED: Use classList instead of style.display
+  document.getElementById("end-dialog").classList.add("hidden");
+  resetModeSelection(); // Assumes you already have this to go back to mode selection
+});
+
+
+function generateTargetTime() {
+  targetHour = Math.floor(Math.random() * 12) + 1;
+  targetMinute = Math.floor(Math.random() * 60);
+  document.getElementById("target-time-display").textContent =
+    `${String(targetHour).padStart(2, '0')}:${String(targetMinute).padStart(2, '0')}`;
+  resetQuizState(); // Reset state when generating new time
+  handsMoved = false;
+
+  // Disable "Pertanyaan Baru", enable "Submit Jawaban"
+  document.getElementById("next-question-btn").disabled = true;
+  document.getElementById("submit-btn").disabled = false;
+
+  updateScoreModeA();
+}
+
+function resetQuizState() {
+  const resultMessage = document.getElementById("modeA-result-message");
+  
+  // Reset the result message
+  resultMessage.textContent = "";
+  resultMessage.className = "result-message";
+  answered = false;
+  enableSubmitButton(true);
+  resetHighlights();
+  enableDragging(true); // Ensure dragging is enabled
+}
+
+function enableDragging(enable) {
+  const hourHand = document.getElementById("Ahour-hand");
+  const minuteHand = document.getElementById("Aminute-hand");
+  
+  if (enable) {
+    hourHand.style.pointerEvents = 'auto';
+    minuteHand.style.pointerEvents = 'auto';
+    hourHand.style.cursor = 'pointer';
+    minuteHand.style.cursor = 'pointer';
+  } else {
+    hourHand.style.pointerEvents = 'none';
+    minuteHand.style.pointerEvents = 'none';
+    hourHand.style.cursor = 'default';
+    minuteHand.style.cursor = 'default';
+  }
+}
+
+
+function renderClockNumbers() {
+  const container = document.getElementById("modeA-numbers");
+  container.innerHTML = "";
+  const clockSize = 300; // Should match your clock's actual size in pixels
+  const radius = clockSize * 0.4; // Adjust this factor (0.4 = 40% of clock radius)
+  
+  for (let i = 1; i <= 12; i++) {
+    const angle = (i * 30) * (Math.PI / 180);
+    const x = 50 + Math.sin(angle) * 40; // 40% from center
+    const y = 50 - Math.cos(angle) * 40; // 40% from center
+
+    const num = document.createElement("span");
+    num.textContent = i;
+    num.style.position = "absolute";
+    num.style.left = `${x}%`;
+    num.style.top = `${y}%`;
+    num.style.transform = "translate(-50%, -50%)"; // Centers the number
+    num.classList.add("clock-number");
+    num.id = `clock-number-${i}`;
+    container.appendChild(num);
+  }
+}
+
+function renderTicks(tickContainerId) {
+  const container = document.getElementById(tickContainerId);
+  container.innerHTML = "";
+  const clockSize = 300; // Should match your clock's actual size
+  const tickLength = clockSize / 2 - 40; // Adjust 40 to match number radius
+  
+  for (let i = 0; i < 60; i++) {
+    const tick = document.createElement("div");
+    tick.classList.add("tick");
+    tick.style.position = "absolute";
+    tick.style.left = "50%";
+    tick.style.top = "50%";
+    tick.style.width = "2px";
+    tick.style.transformOrigin = "0% 0%";
+    tick.style.transform = `rotate(${i * 6}deg) translateY(-${tickLength}px)`;
+    tick.style.height = (i % 5 === 0) ? "12px" : "6px";
+    tick.style.backgroundColor = (i % 5 === 0) ? "#000" : "#999";
+    container.appendChild(tick);
+  }
+}
+
+function renderTicks(tickContainerId) {
+  const container = document.getElementById(tickContainerId);
+  container.innerHTML = "";
+  for (let i = 0; i < 60; i++) {
+    const tick = document.createElement("div");
+    tick.classList.add("tick");
+    tick.style.transform = `rotate(${i * 6}deg) translateY(-140px)`;
+    tick.style.height = (i % 5 === 0) ? "12px" : "6px";
+    tick.style.backgroundColor = (i % 5 === 0) ? "#000" : "#999";
+    container.appendChild(tick);
+  }
+}
+
+function positionClockHands() {
+  document.getElementById("Ahour-hand").style.transform = `rotate(${currentDraggedHour * 30}deg)`;
+  document.getElementById("Aminute-hand").style.transform = `rotate(${currentDraggedMinute * 6}deg)`;
+ 
+}
+
+
+function initDraggableClockHands() {
+  const hourHand = document.getElementById("Ahour-hand");
+  const minuteHand = document.getElementById("Aminute-hand");
+
+  [hourHand, minuteHand].forEach(hand => {
+    hand.style.cursor = "pointer";
+    hand.addEventListener("mousedown", startDrag);
+    hand.addEventListener("touchstart", startDrag, { passive: false });
+  });
+
+  document.addEventListener("mousemove", onDrag);
+  document.addEventListener("mouseup", endDrag);
+  document.addEventListener("touchmove", onDrag, { passive: false });
+  document.addEventListener("touchend", endDrag);
+}
+
+function startDrag(e) {
+  if (answered) return;
+  e.preventDefault();
+  selectedHand = e.target;
+
+}
+
+function onDrag(e) {
+  if (!selectedHand || answered) return;
+  
+  handsMoved = true; // User has interacted
+
+  const clock = document.getElementById("modeA-clock");
+  const rect = clock.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+  const dx = clientX - centerX;
+  const dy = clientY - centerY;
+  let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+  angle = (angle + 90 + 360) % 360; // Convert to clock coordinates (0° at top)
+
+  if (selectedHand.id === "Aminute-hand") {
+    // Minute hand snaps to minutes (6° per minute)
+    const snappedMin = Math.round(angle / 6) % 60;
+    currentDraggedMinute = snappedMin;
+    selectedHand.style.transform = `rotate(${snappedMin * 6}deg)`;
+  } 
+  else if (selectedHand.id === "Ahour-hand") {
+    // Hour hand moves smoothly between numbers (30° per hour + 0.5° per minute)
+    const rawHour = angle / 30;
+    currentDraggedHour = Math.floor(rawHour) % 12;
+    
+    // Calculate the exact position including minutes
+    const exactHour = rawHour % 12;
+    selectedHand.style.transform = `rotate(${exactHour * 30}deg)`;
+  }
+}
+
+function endDrag() {
+  selectedHand = null;
+}
+// Helper to calculate decimal hour from hand angles
+function getHourFromHand() {
+  return (currentDraggedHour % 12) + (currentDraggedMinute / 60);
+}
+function checkDraggedTime() {
+  if (answered) return;
+
+  if (!handsMoved) {
+    const resultMessage = document.getElementById("modeA-result-message");
+    resultMessage.textContent = "❗ Silakan jawab dulu pertanyaannya.";
+    resultMessage.className = "result-message incorrect";
+    return;
+  }
+
+  // Calculate the exact hour position (including minutes)
+  const exactHourPosition = (currentDraggedHour % 12) + (currentDraggedMinute / 60);
+  const correctHourPosition = (targetHour % 12) + (targetMinute / 60);
+
+  modeAQuestionCount++;
+
+  // Allow some tolerance (about 15 minutes)
+  const hourCorrect = Math.abs(exactHourPosition - correctHourPosition) < 0.25;
+  const minuteCorrect = currentDraggedMinute === targetMinute;
+
+  const resultMessage = document.getElementById("modeA-result-message");
+
+  if (hourCorrect && minuteCorrect) {
+    resultMessage.textContent = "✅ Benar!";
+    resultMessage.className = "result-message correct";
+    modeAScore++;
+    playCorrectSound();
+  } else {
+    const correctTime = `${String(targetHour).padStart(2, '0')}:${String(targetMinute).padStart(2, '0')}`;
+    resultMessage.textContent = `❌ Salah! Jawaban yang benar: ${correctTime}`;
+    resultMessage.className = "result-message incorrect";
+    playWrongSound();
+    
+    // Show correct position
+    const correctHourAngle = (targetHour % 12) * 30 + (targetMinute * 0.5);
+    const correctMinuteAngle = targetMinute * 6;
+    
+    document.getElementById("Ahour-hand").style.transform = `rotate(${correctHourAngle}deg)`;
+    document.getElementById("Aminute-hand").style.transform = `rotate(${correctMinuteAngle}deg)`;
+  }
+
+  answered = true;
+  enableSubmitButton(false);
+  enableDragging(false);
+
+  if (modeAQuestionCount >= modeAMaxQuestions) {
+    setTimeout(() => {
+      document.getElementById("final-score-text").textContent = 
+        `Skor kamu: ${modeAScore}/${modeAMaxQuestions}`;
+      // FIXED: Use classList instead of style.display
+      document.getElementById("end-dialog").classList.remove("hidden");
+     debugModalLayout(); // Add this line
+    }, 300);
+  }
+
+  // Highlight correct hour number
+  const hourNumber = document.getElementById(`clock-number-${targetHour}`);
+  if (hourNumber) {
+    hourNumber.style.color = "red";
+    hourNumber.style.fontWeight = "bold";
+    hourNumber.style.fontSize = "1.2em";
+  }
+  
+  // Show minute number
+  const minuteDisplay = document.createElement("div");
+  minuteDisplay.textContent = targetMinute;
+  minuteDisplay.style.position = "absolute";
+  minuteDisplay.style.color = "red";
+  minuteDisplay.style.fontWeight = "bold";
+  minuteDisplay.style.fontSize = "1.2em";
+  
+  // Position minute number near the minute hand
+  const minuteAngle = targetMinute * 6;
+  const radian = (minuteAngle - 90) * (Math.PI / 180);
+  const clock = document.getElementById("modeA-clock");
+  const clockRect = clock.getBoundingClientRect();
+  const centerX = clockRect.width / 2;
+  const centerY = clockRect.height / 2;
+  const radius = centerX * 0.7; // Position at 70% of clock radius
+  
+  minuteDisplay.style.left = `${centerX + radius * Math.cos(radian) - 10}px`;
+  minuteDisplay.style.top = `${centerY + radius * Math.sin(radian) - 10}px`;
+  minuteDisplay.id = "minute-display";
+  clock.appendChild(minuteDisplay);
+}
+
+function enableSubmitButton(enable) {
+  const submitButton = document.getElementById("submit-btn");
+  const nextButton = document.getElementById("next-question-btn");
+  submitButton.disabled = !enable;
+
+    if (enable) {
+    nextButton.disabled = true; // prevent next question until answer is submitted
+  } else {
+    nextButton.disabled = false; // allow new question once answer is submitted
+  }
+}
+
+function updateScoreModeA() {
+   const progressPercent = (modeAQuestionCount / modeAMaxQuestions) * 100;
+  const scoreProgress = document.getElementById("score-progress");
+  scoreProgress.style.width = `${progressPercent}%`;
+
+scoremodeA.textContent = `Score: ${modeAScore}/${modeAQuestionCount}`;
+}
+function resetHighlights() {
+  // Reset hour number highlights
+  document.querySelectorAll(".clock-number").forEach(num => {
+    num.style.color = "";
+    num.style.fontWeight = "";
+    num.style.fontSize = "";
+  });
+  
+  // Remove minute display if exists
+  const minuteDisplay = document.getElementById("minute-display");
+  if (minuteDisplay) {
+    minuteDisplay.remove();
+  }
+}
+function resetModeSelection() {
+  // ✅ Stop ticking and second hand if coming from modeB
+  if (currentMode === 'modeB') {
+    if (secondHandInterval) {
+      clearInterval(secondHandInterval);
+      secondHandInterval = null;
+    }
+    stopTickingSound();
+  }
+
+  // Now reset your mode selection UI
+  const allModes = ['modeA', 'modeB', 'modeC', 'modeD', 'modeCD', 'modeStudyClock', 'time-calculation-mode-selector'];
+  allModes.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  });
+
+  document.querySelector('.mode-selector')?.classList.remove('hidden');
+  currentMode = null;
+}
+
+
+
+
+
+// Mode B Functions
+
+
+function initModeB() {
+  currentMode = 'modeB';
+  
+  drawNumbers();
+  drawTicks();
+  drawMinuteLabels();
+  newQuestion();
+  currentMode = 'modeB';
+  initModeWithNumpad('modeB');
+  
+  // Set up submit function
+  submitFunction = checkAnswer;
+  
+  // Start second hand
+  if (secondHandInterval) clearInterval(secondHandInterval);
+  secondHandInterval = setInterval(updateSecondHand, 1000);
+
+  // Start ticking sound (only if not muted)
+  if (!tickingMuted && !tickAudioInterval) {
+    startTickingSound();
+  }
+
+  // Set up event listeners
+  document.getElementById('how-hour-btn').addEventListener('click', showHourReadingGuide);
+  
+  // Numpad-friendly input setup
+  setupNumpadFriendlyInputs();
+  
+  // ADD ENTER KEY SUPPORT
+  setupEnterKeySupport();
+  
+  if (isStudyMode) {
+    drawNumbers();
+    drawTicks();
+    drawMinuteLabels();
+    const studyHour = Math.floor(Math.random() * 12);
+    const studyMinute = Math.floor(Math.random() * 60);
+    setClockTime(studyHour, studyMinute);
+    return;
+  }
+}
+
+// NEW FUNCTION: Add Enter key support
+function setupEnterKeySupport() {
+  // Remove existing event listeners first
+  document.removeEventListener('keydown', handleEnterKey);
+  
+  // Add new event listener
+  document.addEventListener('keydown', handleEnterKey);
+  
+  console.log("Enter key support initialized");
+}
+
+// NEW FUNCTION: Handle Enter key press
+function handleEnterKey(event) {
+  if (event.key === 'Enter' || event.keyCode === 13) {
+    event.preventDefault(); // Prevent form submission if any
+    
+    const nextQuestionBtn = document.getElementById('next-question');
+    
+    // If "Next Question" button is visible, use Enter to go to next question
+    if (nextQuestionBtn && nextQuestionBtn.style.display !== 'none') {
+      console.log("Enter key: Moving to next question");
+      nextQuestionBtn.click();
+    } 
+    // Otherwise, use Enter to submit the answer
+    else if (canSubmit) {
+      console.log("Enter key: Submitting answer");
+      checkAnswer();
+    }
+  }
+}
+
+function setupNumpadFriendlyInputs() {
+  // Clear previous event listeners by cloning
+  hourInput.replaceWith(hourInput.cloneNode(true));
+  minuteInput.replaceWith(minuteInput.cloneNode(true));
+  
+  // Get fresh references
+  const freshHourInput = document.getElementById('hour-input');
+  const freshMinuteInput = document.getElementById('minute-input');
+  
+  // Disable physical keyboard input for mobile
+  freshHourInput.addEventListener('focus', function() {
+    activeInput = freshHourInput;
+    // Prevent physical keyboard on mobile
+    if (isMobileDevice()) {
+      this.blur();
+    }
+  });
+  
+  freshMinuteInput.addEventListener('focus', function() {
+    activeInput = freshMinuteInput;
+    // Prevent physical keyboard on mobile
+    if (isMobileDevice()) {
+      this.blur();
+    }
+  });
+  
+  // Input validation (for any direct keyboard input on desktop)
+  freshHourInput.addEventListener('input', function(e) {
+    // Only allow numbers and enforce max length
+    this.value = this.value.replace(/[^\d]/g, '').slice(0, 2);
+    
+    // Auto-advance logic
+    if (this.value.length >= 2) {
+      setTimeout(() => {
+        freshMinuteInput.focus();
+        if (isMobileDevice()) {
+          freshMinuteInput.blur(); // Keep focus on numpad
+        }
+      }, 100);
+    }
+  });
+  
+  freshMinuteInput.addEventListener('input', function(e) {
+    // Only allow numbers and enforce max length
+    this.value = this.value.replace(/[^\d]/g, '').slice(0, 2);
+  });
+  
+  // Set input attributes to discourage physical keyboard
+  freshHourInput.setAttribute('readonly', 'true');
+  freshMinuteInput.setAttribute('readonly', 'true');
+  
+  // But allow focus for desktop users
+  if (!isMobileDevice()) {
+    freshHourInput.removeAttribute('readonly');
+    freshMinuteInput.removeAttribute('readonly');
+  }
+}
+
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function showRandomStudyClock() {
+  const hour = Math.floor(Math.random() * 12);
+  const minute = Math.floor(Math.random() * 60);
+  setClockTime(hour, minute);
+   // Determine next hour (for "setengah" and "kurang" formats)
+  const nextHour = (hour % 12) + 1;
+
+  let timeExplanation = '';
+let simpleVersion = ''; // ✅ for easier child-friendly reading
+
+ 
+if (minute === 0) {
+  timeExplanation = `🕓 <b>Jam Tepat:</b><br>Jam ${hour} tepat.`;
+  simpleVersion = `Atau: <b>${pad(hour)}.00</b>`;
+} else if (minute === 30) {
+  timeExplanation = `🕕 <b>Setengah:</b><br>Setengah ${nextHour}.`;
+  simpleVersion = `Atau: <b>${pad(hour)}.30</b>`;
+} else if (minute === 15) {
+  timeExplanation = `🕘 <b>Seperempat:</b><br>Seperempat ${nextHour}.`;
+  simpleVersion = `Atau: <b>${pad(hour)} lewat 15 menit</b>`;
+} else if (minute < 30) {
+  timeExplanation = `🕔 <b>Lewat Menit:</b><br>Jam ${hour} lewat ${minute} menit.`;
+  simpleVersion = `Atau: <b>${pad(hour)} lewat ${minute}</b>`;
+} else {
+  const kurang = 60 - minute;
+  timeExplanation = `🕖 <b>Kurang Menit:</b><br>Jam ${nextHour} kurang ${kurang} menit.`;
+  simpleVersion = `Atau: <b>${pad(hour)} lewat ${minute}</b>`;
+}
+
+  const expl = document.getElementById('explanation');
+ expl.innerHTML = `
+  ${timeExplanation}<br>
+  <i>${simpleVersion}</i><br><br>
+  🕐 Ini adalah <b>mode belajar jam</b>.<br>
+  Klik tombol <b>🕒</b> untuk melihat penjelasan waktu.<br>
+  Klik tombol <b>Jam</b> untuk melihat bagian jam.<br>
+  Klik tombol <b>Menit</b> untuk melihat bagian menit.
+`;
+
+
+}
+function pad(num) {
+  return num.toString().padStart(2, '0');
+}
+
+
+function drawNumbers() {
+  const clock = document.querySelector('#modeB .clock');
+  const radius = clock.offsetWidth / 2;
+  const distance = radius * 0.60;
+
+  modeBNumbers.innerHTML = '';
+
+  for (let i = 1; i <= 12; i++) {
+    const number = document.createElement('div');
+    number.className = 'clock-number';
+    number.innerText = i;
+
+    const angle = (i - 3) * (Math.PI / 6);
+    const x = distance * Math.cos(angle);
+    const y = distance * Math.sin(angle);
+
+    number.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+    modeBNumbers.appendChild(number);
+  }
+}
+
+function drawTicks() {
+  const clock = document.querySelector('#modeB .clock');
+  const clockRadius = clock.offsetWidth / 2;
+  const hourLength = clockRadius * 0.15;
+  const minuteLength = clockRadius * 0.07;
+  const tickDistance = clockRadius * 0.85;
+
+  modeBTicks.innerHTML = '';
+
+  for (let i = 0; i < 60; i++) {
+    const tick = document.createElement('div');
+    tick.className = 'tick';
+
+    const isHour = i % 5 === 0;
+    tick.classList.add(isHour ? 'hour-tick' : 'minute-tick');
+
+    const length = isHour ? hourLength : minuteLength;
+    const translateY = -tickDistance;
+
+    tick.style.height = `${length}px`;
+    tick.style.transform = `rotate(${i * 6}deg) translate(-50%, ${translateY}px)`;
+    tick.dataset.tick = i;
+
+    modeBTicks.appendChild(tick);
+  }
+}
+
+function drawMinuteLabels() {
+  const container = document.getElementById('minute-labels');
+  
+  container.innerHTML = '';
+
+  const size = container.offsetWidth;
+  const radius = size / 2 * 0.9;
+  const centerX = size / 2;
+  const centerY = size / 2;
+
+  for (let i = 0; i < 60; i++) {
+    const angleDeg = i * 6 - 90;
+    const angleRad = angleDeg * Math.PI / 180;
+
+    const x = centerX + radius * Math.cos(angleRad);
+    const y = centerY + radius * Math.sin(angleRad);
+
+    const label = document.createElement('div');
+    label.className = 'minute-label';
+    label.id = `minute-label-${i}`;
+    label.textContent = i;
+    label.style.position = 'absolute';
+    label.style.left = `${x}px`;
+    label.style.top = `${y}px`;
+    label.style.transform = 'translate(-50%, -50%)';
+
+    container.appendChild(label);
+  }
+}
+
+// Mode B Clock Hand Movement Fix
+function setClockTime(hour, minute) {
+  hour = (hour === 12 ? 0 : hour); // normalize for rotation math
+  const hourDeg = (hour % 12) * 30 + (minute / 60) * 30;
+  const minuteDeg = minute * 6;
+
+  hourEl.style.transform = `rotate(${hourDeg.toFixed(2)}deg)`;
+  minuteEl.style.transform = `rotate(${minuteDeg.toFixed(2)}deg)`;
+  secondEl.style.transform = `rotate(0deg)`;
+}
+
+function updateSecondHand() {
+  const now = new Date();
+  const seconds = now.getSeconds();
+  const secondDeg = seconds * 6;
+  const secondHand = document.getElementById('second-hand');
+  if (secondHand) {
+    secondHand.style.transition = 'transform 0.2s linear';
+    secondHand.style.transform = `rotate(${secondDeg}deg)`;
+  }
+}
+
+
+async function showHourReadingGuide() {
+  if (isAnimationRunning) return;
+
+  const howHourBtn = document.getElementById('how-hour-btn');
+  isAnimationRunning = true;
+  howHourBtn.disabled = true;
+  howHourBtn.classList.add('disabled-button');
+
+  const clock = document.querySelector('#modeB .clock');
+  const clockSize = clock.offsetWidth;
+  const radius = clockSize / 2;
+  
+  const colors = [
+    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+    '#9966FF', '#FF9F40', '#8AC24A', '#FF5722',
+    '#607D8B', '#9C27B0', '#00BCD4', '#CDDC39'
+  ];
+  
+  for (let i = 0; i < 12; i++) {
+    const startHour = i;
+    const endHour = (i + 1) % 12;
+    const hourText = startHour === 0 ? 12 : startHour;
+    const currentColor = colors[i];
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.setAttribute("viewBox", `0 0 ${clockSize} ${clockSize}`);
+    svg.style.position = "absolute";
+    svg.style.top = "0";
+    svg.style.left = "0";
+    svg.style.zIndex = "10";
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const startAngle = startHour * 30 - 90;
+    const endAngle = endHour * 30 - 92;
+    
+    const startRad = startAngle * Math.PI / 180;
+    const endRad = endAngle * Math.PI / 180;
+    
+    const x1 = radius + radius * Math.cos(startRad);
+    const y1 = radius + radius * Math.sin(startRad);
+    const x2 = radius + radius * Math.cos(endRad);
+    const y2 = radius + radius * Math.sin(endRad);
+    
+    const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+    
+    path.setAttribute("d", 
+      `M ${radius} ${radius} 
+       L ${x1} ${y1} 
+       A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2} 
+       Z`
+    );
+    path.setAttribute("fill", `${currentColor}80`);
+    path.setAttribute("stroke", currentColor);
+    path.setAttribute("stroke-width", "2");
+
+    const textAngle = (startHour * 30 + 15) % 360;
+    const textRad = (textAngle - 90) * Math.PI / 180;
+    const textX = radius + (radius * 0.6) * Math.cos(textRad);
+    const textY = radius + (radius * 0.6) * Math.sin(textRad);
+    
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", textX);
+    text.setAttribute("y", textY);
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "middle");
+    text.setAttribute("fill", "white");
+    text.setAttribute("font-size", radius * 0.15);
+    text.setAttribute("font-weight", "bold");
+    text.textContent = hourText;
+
+    const label = document.createElement('div');
+    label.className = 'hour-guide-label';
+    label.textContent = `dari ujung dan sebulum ujung masih Jam ${hourText}`;
+    label.style.backgroundColor = currentColor;
+
+    svg.appendChild(path);
+    svg.appendChild(text);
+    clock.appendChild(svg);
+    clock.appendChild(label);
+
+    await new Promise(res => setTimeout(res, 1100));
+
+    svg.remove();
+    label.remove();
+  }
+  
+  isAnimationRunning = false;
+  howHourBtn.disabled = false;
+  howHourBtn.classList.remove('disabled-button');
+}
+
+function showMinuteNumbersTemp() {
+  const container = document.getElementById('minute-labels');
+  container.innerHTML = '';
+
+  const size = container.offsetWidth;
+  const radius = size / 2 * 0.92;
+  const centerX = size / 2;
+  const centerY = size / 2;
+
+  for (let i = 0; i < 60; i++) {
+    const angle = (i * 6 - 90) * Math.PI / 180;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+
+    const div = document.createElement('div');
+    div.className = 'minute-number';
+    div.textContent = i;
+    div.style.position = 'absolute';
+    div.style.left = `${x}px`;
+    div.style.top = `${y}px`;
+    div.style.transform = 'translate(-50%, -50%)';
+
+    container.appendChild(div);
+  }
+
+  setTimeout(() => {
+    container.innerHTML = ''; // Clean up after 4 seconds
+    drawMinuteLabels();       // 🔥 Draw back the original labels
+  }, 2000);
+}
+
+function checkAnswer() {
+  // Get input elements directly to avoid reference issues
+  const hourInputEl = document.getElementById('hour-input');
+  const minuteInputEl = document.getElementById('minute-input');
+  
+  if (!hourInputEl || !minuteInputEl) {
+    console.error("Input elements not found!");
+    explanation.textContent = "❌ System error: Input fields not found";
+    return;
+  }
+
+  let hourVal = hourInputEl.value.trim();
+  let minuteVal = minuteInputEl.value.trim();
+
+  console.log("Raw inputs - Hour:", hourVal, "Minute:", minuteVal);
+
+  // Sanitize: keep only digits
+  hourVal = hourVal.replace(/[^0-9]/g, '');
+  minuteVal = minuteVal.replace(/[^0-9]/g, '');
+
+  console.log("After digit extraction - Hour:", hourVal, "Minute:", minuteVal);
+
+  // Check if we have at least one digit in each
+  if (hourVal.length === 0 || minuteVal.length === 0) {
+    explanation.textContent = "❌ Please enter both hour and minute";
+    playWrongSound();
+    return;
+  }
+
+  // Take first 2 digits
+  hourVal = hourVal.slice(0, 2);
+  minuteVal = minuteVal.slice(0, 2);
+
+  console.log("Final values for comparison - Hour:", hourVal, "Minute:", minuteVal);
+
+  // Update display with formatted values
+  hourInputEl.value = hourVal.padStart(2, '0');
+  minuteInputEl.value = minuteVal.padStart(2, '0');
+
+  if (!quizTime || typeof quizTime.hour !== 'number' || typeof quizTime.minute !== 'number') {
+    console.warn("❗ quizTime is not set properly:", quizTime);
+    explanation.textContent = "⚠️ Internal error: quizTime missing.";
+    return;
+  }
+
+  if (!canSubmit) return;
+
+  // Convert to numbers for comparison
+  const userHour = parseInt(hourVal, 10);
+  const userMinute = parseInt(minuteVal, 10);
+  const correctHour = quizTime.hour;
+  const correctMinute = quizTime.minute;
+
+  console.log("Comparison - User:", userHour, userMinute, "Correct:", correctHour, correctMinute);
+
+  const isCorrect = userHour === correctHour && userMinute === correctMinute;
+
+  total++;
+  if (isCorrect) score++;
+
+  canSubmit = false;
+  submitBtn.disabled = true;
+  submitBtn.classList.add('disabled-button');
+  submitted = true;
+
+  const displayHour = correctHour === 0 ? 12 : correctHour;
+  const answerString = `${String(displayHour).padStart(2, '0')}:${String(correctMinute).padStart(2, '0')}`;
+  
+  explanation.textContent = isCorrect
+    ? `✅ Correct! The time is ${answerString}.`
+    : `❌ Try again! The correct time was ${answerString}.`;
+
+  if (isCorrect) {
+    playCorrectSound();
+  } else {
+    playWrongSound();
+    highlightCorrectAnswer(displayHour, correctMinute);
+  }
+
+  if (!isCorrect && total >= maxQuestions) {
+    setTimeout(showFinalDialog, 1500);
+  }
+
+  updateScoreBoard();
+  document.getElementById('next-question').style.display = 'inline-block';
+}
+function updateScoreBoard() {
+  const progressBPercent = (total / maxQuestions) * 100;
+  const scoreBProgress = document.getElementById("Bscore-progress");
+  scoreBProgress.style.width = `${progressBPercent}%`;
+  scoreBoard.textContent = `Score: ${score}/${total}`;
+}
+
+
+
+function highlightCorrectAnswer(hour, minute) {
+const hourElements = document.querySelectorAll('.clock-number');
+hourElements.forEach(num => {
+if (parseInt(num.textContent) === hour || (hour === 0 && num.textContent === '12')) {
+num.classList.add('highlight-hour');
+}
+});
+
+const tickElements = document.querySelectorAll('.tick');
+tickElements.forEach(tick => {
+if (parseInt(tick.dataset.tick) === minute) {
+tick.classList.add('highlight-minute');
+tick.innerText = tick.dataset.tick;
+
+
+}
+});
+}
+
+
+function showFinalDialog() {
+  const dialog = document.getElementById('final-dialog');
+  const message = document.getElementById('final-message');
+  message.textContent = `You got ${score} out of ${maxQuestions} questions correct!`;
+  dialog.classList.remove('hidden');
+}
+
+function closeFinalDialog() {
+  const dialog = document.getElementById('final-dialog');
+  dialog.classList.add('hidden');
+  explanation.textContent = "🎉 Thanks for playing!";
+  document.querySelector('.quiz-input').style.display = 'none';
+}
+
+function restartQuiz() {
+  score = 0;
+  total = 0;
+  updateScoreBoard();
+  checkAnswer();
+  document.getElementById('final-dialog').classList.add('hidden');
+  newQuestion();
+}
+
+function newQuestion() {
+  if (total >= maxQuestions) {
+    showFinalDialog();
+    return;
+  }
+  
+  updateScoreBoard();
+  canSubmit = true;
+  
+  const submitBtn = document.getElementById('submit');
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('disabled-button');
+  }
+  
+  // Clear previous highlights
+  document.querySelectorAll('.highlight-hour').forEach(el => el.classList.remove('highlight-hour'));
+  document.querySelectorAll('.highlight-minute').forEach(el => {
+    el.classList.remove('highlight-minute');
+    el.innerText = '';
+  });
+
+  // Hide "Next Question" button
+  const nextBtn = document.getElementById('next-question');
+  if (nextBtn) {
+    nextBtn.style.display = 'none';
+  }
+  
+  // Generate new question - use 1-12 for simplicity
+  quizTime = {
+    hour: Math.floor(Math.random() * 12) + 1, // 1-12
+    minute: Math.floor(Math.random() * 60)    // 0-59
+  };
+
+  // For clock display, convert 12 to 0
+  const clockHour = quizTime.hour === 12 ? 0 : quizTime.hour;
+  setClockTime(clockHour, quizTime.minute);
+  
+  // Reset inputs
+  const hourInput = document.getElementById('hour-input');
+  const minuteInput = document.getElementById('minute-input');
+  
+  if (hourInput) hourInput.value = '';
+  if (minuteInput) minuteInput.value = '';
+  
+  // Set focus to hour input
+  if (hourInput) {
+    hourInput.focus();
+    activeInput = hourInput;
+  }
+  
+  const explanation = document.getElementById('explanation');
+  if (explanation) {
+    explanation.textContent = '';
+  }
+  
+  submitted = false;
+  
+  console.log("New question generated:", quizTime);
+}
+function enforceMaxLength(e) {
+  if (e.target.value.length > 2) {
+    e.target.value = e.target.value.slice(0, 2);
+  }
+}
+
+async function startExplanation() { 
+  const container = document.getElementById('minute-labels');
+  container.innerHTML = '';
+
+  showMinuteNumbersTemp(); // Show full minute numbers first
+
+  await new Promise(res => setTimeout(res, 3000)); // ✨ WAIT until the big numbers are hidden
+
+  drawMinuteLabels(); // 🔥 Then draw the original labels
+
+  const tickEls = document.querySelectorAll('.tick');
+
+  for (let i = 0; i < tickEls.length; i++) {
+    const tick = tickEls[i];
+    const label = document.getElementById(`minute-label-${i}`);
+
+    tick.classList.add('highlight-tick');
+    label?.classList.add('active');
+
+    await new Promise(res => setTimeout(res, 90));
+
+    tick.classList.remove('highlight-tick');
+    label?.classList.remove('active');
+  }
+
+  // (optional) show full minute numbers again at the end
+  showMinuteNumbersTemp();
+}
+
+window.addEventListener("resize", () => {
+  drawNumbers();
+});
+
+function playClickSound() {
+  const audio = document.getElementById('click-sound');
+  if (audio) {
+    audio.currentTime = 0; // rewind to start
+    audio.play();
+  }
+}
+
+
+
+
+// Mode C Functions
+
+const activities = [
+    { text: "Dia belajar", image: "assets/waktu/waktucomputer.png"},
+    { text: "Dia belajar", image: "assets/waktu/waktubelajar.png" },
+    { text: "Dia memancing", image:"assets/waktu/waktumancing.png" },
+    { text: "Ia pergi ke mall", image: "assets/waktu/waktupergi.png"},
+    { text: "Ia bermain bola", image: "assets/waktu/waktubola.png"},
+    { text: "Ia bersepeda", image: "assets/waktu/waktusepeda.png"},
+    { text: "Ia berolahraga", image: "assets/waktu/waktubola.png"}
+  ];
+
+  // Colors for clock highlights
+  const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'];
+
+function initModeC() {
+    currentMode = 'modeC';
+    initModeWithNumpad('modeC');
+
+    // Get the new separate inputs
+    const endHourInput = document.getElementById('Cend-hour');
+    const endMinuteInput = document.getElementById('Cend-minute');
+
+        setupModeCEnterKeySupport();
+    
+    // Check if elements exist before adding event listeners
+    if (!endHourInput || !endMinuteInput) {
+        console.error('Mode C input elements not found!');
+        return;
+    }
+    // Set up input handlers for the new separate inputs
+    endHourInput.addEventListener('focus', () => {
+        activeInput = endHourInput;
+        endHourInput.select();
+    });
+
+    endMinuteInput.addEventListener('focus', () => {
+        activeInput = endMinuteInput;
+        endMinuteInput.select();
+    });
+
+    // Enhanced input handling with sanitization
+    endHourInput.addEventListener('input', function(e) {
+        // Sanitize - only numbers
+        this.value = this.value.replace(/[^\d]/g, '').slice(0, 2);
+        
+        // Validate range (0-23)
+        const hour = parseInt(this.value) || 0;
+        if (hour > 23) {
+            this.value = '23';
+        }
+        
+        // Auto-advance to minutes when 2 digits entered
+        if (this.value.length >= 2) {
+            endMinuteInput.focus();
+            endMinuteInput.select();
+        }
+    });
+
+    endMinuteInput.addEventListener('input', function(e) {
+        // Sanitize - only numbers
+        this.value = this.value.replace(/[^\d]/g, '').slice(0, 2);
+        
+        // Validate range (0-59)
+        const minute = parseInt(this.value) || 0;
+        if (minute > 59) {
+            this.value = '59';
+        }
+        
+        // Enable submit button when both inputs are filled
+        const hourFilled = endHourInput.value.length >= 2;
+        const minuteFilled = this.value.length >= 2;
+        const submitBtn = document.querySelector("#modeC .buttons button:nth-child(1)");
+        if (submitBtn) {
+            submitBtn.disabled = !(hourFilled && minuteFilled);
+        }
+    });
+
+    // Prevent default mobile keyboard
+    [endHourInput, endMinuteInput].forEach(input => {
+        input.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            activeInput = this;
+            this.focus({preventScroll: true});
+        });
+    });
+
+    // Clear existing progress bar if any
+    const oldProgress = document.querySelector(".Cprogress-bar");
+    if (oldProgress) {
+        oldProgress.remove();
+    }
+
+    // Create progress display
+  CprogressBar = document.createElement("div");
+CprogressBar.className = "Cprogress-bar";
+
+// Then update all references to progressBar to use CprogressBar:
+if (CprogressBar) {
+    CprogressBar.textContent = `Pertanyaan: ${currentQuestion}/${totalQuestions}`;
+}
+
+// In submitTimeAddition(), update:
+if (CprogressBar) {
+    CprogressBar.textContent = `Pertanyaan: ${currentQuestion}/${totalQuestions}`;
+}
+
+// In resetQuiz():
+if (CprogressBar) {
+    CprogressBar.textContent = `Pertanyaan: ${currentQuestion}/${totalQuestions}`;
+}      // Safely insert progress bar
+    const modeC = document.getElementById("modeC");
+    if (modeC) {
+        const firstChild = modeC.firstChild;
+        const secondChild = firstChild ? firstChild.nextSibling : null;
+        if (secondChild) {
+            modeC.insertBefore(CprogressBar, secondChild.nextSibling);
+        } else {
+            modeC.appendChild(CprogressBar);
+        }
+    }
+
+    // Initialize buttons
+    const submitBtn = document.querySelector("#modeC .buttons button:nth-child(1)");
+    const newQuestionBtn = document.querySelector("#modeC .buttons button:nth-child(2)");
+    const explanationBtn = document.querySelector("#modeC .buttons button:nth-child(3)");
+
+   // Disable buttons initially only if they exist
+    if (explanationBtn) explanationBtn.disabled = true;
+    if (newQuestionBtn) newQuestionBtn.disabled = true;
+    if (submitBtn) submitBtn.disabled = true; // Disable submit until input is complete
+
+    window.modeCData = {};
+
+  // Generate a new time addition question
+  window.generateTimeAdditionQuestion = function() {
+    // Clear all visual elements
+    clearClockHighlights();
+
+    // Remove ALL result divs
+    const resultDivs = document.querySelectorAll(".Cclock-result");
+    resultDivs.forEach(div => div.remove());
+    
+    // Clear feedback message
+    const feedbackEl = document.getElementById("Cfeedback-message");
+    if (feedbackEl) {
+        feedbackEl.textContent = "";
+        feedbackEl.className = "feedback-message";
+    }
+
+    // Hide explanation until user clicks "Tampilkan Penjelasan"
+    const explanationDiv = document.getElementById("Cclock-explanation");
+    if (explanationDiv) {
+        explanationDiv.classList.add("hidden");
+    }
+
+    if (explanationBtn) explanationBtn.disabled = true;
+    if (newQuestionBtn) newQuestionBtn.disabled = true;
+    if (submitBtn) submitBtn.disabled = true;
+    
+    const activity = activities[Math.floor(Math.random() * activities.length)];
+    const startHour = Math.floor(Math.random() * 12);
+    const startMinute = Math.floor(Math.random() * 60);
+    const addedHours = Math.floor(Math.random() * 5) + 1;
+    const addedMinutes = [0, 15, 30, 45][Math.floor(Math.random() * 4)];
+
+    const startTimeStr = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
+
+    // Safely update DOM elements
+    const activityImage = document.getElementById("Cactivity-image");
+    const activityQuestion = document.getElementById("Cactivity-question");
+    const startTime = document.getElementById("Cstart-time");
+    const addedHoursEl = document.getElementById("Cadded-hours");
+    
+    if (activityImage) activityImage.src = activity.image;
+    
+    // UPDATED: New question format
+    if (activityQuestion) {
+        activityQuestion.innerHTML = `${activity.text} selama ${addedHours} jam ${addedMinutes > 0 ? `dan ${addedMinutes} menit` : ''}`;
+    }
+    
+    if (startTime) startTime.innerText = startTimeStr;
+    
+    // Remove the "+ X jam" element since it's now in the question
+    if (addedHoursEl) {
+        addedHoursEl.style.display = 'none';
+    }
+
+    // Store question data
+    window.modeCData = {
+        startHour: startHour,
+        startMinute: startMinute,
+        addedHours: addedHours,
+        addedMinutes: addedMinutes
+    };
+
+    // Clear inputs
+    if (endHourInput) endHourInput.value = "";
+    if (endMinuteInput) endMinuteInput.value = "";
+    
+    if (explanationDiv) explanationDiv.classList.add("hidden");
+    
+    const highlight = document.getElementById("Chighlight");
+    if (highlight) highlight.innerHTML = "";
+    
+    // Focus first input
+    setTimeout(() => {
+        if (endHourInput) {
+            endHourInput.focus();
+        }
+    }, 100);
+};
+window.submitTimeAddition = function() {
+    if (!endHourInput || !endMinuteInput) return;
+    
+    const userHour = endHourInput.value.trim();
+    const userMinute = endMinuteInput.value.trim();
+    const feedbackEl = document.getElementById("Cfeedback-message");
+    
+    if (!feedbackEl) return;
+    
+    // Validate inputs
+    if (!userHour || !userMinute) {
+        feedbackEl.textContent = "Silakan isi jam dan menit";
+        feedbackEl.className = "feedback-message incorrect-feedback";
+        playWrongSound();
+        return;
+    }
+
+    const userHourNum = parseInt(userHour) || 0;
+    const userMinuteNum = parseInt(userMinute) || 0;
+    const { startHour, startMinute, addedHours, addedMinutes = 0 } = window.modeCData || {};
+
+    // Calculate correct end time including minutes
+    const totalAddedMinutes = (addedHours * 60) + addedMinutes;
+    const totalMinutes = startMinute + totalAddedMinutes;
+    const endHour = (startHour + Math.floor(totalMinutes / 60)) % 24;
+    const endMinute = totalMinutes % 60;
+
+    const correct = userHourNum === endHour && userMinuteNum === endMinute;
+
+    // Get Indonesian time period
+    const timePeriod = getIndonesianTimePeriod(endHour);
+    const displayHour12 = endHour % 12 === 0 ? 12 : endHour % 12;
+    
+    console.log("Debug Info:", {
+        userInput: `${userHourNum}:${userMinuteNum}`,
+        correctAnswer: `${endHour}:${endMinute}`,
+        startTime: `${startHour}:${startMinute}`,
+        addedTime: `${addedHours} hours ${addedMinutes} minutes`,
+        totalAddedMinutes: totalAddedMinutes,
+        calculated: correct
+    });
+    
+    // FIXED: Only one sound function should be called
+    if (correct) {
+        Cscore++;
+        feedbackEl.innerHTML = `
+            <div style="text-align: center;">
+                <div style="font-size: 1.2em; color: #2e7d32; margin-bottom: 10px;">
+                    ✅ Jawaban Benar! 🎉
+                </div>
+                <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                    <div><strong>Format 24 jam:</strong> ${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}</div>
+                    <div><strong>Format 12 jam:</strong> Jam ${String(displayHour12).padStart(2, '0')}:${String(endMinute).padStart(2, '0')} ${timePeriod}</div>
+                </div>
+                <div style="font-size: 0.9em; color: #666;">
+                    Waktu ${timePeriod.toLowerCase()}
+                </div>
+            </div>
+        `;
+        feedbackEl.className = "feedback-message correct-feedback";
+        playCorrectSound(); // ONLY correct sound here
+    } else {
+        const userTimePeriod = getIndonesianTimePeriod(userHourNum);
+        const userDisplayHour12 = userHourNum % 12 === 0 ? 12 : userHourNum % 12;
+        
+        feedbackEl.innerHTML = `
+            <div style="text-align: center;">
+                <div style="font-size: 1.2em; color: #c62828; margin-bottom: 10px;">
+                    ❌ Jawaban Salah
+                </div>
+                <div style="background: #ffebee; padding: 10px; border-radius: 5px; margin: 5px 0;">
+                    <div><strong>Jawaban Anda:</strong> ${String(userHourNum).padStart(2, '0')}:${String(userMinuteNum).padStart(2, '0')} 
+                    (Jam ${String(userDisplayHour12).padStart(2, '0')}:${String(userMinuteNum).padStart(2, '0')} ${userTimePeriod})</div>
+                </div>
+                <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; margin: 5px 0;">
+                    <div><strong>Jawaban Benar:</strong></div>
+                    <div>Format 24 jam: <b>${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}</b></div>
+                    <div>Format 12 jam: <b>Jam ${String(displayHour12).padStart(2, '0')}:${String(endMinute).padStart(2, '0')} ${timePeriod}</b></div>
+                </div>
+            </div>
+        `;
+        feedbackEl.className = "feedback-message incorrect-feedback";
+        playWrongSound(); // ONLY wrong sound here
+    }
+
+    // Update progress
+    currentQuestion++;
+    if (CprogressBar) {
+        CprogressBar.textContent = `Pertanyaan: ${currentQuestion}/${totalQuestions}`;
+    }
+
+    // Enable/disable buttons
+    if (submitBtn) submitBtn.disabled = true;
+    if (explanationBtn) explanationBtn.disabled = false;
+    if (newQuestionBtn) newQuestionBtn.disabled = false;
+
+    // Check if quiz is complete
+    if (currentQuestion >= totalQuestions) {
+        showFinalResults();
+    }
+};
+// NEW FUNCTION: Get Indonesian time period
+function getIndonesianTimePeriod(hour) {
+    if (hour >= 4 && hour < 11) return 'Pagi';
+    if (hour >= 11 && hour < 15) return 'Siang';
+    if (hour >= 15 && hour < 18) return 'Sore';
+    if (hour >= 18 && hour < 19) return 'Petang';
+    return 'Malam';
+}
+    // Add event listener for input changes to enable submit button
+    [endHourInput, endMinuteInput].forEach(input => {
+        if (input) {
+            input.addEventListener('input', function() {
+                if (!endHourInput || !endMinuteInput || !submitBtn) return;
+                
+                const hourFilled = endHourInput.value.length >= 2;
+                const minuteFilled = endMinuteInput.value.length >= 2;
+                submitBtn.disabled = !(hourFilled && minuteFilled);
+            });
+        }
+    });
+
+
+ // Update Mode C final results function
+function showFinalResults() {
+  const percentage = Math.round((Cscore / totalQuestions) * 100);
+  document.getElementById("Cfinal-score-text").textContent = 
+    `Skor akhir: ${Cscore}/${totalQuestions} (${percentage}%)`;
+  
+  // Set up button handlers
+  document.getElementById("Creset-quiz-btn").onclick = function() {
+    resetQuiz();
+    document.getElementById("Cend-dialog").classList.add('hidden');
+  };
+  
+  document.getElementById("Cclose-modal-btn").onclick = function() {
+    document.getElementById("Cend-dialog").classList.add('hidden');
+  };
+  
+  // Show dialog using consistent method
+  document.getElementById("Cend-dialog").classList.remove('hidden');
+}
+
+
+
+
+window.showTimeAdditionExplanation = async function() {
+    const { startHour, startMinute, addedHours, addedMinutes } = window.modeCData;
+    const explanationDiv = document.getElementById("Cclock-explanation");
+    
+    const explanationBtn = document.querySelector("#modeC .buttons button:nth-child(3)");
+    explanationBtn.disabled = true;
+
+    // Clear everything first
+    clearClockHighlights();
+    document.getElementById("Cfeedback-message").textContent = "";
+    document.getElementById("Cfeedback-message").className = "feedback-message";
+
+    // Clear previous result - FIXED: Use querySelector instead of getElementById
+    const resultDivs = document.querySelectorAll(".Cclock-result");
+    resultDivs.forEach(div => div.remove());
+
+    // Show explanation
+    explanationDiv.classList.remove("hidden");
+    
+    // Get clock elements - ADD NULL CHECKS
+    const clock = document.getElementById("Ctime-addition-clock");
+    const hourHand = document.getElementById("Chour-hand");
+    const minuteHand = document.getElementById("Cminute-hand");
+    const timeLabel = document.getElementById("Ctime-label");
+    const highlight = document.getElementById("Chighlight");
+
+    // Verify elements exist before proceeding
+    if (!clock || !hourHand || !minuteHand || !highlight) {
+        console.error("Required clock elements not found!");
+        explanationBtn.disabled = false;
+        return;
+    }
+
+    // Draw clock face (only once)
+    drawClockFace();
+    
+    // Set initial time
+    let currentHour = startHour;
+    let currentMinute = startMinute;
+    updateClock(currentHour, currentMinute);
+    
+    // Initial delay
+    await new Promise(res => setTimeout(res, 1000));
+    
+    // Animate each hour addition
+    for (let hourToAdd = 1; hourToAdd <= addedHours; hourToAdd++) {
+        const fromHour = currentHour;
+        const fromMinute = currentMinute;
+        const toHour = (currentHour + 1) % 24;
+            
+        // Create highlight for this hour segment
+        const highlightArc = createHighlightArc(
+            fromHour, fromMinute,
+            toHour, fromMinute,
+            colors[(hourToAdd-1) % colors.length],
+            `+${hourToAdd}jam`
+        );
+        
+        // FIXED: Check if clock still exists before appending
+        if (clock && highlightArc) {
+            clock.appendChild(highlightArc);
+        }
+      
+        // Animate full clock movement for this hour
+        const duration = 3000;
+        
+        for (let step = 1; step <= 60; step++) {
+            // Calculate intermediate time
+            currentMinute = fromMinute + step;
+            currentHour = fromHour + Math.floor(currentMinute / 60);
+            currentMinute = currentMinute % 60;
+            
+            // Update clock with intermediate position
+            updateClock(currentHour % 24, currentMinute);
+            
+            await new Promise(res => setTimeout(res, duration/60));
+        }
+      
+        // Ensure final position is exact
+        currentHour = toHour;
+        currentMinute = fromMinute;
+        updateClock(currentHour, currentMinute);
+      
+        // Add explanation text - FIXED: Check if highlight exists
+        if (highlight) {
+            const explanationText = document.createElement("div");
+            explanationText.className = "Cexplanation-step";
+            explanationText.innerHTML = `
+                <p>${hourToAdd}. Dari ${String(fromHour).padStart(2, '0')}:${String(fromMinute).padStart(2, '0')} ke ${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}</p>
+            `;
+            highlight.appendChild(explanationText);
+        }
+        
+        await new Promise(res => setTimeout(res, 1000));
+    }
+
+    // Animate additional minutes if any
+    if (addedMinutes > 0) {
+        const fromHour = currentHour;
+        const fromMinute = currentMinute;
+        const toMinute = fromMinute + addedMinutes;
+        const toHour = (fromHour + Math.floor(toMinute / 60)) % 24;
+        const finalMinute = toMinute % 60;
+        
+        const highlightArc = createHighlightArc(
+            fromHour, fromMinute,
+            toHour, finalMinute,
+            colors[addedHours % colors.length],
+            `+${addedMinutes}min`
+        );
+        
+        // FIXED: Check if clock exists
+        if (clock && highlightArc) {
+            clock.appendChild(highlightArc);
+        }
+    
+        const duration = 3000 * (addedMinutes / 60);
+        for (let step = 1; step <= addedMinutes; step++) {
+            currentMinute = fromMinute + step;
+            currentHour = (fromHour + Math.floor(currentMinute / 60)) % 24;
+            currentMinute = currentMinute % 60;
+            updateClock(currentHour, currentMinute);
+            await new Promise(res => setTimeout(res, duration/addedMinutes));
+        }
+        
+        // FIXED: Check if highlight exists
+        if (highlight) {
+            const explanationText = document.createElement("div");
+            explanationText.className = "Cexplanation-step";
+            explanationText.innerHTML = `
+                <p>${addedHours + 1}. Menambahkan ${addedMinutes} menit: ${String(fromHour).padStart(2, '0')}:${String(fromMinute).padStart(2, '0')} ke ${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}</p>
+            `;
+            highlight.appendChild(explanationText);
+        }
+    }
+
+    // Show final result - FIXED: Check if explanationDiv exists and use appendChild instead of insertBefore
+    if (explanationDiv) {
+        const resultDiv1 = document.createElement("div");
+        resultDiv1.className = "Cclock-result";
+        resultDiv1.textContent = `Hasil: ${String(currentHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')}`;
+        
+        // FIXED: Use appendChild instead of insertBefore
+        explanationDiv.appendChild(resultDiv1);
+    }
+    
+    explanationBtn.disabled = false;
+};
+
+  // Helper function to draw clock face
+  function drawClockFace() {
+    const clock = document.getElementById("Ctime-addition-clock");
+    if (!clock) return;
+    
+    // Check if clock face already exists
+    if (document.getElementById("Cclock-face")) {
+        return;
+    }
+
+    const svgNS = "http://www.w3.org/2000/svg";
+    const clockFace = document.createElementNS(svgNS, "g");
+    clockFace.setAttribute("id", "Cclock-face");
+    
+    // Draw clock circle
+    const face = document.createElementNS(svgNS, "circle");
+    face.setAttribute("cx", "100");
+    face.setAttribute("cy", "100");
+    face.setAttribute("r", "90");
+    face.setAttribute("fill", "#f8f8f8");
+    face.setAttribute("stroke", "#333");
+    face.setAttribute("stroke-width", "2");
+    clockFace.appendChild(face);
+    
+    // Draw center dot
+    const center = document.createElementNS(svgNS, "circle");
+    center.setAttribute("cx", "100");
+    center.setAttribute("cy", "100");
+    center.setAttribute("r", "5");
+    center.setAttribute("fill", "#333");
+    clockFace.appendChild(center);
+    
+    // Draw minute ticks (60 ticks)
+    for (let i = 0; i < 60; i++) {
+      const angle = (i * 6) * Math.PI / 180;
+      const tickLength = i % 5 === 0 ? 10 : 5;
+      const tickWidth = i % 5 === 0 ? 2 : 1;
+      
+      const tick = document.createElementNS(svgNS, "line");
+      tick.setAttribute("x1", 100 + 85 * Math.cos(angle));
+      tick.setAttribute("y1", 100 + 85 * Math.sin(angle));
+      tick.setAttribute("x2", 100 + (85 - tickLength) * Math.cos(angle));
+      tick.setAttribute("y2", 100 + (85 - tickLength) * Math.sin(angle));
+      tick.setAttribute("stroke", "#666");
+      tick.setAttribute("stroke-width", tickWidth);
+      clockFace.appendChild(tick);
+    }
+    
+    // Draw hour numbers (1-12)
+    for (let i = 1; i <= 12; i++) {
+      const angle = (i * 30 - 90) * Math.PI / 180;
+      const textX = 100 + 70 * Math.cos(angle);
+      const textY = 100 + 70 * Math.sin(angle) + 5;
+      
+      const number = document.createElementNS(svgNS, "text");
+      number.setAttribute("x", textX);
+      number.setAttribute("y", textY);
+      number.setAttribute("text-anchor", "middle");
+      number.setAttribute("font-size", "14");
+      number.setAttribute("font-weight", "bold");
+      number.setAttribute("fill", "#333");
+      number.textContent = i;
+      clockFace.appendChild(number);
+    }
+     // FIXED: Use prepend to add at the beginning
+    if (clock.firstChild) {
+        clock.insertBefore(clockFace, clock.firstChild);
+    } else {
+        clock.appendChild(clockFace);
+    }
+
+    document.getElementById("Ctime-addition-clock").insertBefore(clockFace, document.getElementById("Ctime-addition-clock").firstChild);
+  }
+
+  // Helper function to create highlight arcs
+  function createHighlightArc(fromHour, fromMinute, toHour, toMinute, color, label) {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const highlightGroup = document.createElementNS(svgNS, "g");
+    highlightGroup.classList.add("Chighlight-arc");
+    
+    const startAngle = (fromHour % 12) * 30 + (fromMinute / 60) * 30 - 90;
+    const endAngle = (toHour % 12) * 30 + (toMinute / 60) * 30 - 90;
+    
+    const path = document.createElementNS(svgNS, "path");
+    const startRad = startAngle * Math.PI / 180;
+    const endRad = endAngle * Math.PI / 180;
+    
+    path.setAttribute("d", 
+      `M 100 100 
+       L ${100 + 75 * Math.cos(startRad)} ${100 + 75 * Math.sin(startRad)} 
+       A 75 75 0 ${endAngle - startAngle <= 180 ? 0 : 1} 1 ${100 + 75 * Math.cos(endRad)} ${100 + 75 * Math.sin(endRad)} 
+       Z`
+    );
+    path.setAttribute("fill", `${color}40`);
+    path.setAttribute("stroke", color);
+    path.setAttribute("stroke-width", "2");
+    
+    // Add label
+    const labelAngle = (startAngle + (endAngle - startAngle)/2) * Math.PI / 180;
+    const text = document.createElementNS(svgNS, "text");
+    text.setAttribute("x", 100 + 55 * Math.cos(labelAngle));
+    text.setAttribute("y", 100 + 55 * Math.sin(labelAngle));
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "middle");
+    text.setAttribute("fill", "black");
+    text.setAttribute("font-size", "12");
+    text.setAttribute("font-weight", "bold");
+    text.textContent = label;
+    
+    highlightGroup.appendChild(path);
+    highlightGroup.appendChild(text);
+    
+    return highlightGroup;
+  }
+
+  // Helper function to update clock hands
+  function updateClock(hour, minute) {
+    // Convert to 12-hour format for clock display
+    const displayHour = hour % 12;
+    const hourAngle = (displayHour * 30) + (minute * 0.5); // Each minute adds 0.5 degrees to hour hand
+    const minuteAngle = minute * 6; // Each minute = 6 degrees
+    
+    // Update hour hand position
+    const hourX = 100 + 40 * Math.sin(hourAngle * Math.PI / 180);
+    const hourY = 100 - 40 * Math.cos(hourAngle * Math.PI / 180);
+    document.getElementById("Chour-hand").setAttribute("x2", hourX);
+    document.getElementById("Chour-hand").setAttribute("y2", hourY);
+    
+    // Update minute hand position
+    const minuteX = 100 + 60 * Math.sin(minuteAngle * Math.PI / 180);
+    const minuteY = 100 - 60 * Math.cos(minuteAngle * Math.PI / 180);
+    document.getElementById("Cminute-hand").setAttribute("x2", minuteX);
+    document.getElementById("Cminute-hand").setAttribute("y2", minuteY);
+    
+    // Update time label if exists
+    if (document.getElementById("Ctime-label")) {
+      document.getElementById("Ctime-label").textContent = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+    }
+  }
+
+  function clearClockHighlights() {
+    // Remove all highlight arcs
+    const clock = document.getElementById("Ctime-addition-clock");
+    if (clock) {
+        const highlights = clock.querySelectorAll(".Chighlight-arc");
+        highlights.forEach(highlight => highlight.remove());
+    }
+    
+    // Remove all explanation steps
+    const highlightContainer = document.getElementById("Chighlight");
+    if (highlightContainer) {
+        highlightContainer.innerHTML = "";
+    }
+    
+    // Remove result divs
+    const resultDivs = document.querySelectorAll(".Cclock-result");
+    resultDivs.forEach(div => div.remove());
+}
+
+ // Reset quiz function
+function resetQuiz() {
+    currentQuestion = 0;
+    Cscore = 0;
+    if (progressBar) {
+        progressBar.textContent = `Pertanyaan: ${currentQuestion}/${totalQuestions}`;
+    }
+    document.getElementById("Cfeedback-message").textContent = "";
+    document.getElementById("Cfeedback-message").className = "feedback-message";
+    generateTimeAdditionQuestion();
+    
+    // Reset buttons
+    submitBtn.disabled = false;
+    explanationBtn.disabled = true;
+    newQuestionBtn.disabled = true;
+}
+    // Generate first question
+    generateTimeAdditionQuestion();
+}
+// NEW FUNCTION: Enter key support for Mode C
+function setupModeCEnterKeySupport() {
+    // Remove existing event listeners first
+    document.removeEventListener('keydown', handleModeCEnterKey);
+    
+    // Add new event listener
+    document.addEventListener('keydown', handleModeCEnterKey);
+    
+    console.log("Mode C Enter key support initialized");
+}
+
+// NEW FUNCTION: Handle Enter key for Mode C
+function handleModeCEnterKey(event) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        event.preventDefault();
+        
+        const newQuestionBtn = document.querySelector("#modeC .buttons button:nth-child(2)");
+        const submitBtn = document.querySelector("#modeC .buttons button:nth-child(1)");
+        
+        // If "Pertanyaan Baru" button is enabled, use Enter for next question
+        if (newQuestionBtn && !newQuestionBtn.disabled) {
+            console.log("Enter key: Generating new question");
+            window.generateTimeAdditionQuestion();
+        } 
+        // Otherwise, if submit is enabled, use Enter to submit
+        else if (submitBtn && !submitBtn.disabled) {
+            console.log("Enter key: Submitting answer");
+            window.submitTimeAddition();
+        }
+        // If in hour input and has value, move to minute input
+        else if (document.activeElement.id === 'Cend-hour' && document.activeElement.value.length >= 1) {
+            const minuteInput = document.getElementById('Cend-minute');
+            if (minuteInput) {
+                minuteInput.focus();
+            }
+        }
+    }
+}
+//modeD functions
+function initModeD() {
+    currentMode = 'modeD';
+    DcurrentScore = 0;
+    DcurrentQuestion = 1;
+    DtotalQuestions = 0;
+    updateProgressBar();
+    generateTimeAddition();
+
+    initModeWithNumpad('modeD');
+    submitFunction = checkTimeAddition;
+
+    // Remove the cloning code that was causing issues
+    const inputs = [
+        'Dinitial-hour', 
+        'Dinitial-minute',
+        'Dconverted-hour',
+        'Dconverted-minute'
+    ];
+
+    inputs.forEach(id => {
+        const input = document.getElementById(id);
+        
+        // Remove readonly if it exists
+        input.removeAttribute('readonly');
+        
+        input.addEventListener('focus', () => {
+            activeInput = input;
+            input.select();
+        });
+
+        // Add click event for mobile
+        input.addEventListener('click', () => {
+            activeInput = input;
+            input.select();
+        });
+    });
+
+    // Set up input event listeners
+    document.getElementById('Dinitial-hour').addEventListener('input', handleTimeInput);
+    document.getElementById('Dinitial-minute').addEventListener('input', handleMinuteInput);
+    document.getElementById('Dconverted-hour').addEventListener('input', handleTimeInput);
+    document.getElementById('Dconverted-minute').addEventListener('input', handleTimeInput);
+    
+    // Initialize UI state
+    document.getElementById('Dnew-question-button').disabled = true;
+    document.getElementById('score-modeD').classList.add('hidden');
+    
+    // Focus first input
+    setTimeout(() => {
+        document.getElementById('Dinitial-hour').focus();
+    }, 100);
+}
+
+function updateProgressBar() {
+  // FIXED: Remove the -1 since we want to show current progress
+  const progressPercent = ((DcurrentQuestion - 1) / DTOTAL_QUESTIONS) * 100;
+  document.getElementById('Dprogress-bar').style.width = `${progressPercent}%`;
+  document.getElementById('Dprogress-text').textContent = `Soal ${DcurrentQuestion - 1}/${DTOTAL_QUESTIONS}`;
+}
+
+function handleTimeInput(e) {
+    // Only allow digits
+    let value = e.target.value.replace(/[^\d]/g, '');
+
+    if (e.target.id.includes('hour')) {
+        // For hours: allow "00"–"23" but also accept single digits
+        if (value.length > 2) value = value.slice(0, 2);
+        let num = parseInt(value || '0', 10);
+        if (num > 23) num = 23;
+        
+        // Don't force formatting too early - allow user input
+        if (value.length === 2) {
+            value = num.toString().padStart(2, '0');
+        }
+        // Otherwise keep as-is for user typing
+    } 
+    else if (e.target.id.includes('minute')) {
+        // For minutes: allow "00"–"59" but also accept single digits
+        if (value.length > 2) value = value.slice(0, 2);
+        let num = parseInt(value || '0', 10);
+        if (num > 59) num = 59;
+        
+        if (value.length === 2) {
+            value = num.toString().padStart(2, '0');
+        }
+    }
+
+    e.target.value = value;
+
+    // Auto-tab logic remains the same...
+    if (e.target.value.length >= 2) { // Use fixed length for consistency
+        switch (e.target.id) {
+            case 'Dinitial-hour':
+                document.getElementById('Dinitial-minute').focus();
+                break;
+            case 'Dinitial-minute':
+                const minutes = parseInt(e.target.value) || 0;
+                if (minutes >= 60) {
+                    document.getElementById('Dconverted-hour').focus();
+                } else {
+                    document.getElementById('Dcheck-button').focus();
+                }
+                break;
+            case 'Dconverted-hour':
+                document.getElementById('Dconverted-minute').focus();
+                break;
+            case 'Dconverted-minute':
+                document.getElementById('Dcheck-button').focus();
+                break;
+        }
+    }
+
+    // Conversion check
+    if (e.target.id === 'Dinitial-minute') {
+        const minutes = parseInt(e.target.value) || 0;
+        const conversionRow = document.getElementById('Dconversion-row');
+        if (minutes >= 60) {
+            conversionRow.classList.remove('hidden');
+            DneedsConversion = true;
+        } else {
+            conversionRow.classList.add('hidden');
+            DneedsConversion = false;
+        }
+    }
+
+    toggleCheckButton();
+}
+
+function handleMinuteInput(e) {
+    // Sanitize input
+    let value = e.target.value.replace(/[^\d]/g, '');
+    
+    // For initial minutes, allow any value (00-99 or more for conversion)
+    let minuteValue = parseInt(value) || 0;
+    // No restriction on initial minute value - allow conversion
+    
+    // Dynamic maxLength for minutes based on value
+    if (minuteValue >= 100) {
+        e.target.maxLength = 3;
+    } else if (minuteValue >= 10) {
+        e.target.maxLength = 2;
+    } else {
+        e.target.maxLength = 2;
+    }
+    
+    e.target.value = value.slice(0, e.target.maxLength);
+    
+    // Check if conversion is needed
+    const minutes = parseInt(e.target.value) || 0;
+    const conversionRow = document.getElementById('Dconversion-row');
+    
+    if (minutes >= 60) {
+        conversionRow.classList.remove('hidden');
+        DneedsConversion = true;
+    } else {
+        conversionRow.classList.add('hidden');
+        DneedsConversion = false;
+    }
+    
+    // Auto-tab logic
+    if (e.target.value.length >= e.target.maxLength) {
+        if (DneedsConversion) {
+            document.getElementById('Dconverted-hour').focus();
+        } else {
+            document.getElementById('Dcheck-button').focus();
+        }
+    }
+    
+    toggleCheckButton();
+}
+
+function toggleCheckButton() {
+  const initialHour = document.getElementById('Dinitial-hour').value;
+  const initialMinute = document.getElementById('Dinitial-minute').value;
+  let allFilled = initialHour && initialMinute;
+  
+  if (DneedsConversion) {
+    const convertedHour = document.getElementById('Dconverted-hour').value;
+    const convertedMinute = document.getElementById('Dconverted-minute').value;
+    allFilled = allFilled && convertedHour && convertedMinute;
+  }
+  
+  document.getElementById('Dcheck-button').disabled = !allFilled;
+}
+
+function generateTimeAddition() {
+   if (DcurrentQuestion > DTOTAL_QUESTIONS) {
+        showFinalResults();
+        return;
+    }
+    updateProgressBar();
+    if (DcurrentQuestion < DTOTAL_QUESTIONS) {
+        DcurrentQuestion++;
+    }
+    
+
+    // Generate random times with sanitized values
+    const startHour = Math.max(1, Math.min(12, Math.floor(Math.random() * 12) + 1));
+    const startMinute = Math.max(0, Math.min(55, Math.floor(Math.random() * 12) * 5));
+    const addHour = Math.max(1, Math.min(4, Math.floor(Math.random() * 4) + 1));
+    const maxAddMinute = Math.min(55, 99 - startMinute);
+    const addMinute = Math.max(5, Math.min(maxAddMinute, Math.floor(Math.random() * 11) * 5 + 5));
+
+    // Calculate correct answer with bounds checking
+    let totalMinute = startMinute + addMinute;
+    let totalHour = startHour + addHour;
+    DneedsConversion = totalMinute >= 60;
+    
+    if (DneedsConversion) {
+        totalHour += Math.floor(totalMinute / 60);
+        totalMinute = totalMinute % 60;
+    }
+
+    // Sanitize display values
+    document.getElementById('Dstart-time').textContent = 
+        `${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}`;
+    document.getElementById('Dadded-time').textContent = 
+        `${addHour.toString().padStart(2, '0')}:${addMinute.toString().padStart(2, '0')}`;
+    
+    // Clear and secure input fields
+    const inputs = [
+        'Dinitial-hour', 
+        'Dinitial-minute',
+        'Dconverted-hour',
+        'Dconverted-minute'
+    ];
+    
+    inputs.forEach(id => {
+        const input = document.getElementById(id);
+        input.value = '';
+        input.disabled = false; // Ensure inputs are enabled
+        
+        // Store correct answers as data attributes
+        if (id === 'Dinitial-hour') input.dataset.correct = (startHour + addHour).toString();
+        if (id === 'Dinitial-minute') input.dataset.correct = (startMinute + addMinute).toString();
+        if (id === 'Dconverted-hour') input.dataset.correct = totalHour.toString();
+        if (id === 'Dconverted-minute') input.dataset.correct = totalMinute.toString();
+        
+        // Set appropriate maxLength based on expected values
+        if (id === 'Dinitial-minute') {
+            const initialMinutes = startMinute + addMinute;
+            input.maxLength = initialMinutes >= 100 ? 3 : 2;
+        }
+    });
+
+    // Toggle conversion row
+    document.getElementById('Dconversion-row').classList.toggle('hidden', !DneedsConversion);
+    
+    // Reset UI
+    document.getElementById('Dfeedback-message').textContent = '';
+    document.getElementById('Dexplanation').classList.add('hidden');
+    document.getElementById('Dnew-question-button').disabled = true;
+    document.getElementById('Dcheck-button').disabled = true;
+    
+    // Focus first input
+    setTimeout(() => {
+        document.getElementById('Dinitial-hour').focus();
+    }, 100);
+}
+
+function checkTimeAddition() {
+    // Get and sanitize all inputs
+    const getSanitizedValue = (id) => {
+        const input = document.getElementById(id);
+        return input ? input.value.replace(/[^\d]/g, '') : '';
+    };
+
+    const initialHour = getSanitizedValue('Dinitial-hour');
+    const initialMinute = getSanitizedValue('Dinitial-minute');
+    let isCorrect = true;
+    
+    // FIXED: Better validation that handles leading zeros
+    const validateInput = (id, value) => {
+        const input = document.getElementById(id);
+        if (!input || !input.dataset.correct) return false;
+        
+        // Convert both to numbers for comparison, then check string formats
+        const userNum = parseInt(value || '0', 10);
+        const correctNum = parseInt(input.dataset.correct || '0', 10);
+        
+        // Check numerical equality first
+        if (userNum !== correctNum) return false;
+        
+        // Also check string format for display consistency
+        const userValue = value.padStart(2, '0');
+        const correctValue = input.dataset.correct.padStart(2, '0');
+        
+        return userValue === correctValue;
+    };
+
+    if (!validateInput('Dinitial-hour', initialHour) || 
+        !validateInput('Dinitial-minute', initialMinute)) {
+        isCorrect = false;
+    }
+    
+    // Check converted time if needed
+    if (DneedsConversion) {
+        const convertedHour = getSanitizedValue('Dconverted-hour');
+        const convertedMinute = getSanitizedValue('Dconverted-minute');
+        
+        if (!validateInput('Dconverted-hour', convertedHour) || 
+            !validateInput('Dconverted-minute', convertedMinute)) {
+            isCorrect = false;
+        }
+    }
+    
+    // Rest of the function remains the same...
+    DtotalQuestions++;
+    const feedbackEl = document.getElementById('Dfeedback-message');
+    
+    if (isCorrect) {
+        DcurrentScore++;
+        feedbackEl.textContent = 'Benar! 👍';
+        feedbackEl.style.color = 'green';
+        playCorrectSound();
+    } else {
+        // FIXED: Show properly formatted correct answers
+        const initialHourCorrect = document.getElementById('Dinitial-hour').dataset.correct;
+        const initialMinuteCorrect = document.getElementById('Dinitial-minute').dataset.correct;
+        
+        let correctAnswer = `${initialHourCorrect.padStart(2, '0')}:${initialMinuteCorrect.padStart(2, '0')}`;
+        
+        if (DneedsConversion) {
+            const convertedHourCorrect = document.getElementById('Dconverted-hour').dataset.correct;
+            const convertedMinuteCorrect = document.getElementById('Dconverted-minute').dataset.correct;
+            correctAnswer += ` (setelah konversi: ${convertedHourCorrect.padStart(2, '0')}:${convertedMinuteCorrect.padStart(2, '0')})`;
+        }
+        
+        feedbackEl.textContent = `Salah. Jawaban yang benar: ${correctAnswer}`;
+        feedbackEl.style.color = 'red';
+        playWrongSound();
+    }
+
+    // Show explanation and update buttons
+    showTimeAdditionExplanationD();
+    document.getElementById('Dcheck-button').disabled = true;
+    document.getElementById('Dnew-question-button').disabled = false;
+    
+   if (DcurrentQuestion >= DTOTAL_QUESTIONS) {
+        // Remove the setTimeout from here since it's now in showFinalResults()
+        showFinalResults();
+    }
+}
+let currentExplanationStep = 0;
+const explanationSteps = [];
+
+function showTimeAdditionExplanationD() {
+  const startTime = document.getElementById('Dstart-time').textContent;
+  const addedTime = document.getElementById('Dadded-time').textContent;
+  const initialHourCorrect = document.getElementById('Dinitial-hour').dataset.correct;
+  const initialMinuteCorrect = document.getElementById('Dinitial-minute').dataset.correct;
+  const convertedHourCorrect = document.getElementById('Dconverted-hour')?.dataset.correct;
+  const convertedMinuteCorrect = document.getElementById('Dconverted-minute')?.dataset.correct;
+  
+  const [startHour, startMinute] = startTime.split(':').map(Number);
+  const [addHour, addMinute] = addedTime.split(':').map(Number);
+  const totalMinutes = startMinute + addMinute;
+  const totalHours = startHour + addHour;
+  
+  const explanationDiv = document.getElementById('Dexplanation-steps');
+  explanationDiv.innerHTML = ''; // Clear previous explanation
+  
+  // Step 1: Show starting time
+  setTimeout(() => {
+    let startTimeText = `<p><strong>1. Waktu Mulai:</strong> ${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}`;
+    if (startHour > 12) {
+      startTimeText += ` = ${(startHour-12).toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')} sore`;
+    }
+    startTimeText += `</p>`;
+    explanationDiv.innerHTML += startTimeText;
+  }, 300);
+
+  // Step 2: Show added time
+  setTimeout(() => {
+    let addedTimeText = `<p><strong>2. Ditambahkan:</strong> ${addHour.toString().padStart(2, '0')} jam ${addMinute.toString().padStart(2, '0')} menit`;
+    if (addHour > 12) {
+      addedTimeText += ` = ${(addHour-12).toString().padStart(2, '0')}:${addMinute.toString().padStart(2, '0')} sore`;
+    }
+    addedTimeText += `</p>`;
+    explanationDiv.innerHTML += addedTimeText;
+  }, 800);
+
+  // Step 3: Show initial sum
+  setTimeout(() => {
+    let initialSumText = `<p><strong>3. Jam Selesai:</strong> ${initialHourCorrect} jam ${initialMinuteCorrect} menit`;
+    
+    // Handle 3-digit minutes (e.g., 100 minutes)
+    if (parseInt(initialMinuteCorrect) >= 100) {
+      initialSumText += ` (${initialMinuteCorrect} menit)`;
+    }
+    
+    // Show AM/PM conversion if needed
+    const initialHourNum = parseInt(initialHourCorrect);
+    if (initialHourNum > 12) {
+      initialSumText += ` = ${(initialHourNum-12).toString().padStart(2, '0')}:${initialMinuteCorrect.padStart(2, '0')} sore`;
+    }
+    
+    initialSumText += `</p>`;
+    explanationDiv.innerHTML += initialSumText;
+  }, 1300);
+
+  if (DneedsConversion) {
+    // Step 4: Show conversion needed
+    setTimeout(() => {
+      explanationDiv.innerHTML += `<p><strong>4. Konversi diperlukan (${totalMinutes} menit ≥ 60)</strong></p>`;
+    }, 1800);
+    
+    // Step 5: Show minute conversion
+    setTimeout(() => {
+      explanationDiv.innerHTML += `<p>${totalMinutes} menit = ${Math.floor(totalMinutes/60)} jam + ${totalMinutes%60} menit</p>`;
+    }, 2300);
+    
+    // Step 6: Show final time - FIXED THIS PART
+    setTimeout(() => {
+      const convertedHourNum = parseInt(convertedHourCorrect);
+      let finalTimeText = `<p><strong>5. Setelah konversi:</strong> ${convertedHourCorrect.padStart(2, '0')}:${convertedMinuteCorrect.padStart(2, '0')}`;
+      
+      // Only show AM/PM conversion if it's actually PM time (13:00-23:59)
+      if (convertedHourNum > 12 && convertedHourNum <= 23) {
+        finalTimeText += ` = ${(convertedHourNum-12).toString().padStart(2, '0')}:${convertedMinuteCorrect.padStart(2, '0')} sore`;
+      }
+      // For 12:00-12:59, show as siang
+      else if (convertedHourNum === 12) {
+        finalTimeText += ` siang`;
+      }
+      // For 00:00-11:59, show as pagi
+      else if (convertedHourNum >= 0 && convertedHourNum < 12) {
+        finalTimeText += ` pagi`;
+      }
+      
+      finalTimeText += `</p>`;
+      explanationDiv.innerHTML += finalTimeText;
+    }, 2800);
+  }
+  
+  document.getElementById('Dexplanation').classList.remove('hidden');
+}
+      
+
+// New function to show final results
+function showFinalResults() {
+  // Add delay before showing final results
+  setTimeout(() => {
+    const dialog = document.getElementById('end-dialog');
+    document.getElementById('final-score-text').textContent = 
+      `Hasil Akhir: ${DcurrentScore} benar dari ${DTOTAL_QUESTIONS} soal`;
+    
+    // Update button functions
+    document.getElementById('play-again-btn').onclick = function() {
+      dialog.classList.add('hidden');
+      initModeD();
+    };
+    
+    document.getElementById('end-game-btn').onclick = function() {
+      dialog.classList.add('hidden');
+      resetModeSelection();
+    };
+    
+    dialog.classList.remove('hidden');
+  }, 3000); 
+}
+
+
+//end of modeD
+// Sound functions
+let isSoundPlaying = false;
+let soundTimeout = null;
+
+function playCorrectSound() {
+    playSound('correct-sound');
+}
+
+function playWrongSound() {
+    playSound('wrong-sound');
+}
+
+function playSound(soundId) {
+    if (isSoundPlaying) {
+        console.log("Sound already playing, skipping...");
+        return;
+    }
+    
+    isSoundPlaying = true;
+    console.log(`🎵 Playing ${soundId}`);
+    
+    const audio = document.getElementById(soundId);
+    if (!audio) {
+        console.log(`❌ ${soundId} audio element not found`);
+        isSoundPlaying = false;
+        return;
+    }
+    
+    // Clear any existing timeout
+    if (soundTimeout) {
+        clearTimeout(soundTimeout);
+    }
+    
+    audio.currentTime = 0;
+    
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            console.log(`${soundId} played successfully`);
+            // Set timeout as fallback in case onended doesn't fire
+            soundTimeout = setTimeout(() => {
+                isSoundPlaying = false;
+                console.log(`Sound timeout reset for ${soundId}`);
+            }, 2000);
+        }).catch(error => {
+            console.log(`Error playing ${soundId}:`, error);
+            isSoundPlaying = false;
+        });
+    }
+    
+    // Reset flag when sound ends
+    audio.onended = () => {
+        isSoundPlaying = false;
+        if (soundTimeout) {
+            clearTimeout(soundTimeout);
+        }
+        console.log(`${soundId} ended naturally`);
+    };
+}
+
+function showMode(modeId, study = false) {
+  // Stop ticking and second hand if leaving Mode B
+ // ✅ Cleanup BEFORE changing anything
+  if (currentMode === 'modeB' && modeId !== 'modeB') {
+  if (secondHandInterval) {
+    clearInterval(secondHandInterval);
+    secondHandInterval = null;
+  }
+
+  stopTickingSound(); // ✅ stop ticking properly
+}
+
+
+  const modes = ['modeA', 'modeB', 'modeC', 'modeD', 'modeCD', 'modeStudyClock', 'time-calculation-mode-selector'];
+  
+  modes.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.classList.add('hidden');
+  });
+
+  document.querySelector('.mode-selector').classList.add('hidden');
+  document.getElementById('time-calculation-mode-selector')?.classList.add('hidden');
+
+  isStudyMode = study;
+
+  if (modeId === 'modeCD') {
+    document.getElementById('time-calculation-mode-selector')?.classList.remove('hidden');
+    return;
+  }
+
+  const targetMode = document.getElementById(modeId);
+  if (targetMode) {
+    targetMode.classList.remove('hidden');
+
+    // Call init functions if needed
+    if (modeId === 'modeA') initModeA?.();
+    else if (modeId === 'modeB') initModeB?.();
+    else if (modeId === 'modeC') initModeC?.();
+    else if (modeId === 'modeD') initModeD?.();
+  }
+
+ // Hide inputs/numpad if in study mode
+  if (modeId === 'modeB' && study) {
+    document.getElementById('Bscore-bar-container')?.classList.add('hidden');
+    document.getElementById('score-board')?.classList.add('hidden');
+    document.querySelector('.quiz-input')?.classList.add('hidden');
+    document.querySelector('.clock-numpad-wrapper')?.classList.add('hidden');
+    document.getElementById('next-question')?.classList.add('hidden');
+  document.getElementById('study-show-again')?.classList.remove('hidden');
+  document.getElementById('explanationBtn')?.classList.remove('hidden');
+   document.getElementById('how-hour-btn')?.classList.remove('hidden');
+    showRandomStudyClock();
+         
+  } else if (modeId === 'modeB') {
+    document.getElementById('Bscore-bar-container')?.classList.remove('hidden');
+    document.getElementById('score-board')?.classList.remove('hidden');
+    document.querySelector('.quiz-input')?.classList.remove('hidden');
+    document.querySelector('.clock-numpad-wrapper')?.classList.remove('hidden');
+    document.getElementById('next-question')?.classList.remove('hidden');
+    document.getElementById('explanation').textContent = '';
+      document.getElementById('study-show-again')?.classList.add('hidden');
+      document.getElementById('explanationBtn')?.classList.add('hidden');
+      document.getElementById('how-hour-btn')?.classList.add('hidden');
+  }
+  
+}
+
+
+
+// Initialize fullscreen handling
+document.addEventListener('fullscreenchange', () => {
+  const quizContainer = document.querySelector('.quiz-container');
+  const toggle = document.getElementById('fullscreenToggle');
+  const isFullscreen = document.fullscreenElement === quizContainer;
+
+  toggle.checked = isFullscreen;
+
+  if (isFullscreen) {
+    quizContainer.classList.add('fullscreen-mode');
+    document.body.style.overflow = 'auto';
+  } else {
+    quizContainer.classList.remove('fullscreen-mode');
+    document.body.style.overflow = '';
+  }
+});
+function showTimeCalculationMode(modeId) {
+  // Hide all modes
+  ['modeC', 'modeD', 'time-calculation-mode-selector'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  });
+
+  if (modeId === 'modeCD') {
+    // Show the mode selection screen
+    const selector = document.getElementById('time-calculation-mode-selector');
+    if (selector) selector.classList.remove('hidden');
+  } 
+  else if (modeId === 'modeC' || modeId === 'modeD') {
+    // Show the requested mode
+    const targetMode = document.getElementById(modeId);
+    if (targetMode) {
+      targetMode.classList.remove('hidden');
+      if (modeId === 'modeC') initModeC();
+      else if (modeId === 'modeD') initModeD();
+    }
+  }
+}
+// Comprehensive validation function that can be used anywhere
+function sanitizeTimeInput(value, type = 'minute') {
+    if (typeof value !== 'string') value = String(value);
+    
+    // Remove all non-digits
+    value = value.replace(/[^\d]/g, '');
+    
+    if (type === 'hour') {
+        const hour = Math.max(0, Math.min(23, parseInt(value) || 0));
+        return String(hour).padStart(2, '0');
+    } else if (type === 'minute') {
+        const minute = Math.max(0, Math.min(59, parseInt(value) || 0));
+        return String(minute).padStart(2, '0');
+    }
+    
+    return value;
+}
+function debugModalLayout() {
+  const modal = document.getElementById('end-dialog');
+  if (modal && !modal.classList.contains('hidden')) {
+    const modalStyles = window.getComputedStyle(modal);
+    const contentStyles = window.getComputedStyle(modal.querySelector('.modal-content'));
+    
+    console.log('=== MODAL DEBUG ===');
+    console.log('Modal:', {
+      display: modalStyles.display,
+      position: modalStyles.position,
+      width: modalStyles.width,
+      height: modalStyles.height,
+      top: modalStyles.top,
+      left: modalStyles.left,
+      transform: modalStyles.transform
+    });
+    
+    console.log('Modal Content:', {
+      width: contentStyles.width,
+      maxWidth: contentStyles.maxWidth,
+      margin: contentStyles.margin,
+      position: contentStyles.position,
+      left: contentStyles.left,
+      top: contentStyles.top
+    });
+    
+    // Visual indicator
+    modal.style.border = '3px solid red';
+    setTimeout(() => {
+      modal.style.border = 'none';
+    }, 2000);
+  }
+}
+
+// Initialize the default mode if needed
+// showMode('modeA'); // Uncomment if you want a default mode
+
+  </script>
+   <script src="assets/js/footer.js" defer></script> <!-- Link the external JavaScript -->
+   
+
+<script src="assets/js/lazy-loading.js"></script> <!-- optional, load non-critical -->
+</body>
+  <footer id="site-footer">
+    
+   </footer>
+</html>

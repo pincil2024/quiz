@@ -1,0 +1,42 @@
+/* Second Header */
+.secondaryHeader {
+  width: 100%;
+  position:relative;
+  box-sizing: border-box;
+    border-top: 2px solid rgba(255, 255, 255, 0.5); /* A semi-transparent white line */
+    padding: 10px; /* Adjust padding as needed */
+    min-height: 40px; /* Shorter height */
+    background-color: #487cc4; /* Contrasting or complementary color */
+    color: #fff;
+    font-weight: bold;
+    font-size: larger;
+    display: flex;
+    align-items: center; /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+    text-align: center;
+    margin: 0; /* Remove any spacing between headers */
+    
+}
+
+.secondaryHeader img{
+    margin-left: 10px;
+    margin-right: 10px
+    
+}
+
+
+  footer {
+    margin-top: auto; /* Pushes footer to bottom */
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+
+    bottom: 0; /* Stick to bottom */
+    left: 0;
+  
+    font-size: 0.9rem;
+  }
+  
+  

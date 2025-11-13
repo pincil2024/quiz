@@ -1,0 +1,226 @@
+/* Fullscreen Controls */
+.fullscreen-controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+}
+
+.fullscreen-btn {
+  background: linear-gradient(135deg, #4ecdc4, #2a9d8f);
+  border: none;
+  border-radius: 25px;
+  padding: 12px 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10001;
+}
+
+.fullscreen-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.fullscreen-icon {
+  font-size: 1.2em;
+}
+
+/* Fullscreen styles */
+body:fullscreen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body:-moz-full-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body:-ms-fullscreen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Enhanced fullscreen canvas wrapper */
+.canvas-wrapper:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.canvas-wrapper:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.canvas-wrapper:-moz-full-screen {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.canvas-wrapper:-ms-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px;
+  overflow-y: auto;
+}
+
+/* Fullscreen content scaling */
+:fullscreen .MainShape-container,
+:fullscreen .lesson-container,
+:fullscreen .lesson3D,
+:fullscreen #quizSection {
+  transform: scale(1.1);
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+:-webkit-full-screen .MainShape-container,
+:-webkit-full-screen .lesson-container,
+:-webkit-full-screen .lesson3D,
+:-webkit-full-screen #quizSection {
+  transform: scale(1.1);
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+/* Enhanced fullscreen shapes */
+:fullscreen .shape-container {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 25px;
+}
+
+:fullscreen .shape {
+  transform: scale(1.15);
+  transition: transform 0.3s ease;
+}
+
+:fullscreen .shape:hover {
+  transform: scale(1.25);
+}
+
+/* Fullscreen quiz enhancements */
+:fullscreen #quizSection {
+  max-width: 80vw;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  margin: 20px auto;
+}
+
+:fullscreen .quiz-type {
+  padding: 30px;
+  font-size: 1.1em;
+}
+
+/* Mobile fullscreen optimizations */
+@media (max-width: 768px) {
+  .fullscreen-controls {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .fullscreen-btn {
+    padding: 10px 16px;
+    font-size: 0.9em;
+  }
+  
+  .fullscreen-text {
+    display: none; /* Hide text on mobile, show only icon */
+  }
+  
+  :fullscreen .canvas-wrapper {
+    padding: 20px;
+  }
+  
+  :fullscreen .MainShape-container,
+  :fullscreen .lesson-container,
+  :fullscreen .lesson3D,
+  :fullscreen #quizSection {
+    transform: scale(1);
+    max-width: 95vw;
+  }
+  
+  :fullscreen .shape-container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+  }
+}
+
+/* Exit fullscreen button styling */
+body:fullscreen .fullscreen-btn,
+body:-webkit-full-screen .fullscreen-btn,
+body:-moz-full-screen .fullscreen-btn,
+body:-ms-fullscreen .fullscreen-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+}
+
+body:fullscreen .fullscreen-icon,
+body:-webkit-full-screen .fullscreen-icon,
+body:-moz-full-screen .fullscreen-icon,
+body:-ms-fullscreen .fullscreen-icon {
+  content: "⛶";
+}
+
+body:not(:fullscreen) .fullscreen-icon {
+  content: "⛶";
+}
+
+/* Fullscreen animation */
+@keyframes fullscreenEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+:fullscreen .canvas-wrapper {
+  animation: fullscreenEnter 0.5s ease-out;
+}
+
+/* Scrollbar styling for fullscreen */
+:fullscreen ::-webkit-scrollbar {
+  width: 12px;
+}
+
+:fullscreen ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+:fullscreen ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #4ecdc4, #2a9d8f);
+  border-radius: 10px;
+}
+
+:fullscreen ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+}

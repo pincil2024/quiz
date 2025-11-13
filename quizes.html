@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>quizes</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Berbagai kuis edukatif yang menyenangkan untuk anak usia dini hingga sekolah dasar.">
+<meta name="keywords" content="Kuis Anak, Quiz Interaktif, Game Edukasi, Pendidikan Anak, Belajar Online, Pincil">
+<meta property="og:title" content="Pincil – Kumpulan Kuis Edukasi" />
+<meta property="og:description" content="Tantang anak-anak dengan kuis interaktif Pincil untuk meningkatkan kemampuan mereka!" />
+<meta property="og:url" content="https://pincil.id/quizes.html" />
+<meta property="og:type" content="website" />
+<link rel="canonical" href="https://pincil.id/quizes.html" />
+ <link rel="stylesheet" href="/static/css/navbar.css">
+ <link rel="stylesheet" href="/static/css/locked.css">
+
+      <script>
+            fetch('meta.html').then(res => res.text()).then(html => {
+            document.head.insertAdjacentHTML('beforeend', html);
+            });
+      </script>   
+        
+      <link rel="stylesheet" href="/static/css/locked.css">
+      <script src="assets/js/lazy-loading.js" defer></script>
+      <link rel="stylesheet" href="/static/css/secondaryheader.css">
+        
+
+  
+  <style>
+ body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* This is crucial */
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #fff6b7 0%, #f6416c 100%);
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.mainWrapper {
+  display: flex; /* This was missing */
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 700px;
+  padding: 20px 0; /* Add some vertical padding */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+#quizContainer, #setup, #introSection, #resultContainer {
+  margin: 10px auto; /* Reduced vertical margin */
+  display: flex;
+  background-color: #fff;
+  width: 70%;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+  box-sizing: border-box; /* Include padding in width calculation */
+    overflow-y: auto; /* Add scroll if content is too tall */
+}
+#setup {
+  display: block;
+}
+
+#setup, #introSection {
+
+  flex-direction: column; /* Optional, helps stack elements vertically */
+  align-items: center;     /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  text-align: center;      /* Optional: center text inside */
+}
+#resultButtons, .dialog-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+#resultButtons button, .dialog-buttons button, .button-container button, .back-button {
+
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+   background: linear-gradient(to right, #0eb5d3, #2b9fae,#86242d);
+  color: white;
+  transition: background-color 0.3s;
+}
+
+#resultButtons button:hover, .dialog-buttons button:hover {
+  background-color: #00b318;
+}
+
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+    #progressBar {
+      height: 10px;
+      width: 100%;
+      background-color: #ddd;
+    }
+    #progressFill {
+      height: 100%;
+      width: 0%;
+      background-color: green;
+    }
+    img {
+      max-width: 200px;
+      display: block;
+      margin-top: 10px;
+    }
+  
+    .modal1 {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: white; padding: 20px; border-radius: 10px; text-align: center;
+}
+.hidden { display: none; }
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* spacing between buttons */
+  margin-top: 10px;
+}
+
+.divider {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-top: 2px solid #ccc; /* style of the line */
+  width: 100%;
+}
+
+#question-image {
+  display: block;
+  max-width: 100%;
+  width: 50vh;
+  height: auto;
+  margin: 15px auto; /* top-bottom: 15px, center horizontally */
+}
+/* Improved matching layout */
+.match-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: flex-start;
+}
+
+.left-col, .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.match-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+.draggable-img {
+    max-width: 100px;
+    max-height: 70px;
+    cursor: grab;
+    transition: all 0.3s ease;
+}
+
+.droppable {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+    position: relative;
+}
+
+.drop-zone {
+    flex: 1;
+    font-weight: bold;
+}
+
+.dropped-item {
+    min-width: 80px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* Stack content vertically */
+    gap: 5px; /* Space between image and text */
+}
+
+/* Improved drag and drop styles */
+.draggable-img.dragging {
+    opacity: 0.5;
+    transform: scale(0.9);
+    cursor: grabbing;
+}
+
+.droppable.highlight {
+    border-color: #4CAF50;
+    background-color: #f8fff8;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+.droppable.occupied {
+    border-color: #2196F3;
+    background-color: #f0f8ff;
+}
+
+/* Styles for draggable images in drop zones */
+.dropped-item .draggable-img {
+    cursor: grab;
+    transition: all 0.2s ease;
+    max-width: 60px; /* Smaller in drop zone */
+    max-height: 50px;
+}
+
+.dropped-item .draggable-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.dropped-item .draggable-img:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+/* Text that appears under the image when dropped */
+.dropped-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    display: none; /* Hidden by default */
+    padding: 2px 5px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 4px;
+    margin-top: 2px;
+}
+
+/* Visual indicator that drop zones can be rearranged */
+.droppable.rearrangeable {
+    border-style: solid;
+    border-color: #2196F3;
+}
+
+.match-item {
+    transition: all 0.3s ease;
+}
+
+.match-item.hidden {
+    opacity: 0;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.dropped-item img {
+    max-width: 80px;
+    max-height: 60px;
+    object-fit: contain;
+}
+
+/* Make empty drop zones more visible */
+.dropped-item:empty::before {
+    content: "Drop here";
+    color: #999;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Responsive design for matching - 2 columns on mobile */
+@media (max-width: 768px) {
+    .match-container {
+        flex-direction: row; /* Keep side by side on mobile */
+        gap: 10px;
+    }
+    
+    .left-col, .right-col {
+        min-width: calc(50% - 5px); /* Each column takes half width minus gap */
+        flex: 1;
+    }
+    
+    .match-item {
+        min-height: 70px;
+        padding: 8px;
+    }
+    
+    .draggable-img {
+        max-width: 80px;
+        max-height: 60px;
+    }
+    
+    .droppable {
+        min-height: 50px;
+        padding: 8px;
+    }
+    
+    .dropped-item {
+        min-width: 60px;
+        min-height: 50px;
+        flex-direction: column; /* Stack image and text vertically */
+        gap: 3px;
+    }
+    
+    .dropped-item .draggable-img {
+        max-width: 50px;
+        max-height: 40px;
+    }
+    
+    /* Show text under image on mobile when dropped */
+    .dropped-text {
+        display: block; /* Show text on mobile */
+        font-size: 10px;
+        line-height: 1.2;
+    }
+    
+    /* Adjust drop zone text for mobile */
+    .dropped-item:empty::before {
+        font-size: 10px;
+        padding: 5px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    .match-container {
+        gap: 5px;
+    }
+    
+    .left-col, .right-col {
+        min-width: calc(50% - 2.5px);
+        gap: 10px;
+    }
+    
+    .match-item {
+        min-height: 60px;
+        padding: 5px;
+    }
+    
+    .draggable-img {
+        max-width: 60px;
+        max-height: 50px;
+    }
+    
+    .droppable {
+        min-height: 45px;
+        padding: 5px;
+    }
+    
+    .dropped-item {
+        min-width: 50px;
+        min-height: 45px;
+    }
+    
+    .dropped-item .draggable-img {
+        max-width: 40px;
+        max-height: 35px;
+    }
+    
+    .dropped-text {
+        font-size: 9px;
+        padding: 1px 3px;
+    }
+}
+
+/* Enhanced visual feedback for better UX */
+.droppable.success {
+    border-color: #4CAF50;
+    background-color: #e8f5e8;
+    animation: pulseSuccess 0.5s ease;
+}
+
+.droppable.error {
+    border-color: #f44336;
+    background-color: #ffebee;
+    animation: shake 0.5s ease;
+}
+
+@keyframes pulseSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Ensure images maintain aspect ratio */
+.draggable-img {
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Add some fun animations for children */
+.match-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.match-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.droppable {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Success celebration */
+.droppable.correct-match {
+    animation: celebrate 0.6s ease;
+}
+
+@keyframes celebrate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05) rotate(2deg); }
+    100% { transform: scale(1); }
+}
+.books-container {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+    justify-items: center;
+}
+
+.quiz-book {
+  
+    width: 100%;
+    max-width: 220px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    perspective: 1000px;
+}
+
+.quiz-book:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+.quiz-book .book-cover {
+    position: relative;
+    width: 100%;
+    height: 300px;
+     background-color: #6ba1cd;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    box-shadow: 
+        5px 5px 15px rgba(0,0,0,0.3),
+        inset 2px 2px 5px rgba(255,255,255,0.3),
+        inset -2px -2px 5px rgba(0,0,0,0.1);
+    border: 4px solid white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Book pages effect */
+.quiz-book .book-cover::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 5px;
+    bottom: 5px;
+    width: 8px;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    border-radius: 0 4px 4px 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+/* Book image styling */
+.quiz-book .book-image {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 2px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.quiz-book:hover .book-image {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* Book icon fallback */
+.quiz-book .book-icon {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    opacity: 0.9;
+}
+
+/* Book title */
+.quiz-book .book-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    line-height: 1.3;
+    min-height: 2.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Book description */
+.quiz-book .book-description {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    display: -webkit-box;
+
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Quiz metadata */
+.quiz-book .quiz-meta {
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.quiz-book .quiz-meta small {
+    display: block;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.75rem;
+    margin-bottom: 3px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Lock icon for premium quizzes */
+.quiz-book .lock-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: gold;
+    color: #000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+.quiz-book .lock-icon i {
+    font-size: 0.9rem;
+}
+
+/* Locked state */
+.quiz-book .book-cover.locked {
+    opacity: 0.8;
+    filter: grayscale(0.3);
+}
+
+.quiz-book .book-cover.locked::before {
+    background: linear-gradient(145deg, #666, #888);
+}
+
+.quiz-book:hover .book-cover.locked {
+    opacity: 0.9;
+    filter: grayscale(0.1);
+}
+
+/* Loading animation for images */
+.quiz-book .book-image:not([src]),
+.quiz-book .book-image[src=""],
+.quiz-book .book-image:not(.loaded) {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 20px;
+    }
+    
+    .quiz-book {
+        max-width: 180px;
+    }
+    
+    .quiz-book .book-cover {
+        height: 260px;
+        padding: 15px 12px;
+    }
+    
+    .quiz-book .book-image {
+        height: 120px;
+    }
+    
+    .quiz-book .book-title {
+        font-size: 1rem;
+    }
+    
+    .quiz-book .book-icon {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+    }
+    
+    .quiz-book {
+        max-width: 150px;
+    }
+    
+    .quiz-book .book-cover {
+        height: 240px;
+        padding: 12px 10px;
+    }
+    
+    .quiz-book .book-image {
+        height: 100px;
+    }
+    
+    .quiz-book .book-title {
+        font-size: 0.9rem;
+    }
+    
+    .quiz-book .book-description {
+        font-size: 0.75rem;
+    
+    }
+}
+.book-image {
+  width: 100%;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.book-icon {
+  font-size: 2em;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+/* Hide icon when image is present */
+.book-icon.hidden {
+    display: none !important;
+}
+
+.book-title {
+  margin: 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.book-description {
+  font-size: 0.9em;
+  color: #666;
+  margin: 5px 0;
+}
+
+.lock-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-cover.locked {
+  opacity: 0.7;
+  position: relative;
+}
+
+.book-cover.locked::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.subject-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.subject-btn {
+  padding: 10px 20px;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.subject-btn:hover,
+.subject-btn.active {
+  background: #007bff;
+  color: white;
+}
+
+.no-quizzes {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    grid-column: 1 / -1;
+}
+
+.error {
+  background: #ffe6e6;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 15px;
+  color: #721c24;
+  text-align: center;
+}
+
+.error button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Loading state */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-style: italic;
+    grid-column: 1 / -1;
+}
+.quiz-meta {
+  margin-top: 10px;
+  font-size: 0.8em;
+  color: #6c757d;
+}
+
+.quiz-meta small {
+  display: block;
+  margin: 2px 0;
+}
+
+@media (max-width: 768px) {
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+ /* Subject buttons styling */
+.subject-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.subject-btn {
+    padding: 12px 20px;
+    background: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.subject-btn.active,
+.subject-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255,107,107,0.3);
+}
+  #question-image {
+  width: 250px;
+  height: 200px;
+  object-fit: contain; /* keeps image aspect ratio without stretching */
+}
+}
+#question-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain; /* keeps image aspect ratio without stretching */
+}
+/* mirror for mobile dragging */
+.drag-mirror {
+  opacity: 0.95;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  border-radius: 6px;
+  background: white; /* in case the image has transparency */
+  display: block;
+  object-fit: contain;
+}
+.draggable-img.dragging { opacity: 0.5; }
+.droppable.highlight { outline: 3px dashed #4CAF50; }
+
+  </style>
+
+
+
+<script src="assets/js/premium/global-locking.js"></script>
+<script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/auth-manager.js"></script>
+
+<script type="module" src="assets/js/navbar.js"></script>
+
+</head>
+<body>
+      <div id="navbar"></div>
+   <div id="secondaryHeader" class="secondaryHeader">
+    <a href="tk.html">
+   <img class="lazy" alt="Description" title="Kembali" data-src="assets/image-mainsukukata/gobackbutton.png" width="80vw" height="80vw">
+    </a>
+         <p>Belajar Membaca</p>
+         <a href="index.html">
+          <img class="lazy"  alt="Description" title="Home" src="assets/icons/favicon.png" width="80vw" height="80vw" >
+      </a>
+  </div>
+<div class="mainWrapper">
+  <!-- Quiz selection section -->
+  <div id="setup">
+    <h2>Pilih Mata Pelajaran dan Level</h2>
+    
+    <!-- NEW BOOK STYLE SYSTEM -->
+    <div class="subject-buttons">
+      <button class="subject-btn active" data-subject="english">English</button>
+      <button class="subject-btn" data-subject="bahasaIndo">Bahasa Indonesia</button>
+      <button class="subject-btn" data-subject="math">Matematika</button>
+      <button class="subject-btn" data-subject="science">Sains</button>
+    </div>
+    
+    <!-- Quiz books container -->
+    <div id="quizBooksContainer" class="books-container">
+      <h3>Pilih Kuis</h3>
+      <div class="books-grid" id="booksGrid">
+        <!-- Quiz books will be dynamically inserted here -->
+      </div>
+    </div>
+      </div>
+ <!-- Timer controls and start button - VISIBLE BEFORE QUIZ -->
+    <div id="preQuizControls" style="display: none; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+      <h3>Atur Waktu Pengerjaan</h3>
+      
+      <div id="timerControls">
+        <p>Time Limit: <span id="timeDisplay">120</span> minutes</p>
+        <div style="display: flex; gap: 10px; align-items: center; margin: 10px 0;">
+          <button id="decreaseTimeBtn" class="time-btn">-</button>
+          <span id="currentTimeDisplay" style="font-weight: bold; font-size: 1.2em;">120</span>
+          <button id="increaseTimeBtn" class="time-btn" disabled>+</button>
+        </div>
+        <p style="font-size: 0.8em; color: #666; margin: 5px 0;">
+          (Anda hanya dapat mengurangi waktu dari default, tidak dapat menambah)
+        </p>
+      </div>
+      
+      <!-- Start button -->
+      <button id="startQuizBtn" style="margin-top: 15px; padding: 12px 24px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Mulai Kuis
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Quiz container - will be shown when quiz starts -->
+  <div id="quizContainer" style="display:none;">
+     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+    <button id="backToQuizSelectionBtn" class="back-button">
+      <i class="fas fa-arrow-left"></i> Kembali ke Pemilihan Kuis
+    </button>
+     </div>
+    <div id="progressBar"><div id="progressFill"></div></div>
+    <div id="timerContainer" style="margin: 10px 0; text-align: center; font-size: 1.2em;">
+      Time remaining: <span id="timerDisplay">00:00</span>
+    </div>
+    <div id="instructionBox" style="margin: 10px 0; font-style: italic;"></div>
+    <hr class="divider">
+    <div id="questionArea"></div>
+    <hr class="divider">
+    
+    <div class="button-container">
+      <button id="prevBtn">Previous</button>
+      <button id="nextBtn">Next</button>
+    </div>
+  </div>
+
+  <!-- Result container -->
+  <div id="resultContainer" style="display:none;">
+    <h2>Hasil Ulangan</h2>
+    <div id="score"></div>
+    <div id="review"></div>
+  </div>
+
+  <!-- Submit Confirmation Dialog -->
+  <div id="submitConfirmDialog" class="modal1 hidden">
+    <div class="modal-content">
+      <p>Are you sure you want to submit the quiz?</p>
+      <button id="cancelSubmitBtn">🔄 Recheck Answers</button>
+      <button id="confirmSubmitBtn">✅ Yes, Submit</button>
+    </div>
+  </div>
+  
+  <!-- Final Result Section Buttons -->
+  <div id="resultButtons" style="display: none;">
+    <button id="backToMenuBtn">⬅ Back to Menu</button>
+  </div>
+</div>
+
+<!-- Purchase Dialog -->
+<div id="purchaseDialog" class="welcome-dialog-overlay" style="display: none;">
+  <div class="welcome-dialog">
+    <h3>Kuis Terkunci</h3>
+    <p>Kuis ini hanya dapat diakses dengan link yang didapatkan di lynk.id setelah membeli versi PDF.</p>
+    <div class="dialog-buttons">
+      <button id="cancelPurchase">Batal</button>
+      <a id="confirmPurchase" href="#" class="button">Beli Sekarang</a>
+    </div>
+  </div>
+</div>
+
+  <script>
+
+    
+  // Quiz data structure
+const quizData = {
+  english: [
+    { 
+      id: 'quiz-english-level-1',
+      title: 'English Level 1', 
+      level: 'level_1',
+      subject: 'english',
+      description: 'Kuis dasar bahasa Inggris untuk pemula',
+      locked: false,
+      purchaseLink: 'https://lynk.id/pintarsikecil/english-level1',
+      icon: 'fa-language',
+      image: "assets/img/englishquiz/englishquiz5.png",
+      contentId: 'quiz-english-level-1' 
+    },
+    { 
+      id: 'quiz-english-level-2',
+      title: 'English Level 2', 
+      level: 'level_2',
+      subject: 'english',
+      description: 'Kuis bahasa Inggris tingkat menengah',
+      locked: true,
+      purchaseLink: 'https://lynk.id/pintarsikecil/english-level2',
+      icon: 'fa-language',
+      image: "assets/img/englishquiz/englishquiz1.png",
+        contentId: 'quiz-english-level-2' 
+    },
+    { 
+      id: 'quiz-english-level-3',
+      title: 'English Level 3', 
+      level: 'level_3',
+      subject: 'english',
+      description: 'Kuis bahasa Inggris tingkat lanjut',
+      locked: true,
+      purchaseLink: 'https://lynk.id/pintarsikecil/english-level3',
+      icon: 'fa-language',
+      image: "assets/img/englishquiz/englishquiz2.png",
+        contentId: 'quiz-english-level-3' 
+
+    }
+  ],
+  bahasaIndo: [
+    { 
+      id: 'quiz-bahasa-level-1',
+      title: 'Bahasa Indonesia Level 1', 
+      level: 'level_1',
+      subject: 'bahasaIndo',
+      description: 'Kuis dasar bahasa Indonesia',
+      locked: true,
+      purchaseLink: 'https://lynk.id/pintarsikecil/bahasa-level1',
+      icon: 'fa-book',
+      image: "assets/image-mainsukukata/BukuBelajarMembaca.png",
+        contentId: 'quiz-bIndo-level-1' 
+    },
+    { 
+      id: 'quiz-bahasa-level-2',
+      title: 'Bahasa Indonesia Level 2', 
+      level: 'level_2',
+      subject: 'bahasaIndo',
+      description: 'Kuis bahasa Indonesia tingkat menengah',
+      locked: true,
+      purchaseLink: 'https://lynk.id/pintarsikecil/bahasa-level2',
+      icon: 'fa-book',
+      image: "assets/image-mainsukukata/BukuBelajarMembaca2.png",
+      contentId: 'quiz-bIndo-level-2' 
+
+    }
+  ],
+  math: [
+    { 
+      id: 'quiz-math-level-1',
+      title: 'Matematika Level 1', 
+      level: 'level_1',
+      subject: 'math',
+      description: 'Kuis matematika dasar',
+      locked: true,
+      purchaseLink: 'https://lynk.id/pintarsikecil/math-level1',
+      icon: 'fa-calculator',
+      image: "assets/image-mainsukukata/dua.png",
+      contentId: 'quiz-mtk-level-1' 
+    },
+    { 
+      id: 'quiz-math-level-2',
+      title: 'Matematika Level 2', 
+      level: 'level_2',
+      subject: 'math',
+      description: 'Kuis matematika tingkat menengah',
+      locked: true,
+      purchaseLink: 'https://lynk.id/pintarsikecil/math-level2',
+      icon: 'fa-calculator',
+      image: "assets/image-mainsukukata/dua.png",
+       contentId: 'quiz-mtk-level-2' 
+    }
+  ],
+  science: [
+    { 
+      id: 'quiz-science-level-1',
+      title: 'Sains Level 1', 
+      level: 'level_1',
+      subject: 'science',
+      description: 'Kuis sains dasar',
+      locked: true,
+      purchaseLink: 'https://lynk.id/pintarsikecil/science-level1',
+      icon: 'fa-flask',
+      image: "assets/image-mainsukukata/fisika.png",
+       contentId: 'quiz-mtk-level-2' 
+    }
+  ]
+};
+// Utility function to shuffle array
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+let currentIndex = 0, 
+    userAnswers = [], 
+    currentQuestions = [],
+    timer = null,
+    quizStartTime = null,
+    timeLeft = 0;
+
+// Default times per subject (in minutes)
+const defaultTimes = {
+  math: 120,
+  science: 90,
+  english: 90,
+  bahasaIndo: 90
+};
+
+// Fixed isQuizLocked function
+async function isQuizLocked(quizId) {
+  try {
+    console.log("Checking quiz lock for:", quizId);
+    
+    // First check the hardcoded lock status from quizData
+    const quiz = findQuizById(quizId);
+    if (quiz && quiz.locked === false) {
+      console.log("Quiz is explicitly unlocked in data:", quizId);
+      return false;
+    }
+    
+    // Then check if user is admin
+    if (window.isUserAdmin && typeof isUserAdmin === 'function') {
+      const adminCheck = await isUserAdmin();
+      console.log("Admin check result:", adminCheck);
+      if (adminCheck) {
+        return false; // Admin can access everything
+      }
+    }
+    
+    // Then check normal token access
+    if (window.tokenManager && window.tokenManager.hasAccessTo) {
+      const tokenCheck = !tokenManager.hasAccessTo(quizId);
+      console.log("Token check result:", tokenCheck);
+      return tokenCheck;
+    }
+    
+    // Default to the locked status from quizData
+    console.log("Using default lock status:", quiz ? quiz.locked : true);
+    return quiz ? quiz.locked : true;
+    
+  } catch (error) {
+    console.error("Error in isQuizLocked:", error);
+    // On error, return the hardcoded lock status
+    const quiz = findQuizById(quizId);
+    return quiz ? quiz.locked : true;
+  }
+}
+
+// Helper function to find quiz by ID
+function findQuizById(quizId) {
+  for (const subject in quizData) {
+    const quiz = quizData[subject].find(q => q.id === quizId);
+    if (quiz) return quiz;
+  }
+  return null;
+}
+
+// Updated showQuizBooks function with better image handling
+async function showQuizBooks(subject) {
+    const booksGrid = document.getElementById('booksGrid');
+    const quizBooksContainer = document.getElementById('quizBooksContainer');
+    const preQuizControls = document.getElementById('preQuizControls');
+
+    if (!booksGrid || !quizBooksContainer || !preQuizControls) {
+        console.error("Missing DOM elements");
+        return;
+    }
+    
+    const quizzes = quizData[subject] || [];
+    booksGrid.innerHTML = '<div class="loading">Memuat kuis...</div>';
+    
+    if (quizzes.length === 0) {
+        booksGrid.innerHTML = `
+            <p class="no-quizzes">
+                Tidak ada kuis tersedia untuk mata pelajaran ini.
+                <br><small>Subject: ${subject}</small>
+            </p>
+        `;
+        quizBooksContainer.style.display = 'block';
+        return;
+    }
+    
+    // Clear and process quizzes
+    booksGrid.innerHTML = '';
+    
+    // Create an array of promises for all quiz lock checks
+    const quizPromises = quizzes.map(async (quiz) => {
+        const isLocked = await isQuizLocked(quiz.id);
+        
+        const bookElement = document.createElement('div');
+        bookElement.className = 'quiz-book';
+        bookElement.dataset.quizId = quiz.id;
+
+        // Create placeholder for image loading
+        const placeholderSVG = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='140' viewBox='0 0 200 140'%3E%3Crect width='200' height='140' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E`;
+        
+        bookElement.innerHTML = `
+            <div class="book-cover ${isLocked ? 'locked' : ''}">
+                ${quiz.image ? `
+                    <img 
+                        class="lazy book-image" 
+                        data-src="${quiz.image}" 
+                        src="${placeholderSVG}"
+                        alt="${quiz.title}"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                ` : ''}
+                <div class="book-icon ${quiz.image ? 'hidden' : ''}">
+                    <i class="fas ${quiz.icon}"></i>
+                </div>
+                <h4 class="book-title">${quiz.title}</h4>
+                <p class="book-description">${quiz.description}</p>
+                ${isLocked ? '<div class="lock-icon">🔒<i class="fas fa-lock"></i></div>' : ''}
+                <div class="quiz-meta">
+                    <small>Level: ${quiz.level.replace('_', ' ').toUpperCase()}</small>
+                    <small>Waktu: ${defaultTimes[quiz.subject] || 90} menit</small>
+                </div>
+            </div>
+        `;
+        
+        bookElement.addEventListener('click', () => {
+            console.log("Quiz clicked:", quiz.title, "Locked:", isLocked);
+            
+            if (isLocked) {
+                showPurchaseDialog(quiz);
+            } else {
+                selectedQuiz = quiz;
+                currentTimePerQuestion = defaultTimes[quiz.subject] || 90;
+                updateTimeDisplay();
+                document.getElementById('increaseTimeBtn').disabled = true;
+                document.getElementById('preQuizControls').style.display = 'block';
+                document.getElementById('quizBooksContainer').style.display = 'none';
+                document.getElementById('preQuizControls').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }
+        });
+        
+        return bookElement;
+    });
+
+    // Wait for all quizzes to be processed
+    const bookElements = await Promise.all(quizPromises);
+    bookElements.forEach(element => booksGrid.appendChild(element));
+    
+    quizBooksContainer.style.display = 'block';
+    preQuizControls.style.display = 'none';
+    
+    // Re-initialize lazy loading for new images
+    setTimeout(() => {
+        initializeLazyLoading();
+    }, 100);
+}
+// Show purchase dialog for quiz
+function showPurchaseDialog(quiz) {
+  const dialog = document.getElementById("purchaseDialog");
+  const cancelBtn = document.getElementById("cancelPurchase");
+  const confirmBtn = document.getElementById("confirmPurchase");
+  
+  // Set purchase link
+  if (window.tokenManager && quiz.contentId) {
+    confirmBtn.href = tokenManager.generatePurchaseUrl(
+      quiz.contentId, 
+      quiz.title, 
+      window.location.href
+    );
+  } else if (quiz.purchaseLink) {
+    confirmBtn.href = quiz.purchaseLink;
+  } else {
+    confirmBtn.href = "#";
+    confirmBtn.onclick = (e) => {
+      e.preventDefault();
+      alert("Tautan pembelian tidak tersedia untuk kuis ini.");
+    };
+  }
+  
+  // Update dialog text
+  const dialogTitle = dialog.querySelector('h3');
+  const dialogMessage = dialog.querySelector('p');
+  
+  if (dialogTitle) dialogTitle.textContent = `Kuis "${quiz.title}" Terkunci`;
+  if (dialogMessage) dialogMessage.textContent = `Kuis ini hanya dapat diakses dengan link yang didapatkan di lynk.id setelah membeli versi PDF..`;
+  
+  // Show dialog
+  dialog.style.display = "flex";
+  
+  // Close dialog handlers
+  cancelBtn.onclick = () => {
+    dialog.style.display = "none";
+  };
+  
+  dialog.onclick = (e) => {
+    if (e.target === dialog) {
+      dialog.style.display = "none";
+    }
+  };
+}
+
+// Start quiz function - UPDATED
+function startQuiz(quiz) {
+  const setupSection = document.getElementById("setup");
+  const quizContainer = document.getElementById("quizContainer");
+  const preQuizControls = document.getElementById("preQuizControls");
+  
+  if (setupSection) setupSection.style.display = "none";
+  if (quizContainer) quizContainer.style.display = "block";
+  if (preQuizControls) preQuizControls.style.display = "none";
+  
+  // Set the selected quiz data
+  window.currentQuiz = quiz;
+  
+  // Load quiz questions with the selected time
+  loadQuizQuestions(quiz);
+}
+
+// Load quiz questions - UPDATED to use selected time
+function loadQuizQuestions(quiz) {
+  // Show loading state
+  const questionArea = document.getElementById("questionArea");
+  if (questionArea) {
+    questionArea.innerHTML = '<div class="loading">Memuat kuis...</div>';
+  }
+  
+  // Start the timer with selected time
+  startQuizTimer(currentTimePerQuestion);
+  
+  // Fetch quiz data
+  const quizPath = `bank/data/${quiz.subject || 'math'}.json`;
+  console.log("Loading quiz from:", quizPath);
+  
+  fetch(quizPath)
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      if (!data.levels) throw new Error("Invalid quiz format: missing levels");
+      
+      const levelData = data.levels[quiz.level];
+      if (levelData) {
+        prepareQuestions(levelData);
+        renderQuestion();
+      } else {
+        throw new Error(`Level ${quiz.level} not found in quiz data`);
+      }
+    })
+    .catch(error => {
+      console.error('Error loading quiz:', error);
+      if (questionArea) {
+        questionArea.innerHTML = `
+          <div class="error">
+            <p>Gagal memuat kuis: ${error.message}</p>
+            <button onclick="loadQuizQuestions(window.currentQuiz)">Coba Lagi</button>
+          </div>
+        `;
+      }
+    });
+}
+
+// Initialize the system
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize time display
+  updateTimeDisplay();
+    setupQuizEventListeners();
+  
+  // Add event listeners to subject buttons
+  const subjectButtons = document.querySelectorAll('.subject-btn');
+  subjectButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      subjectButtons.forEach(btn => btn.classList.remove('active'));
+      
+      // Add active class to clicked button
+      this.classList.add('active');
+      
+      // Show quizzes for this subject
+      const subject = this.dataset.subject;
+      showQuizBooks(subject);
+    });
+  });
+  
+  // Show English quizzes by default
+  showQuizBooks('english');
+
+  // Check for URL access tokens on load
+  const urlParams = new URLSearchParams(window.location.search);
+  const accessToken = urlParams.get('access_token');
+  const contentId = urlParams.get('content_id');
+  
+  if (accessToken && contentId && window.tokenManager) {
+    window.tokenManager.addContentAccess(contentId, accessToken);
+    
+    // Remove token from URL
+    const newUrl = window.location.pathname + window.location.hash;
+    window.history.replaceState({}, document.title, newUrl);
+  }
+});
+
+// Timer and quiz functions
+function sanitizeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+const clickSound = new Audio('assets/sounds/alert.mp3');
+const submitSound = new Audio('assets/sounds/yay.mp3');
+
+
+let currentTimePerQuestion = defaultTimes.math;
+
+function startQuizTimer(minutes) {
+  if (timer) clearInterval(timer);
+  
+  const totalTime = minutes * 60; // Convert minutes to seconds
+  quizStartTime = Date.now();
+  timeLeft = totalTime;
+  
+  // Update timer display
+  const timerDisplay = document.getElementById('timerDisplay');
+  if (timerDisplay) {
+    timerDisplay.textContent = formatTime(timeLeft);
+  }
+  
+  timer = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - quizStartTime) / 1000);
+    timeLeft = Math.max(0, totalTime - elapsed);
+    
+    if (timerDisplay) {
+      timerDisplay.textContent = formatTime(timeLeft);
+    }
+    
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      autoAdvanceQuestion();
+    }
+  }, 1000);
+}
+// Timer controls
+document.getElementById('decreaseTimeBtn').addEventListener('click', () => {
+  // Decrease by 5 minutes, don't go below 10 minutes
+  if (currentTimePerQuestion > 10) {
+    currentTimePerQuestion -= 5;
+    updateTimeDisplay();
+    
+    // Enable increase button if time is below default
+    const defaultTime = defaultTimes[selectedQuiz?.subject] || 90;
+    if (currentTimePerQuestion < defaultTime) {
+      document.getElementById('increaseTimeBtn').disabled = false;
+    }
+  }
+});
+
+document.getElementById('increaseTimeBtn').addEventListener('click', () => {
+  // Increase by 5 minutes, don't go above default
+  const defaultTime = defaultTimes[selectedQuiz?.subject] || 90;
+  if (currentTimePerQuestion < defaultTime) {
+    currentTimePerQuestion += 5;
+    updateTimeDisplay();
+    
+    // Disable increase button if reached default time
+    if (currentTimePerQuestion >= defaultTime) {
+      document.getElementById('increaseTimeBtn').disabled = true;
+    }
+  }
+});
+
+// Start quiz button
+document.getElementById('startQuizBtn').addEventListener('click', () => {
+  if (!selectedQuiz) {
+    alert("Silakan pilih kuis terlebih dahulu");
+    return;
+  }
+  
+  startQuiz(selectedQuiz);
+});
+
+
+// Update this when subject changes
+document.getElementById('subjectSelect').addEventListener('change', (e) => {
+  const subject = e.target.value;
+  currentTimePerQuestion = defaultTimes[subject];
+  updateTimeDisplay();
+  document.getElementById('increaseTimeBtn').disabled = true;
+  
+  // If timer is running, restart it with new time
+  if (timer) {
+    startQuizTimer(currentTimePerQuestion);
+  }
+});
+
+// Initialize button state
+document.getElementById('increaseTimeBtn').disabled = true;
+
+function updateTimeDisplay() {
+  const timeDisplay = document.getElementById('timeDisplay');
+  const currentTimeDisplay = document.getElementById('currentTimeDisplay');
+  
+  if (timeDisplay) timeDisplay.textContent = currentTimePerQuestion;
+  if (currentTimeDisplay) currentTimeDisplay.textContent = currentTimePerQuestion;
+}
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Initialize time display
+updateTimeDisplay();
+
+ document.getElementById("startBtn").addEventListener("click", async () => {
+  const subject = document.getElementById("subjectSelect").value;
+  const level = document.getElementById("levelSelect").value;
+  const quizId = `quiz-${subject}-level-${level.replace('level_', '')}`;
+  
+  // Make async call
+  const locked = await isQuizLocked(quizId);
+  if (locked) {
+    showQuizPurchaseDialog(subject, level);
+    return;
+  }
+  
+  // If not locked, proceed
+  fetchQuizData(subject, level);
+});
+  
+  // Your existing fetch function renamed
+  function fetchQuizData(subject, level) {
+    fetch(`bank/data/${subject}.json`)
+      .then(res => res.json())
+      .then(data => {
+        const levelData = data.levels[level];
+        const quizTitle = `${capitalize(subject)} Try Out Quiz`;
+        const totalQuestions = (levelData.multiple_choice?.length || 0) +
+                               (levelData.fill_in_blank?.length || 0) +
+                               (levelData.matching?.length || 0) +
+                               (levelData.text_answer?.length || 0);
+
+        document.getElementById("quizTitle").textContent = quizTitle;
+        document.getElementById("quizInfo").innerHTML = `
+          <strong>Keterangan:</strong><br>
+          Semester: Genap<br>
+          Kelas: ${level}<br>
+          Jumlah Soal: ${totalQuestions}<br><br>
+          Klik tombol di bawah ini untuk memulai.
+        `;
+
+        // Show intro section
+        document.getElementById("setup").style.display = "none";
+        document.getElementById("introSection").style.display = "block";
+
+        // Prepare questions for use after clicking begin
+        prepareQuestions(levelData);
+      });
+  }
+  
+
+
+// Quiz functions
+function prepareQuestions(levelData) {
+  const mc = levelData.multiple_choice ? shuffle([...levelData.multiple_choice]).slice(0, 10).map(q => ({ ...q, type: 'multiple_choice' })) : [];
+  const fib = levelData.fill_in_blank ? shuffle([...levelData.fill_in_blank]).slice(0, 5).map(q => ({ ...q, type: 'fill_in_blank' })) : [];
+  const match = levelData.matching ? shuffle([...levelData.matching]).slice(0, 5).map(q => ({ ...q, type: 'matching' })) : [];
+  const txt = levelData.text_answer ? shuffle([...levelData.text_answer]).slice(0, 3).map(q => ({ ...q, type: 'text_answer' })) : [];
+
+  currentQuestions = [...mc, ...fib, ...match, ...txt];
+  currentIndex = 0;
+  userAnswers = [];
+}
+
+document.getElementById("beginQuizBtn").addEventListener("click", () => {
+  document.getElementById("introSection").style.display = "none";
+  document.getElementById("quizContainer").style.display = "block";
+  document.getElementById("resultButtons").style.display = "block";
+ startQuizTimer(currentTimePerQuestion);
+   renderQuestion();
+});
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// Fix event listener attachment - do this AFTER DOM is fully loaded
+function setupQuizEventListeners() {
+  // Next button
+  const nextBtn = document.getElementById("nextBtn");
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      clickSound.play();
+      saveAnswer();
+      currentIndex++;
+      if (currentIndex < currentQuestions.length) {
+        renderQuestion();
+      } else {
+        document.getElementById("submitConfirmDialog").classList.remove("hidden");
+      }
+    });
+  }
+
+  // Previous button
+  const prevBtn = document.getElementById("prevBtn");
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      clickSound.play();
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    });
+  }
+
+  // Begin quiz button
+  const beginBtn = document.getElementById("beginQuizBtn");
+  if (beginBtn) {
+    beginBtn.addEventListener("click", () => {
+      document.getElementById("introSection").style.display = "none";
+      document.getElementById("quizContainer").style.display = "block";
+      document.getElementById("resultButtons").style.display = "block";
+      startQuizTimer(currentTimePerQuestion);
+      renderQuestion();
+    });
+  }
+  // Back to quiz selection button
+  const backToQuizBtn = document.getElementById("backToQuizSelectionBtn");
+  if (backToQuizBtn) {
+    backToQuizBtn.addEventListener("click", () => {
+      if (confirm("Apakah Anda yakin ingin kembali ke pemilihan kuis? Progress yang belum disubmit akan hilang.")) {
+        goBackToQuizSelection();
+      }
+    });
+  }
+    const backToMenuBtn = document.getElementById("backToMenuBtn");
+  if (backToMenuBtn) {
+    backToMenuBtn.addEventListener("click", () => {
+      if (confirm("Apakah Anda yakin ingin kembali ke pemilihan kuis?")) {
+        goBackToQuizSelection();
+      }
+    });
+  }
+// Cancel Submit
+  const cancelSubmitBtn = document.getElementById("cancelSubmitBtn");
+  if (cancelSubmitBtn) {
+    cancelSubmitBtn.addEventListener("click", () => {
+      // Just close the dialog and allow user to continue
+      document.getElementById("submitConfirmDialog").classList.add("hidden");
+    });
+  }
+
+  // Confirm Submit
+  const confirmSubmitBtn = document.getElementById("confirmSubmitBtn");
+  if (confirmSubmitBtn) {
+    confirmSubmitBtn.addEventListener("click", () => {
+      submitSound.play();
+      document.getElementById("submitConfirmDialog").classList.add("hidden");
+        
+      showResult(); 
+    });
+  }
+}
+// Function to go back to quiz selection
+function goBackToQuizSelection() {
+  if (timer) clearInterval(timer);
+  
+  // Reset quiz state
+  currentIndex = 0;
+  userAnswers = [];
+  currentQuestions = [];
+  
+  // Hide quiz container, show setup container
+  document.getElementById("quizContainer").style.display = "none";
+  document.getElementById("resultContainer").style.display = "none";
+  document.getElementById("resultButtons").style.display = "none";
+  document.getElementById("setup").style.display = "block";
+  
+  // Also hide intro section if it's visible
+  document.getElementById("introSection").style.display = "none";
+  
+  // Clear question area
+  const questionArea = document.getElementById("questionArea");
+  if (questionArea) questionArea.innerHTML = "";
+}
+function renderQuestion() {
+   const q = currentQuestions[currentIndex];
+  const instructions = {
+    multiple_choice: "Pilih jawaban yang benar:",
+    fill_in_blank: "Isilah titik-titik berikut:",
+    matching: "Cocokkan pasangan yang sesuai:",
+    text_answer: "Tuliskan jawabanmu:"
+    
+  };
+  document.getElementById("instructionBox").textContent = instructions[q.type];
+
+   let html = `<p>Q${currentIndex + 1}: ${sanitizeHTML(q.question)}</p>`;
+if (q.image) html += `
+<img 
+  data-src="${sanitizeHTML(q.image)}" 
+  alt="question image" 
+  id="question-image" 
+  class="lazy"
+  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E"
+/>`;
+
+
+
+  if (q.type === "multiple_choice") {
+    q.options.forEach(opt => {
+      html += `<label ><input type="radio" name="answer" value="${sanitizeHTML(opt)}" /> ${sanitizeHTML(opt)}</label><br>`;
+    });
+  } else if (q.type === "fill_in_blank") {
+    html += `<input type="text" id="blankAnswer" />`;
+ }else if (q.type === "matching") {
+    // Create a shuffled copy of pairs for display
+    resetMatchingState();
+    let displayPairs = [...q.pairs];
+    if (q.shuffle !== false) { // Default to shuffling if not explicitly false
+        displayPairs = shuffleArray([...q.pairs]);
+    }
+    
+    html += `<div class="match-container">
+        <div class="left-col">`;
+    
+    // Render shuffled left images
+    displayPairs.forEach((pair, i) => {
+        html += `<div class="match-item" data-index="${i}">
+            <img src="${pair.leftImage}" 
+                 class="draggable-img" 
+                 draggable="true" 
+                 alt="Drag me"
+                 data-left="${pair.left || ''}"
+                 data-right="${pair.right}"
+                 data-original-index="${q.pairs.findIndex(p => p.right === pair.right)}">
+        </div>`;
+    });
+    html += `</div><div class="right-col" id="rightItems">`;
+    
+    // Keep right side in original order
+    q.pairs.forEach((pair, i) => {
+        html += `<div class="droppable" 
+                      data-index="${i}"
+                      data-expected="${pair.right}">
+            <div class="drop-zone">${sanitizeHTML(pair.right)}</div>
+            <div class="dropped-item"></div>
+        </div>`;
+    });
+    html += `</div></div>`;
+    
+    if (q.mainImage) {
+        html += `<div class="match-instruction-image">
+            <img src="${q.mainImage}" alt="Matching example">
+        </div>`;
+    }
+}
+
+else if (q.type === "text_answer") {
+  if (q.answers && q.answers.length > 1) {
+    const required = q.requiredCount || q.answers.length;
+    html += `
+      <div class="text-answer-container">
+        <p>${q.instruction || `Enter ${required} answers (choose any ${required} from ${q.answers.length} possible options):`}</p>
+        ${Array(required).fill().map((_, index) => `
+          <div style="margin-bottom: 10px;">
+           
+            <input type="text" id="textAnswer-${index}" placeholder="Answer ${index + 1}"/>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    // Single answer case
+    html += `<textarea id="textAnswer" rows="4" cols="40"></textarea>`;
+  }
+}
+
+  document.getElementById("questionArea").innerHTML = html;
+
+
+  // Pre-fill user answer if exists
+  const prevAnswer = userAnswers[currentIndex];
+  if (prevAnswer) {
+    if (q.type === "multiple_choice") {
+      const radios = document.querySelectorAll('input[name="answer"]');
+      radios.forEach(r => {
+        if (r.value === prevAnswer.user) r.checked = true;
+      });
+    } else if (q.type === "fill_in_blank") {
+      document.getElementById("blankAnswer").value = prevAnswer.user;
+    } else  if (q.type === "text_answer") {
+      if (q.answers && q.answers.length > 1) {
+        // Multiple answers case
+        prevAnswer.user.forEach((userAns, index) => {
+          const input = document.getElementById(`textAnswer-${index}`);
+          if (input) input.value = userAns;
+        });
+      } else {
+        // Single answer case
+        document.getElementById("textAnswer").value = prevAnswer.user;
+      }
+ } else if (q.type === "matching") {
+    // matching reapply user answer - restore images to their dropped positions
+    setTimeout(() => {
+        prevAnswer.user.forEach((match, idx) => {
+            const dropZone = document.querySelectorAll('.dropped-item')[idx];
+            if (match.right && match.originalIndex !== -1 && dropZone) {
+                // Clear any existing content in the drop zone
+                dropZone.innerHTML = '';
+                
+                // Find the original image element by its original index
+                const originalImage = document.querySelector(`.draggable-img[data-original-index="${match.originalIndex}"]`);
+                
+                if (originalImage) {
+                    // Move the image to the drop zone but keep it draggable
+                    dropZone.appendChild(originalImage);
+                    originalImage.draggable = true; // Keep draggable for rearrangement
+                    
+                    // Hide the original container in left column
+                    const originalContainer = originalImage.parentElement;
+                    if (originalContainer && originalContainer.classList.contains('match-item')) {
+                        originalContainer.style.visibility = 'hidden';
+                        originalContainer.style.height = '0';
+                        originalContainer.style.margin = '0';
+                        originalContainer.style.padding = '0';
+                        originalContainer.style.border = 'none';
+                    }
+                } else {
+                    // If original image not found, create a new draggable one
+                    const newImage = document.createElement('img');
+                    newImage.src = match.leftImage;
+                    newImage.className = 'draggable-img';
+                    newImage.alt = 'Drag me';
+                    newImage.setAttribute('data-left', match.left || '');
+                    newImage.setAttribute('data-right', match.right);
+                    newImage.setAttribute('data-original-index', match.originalIndex);
+                    newImage.draggable = true; // Make it draggable
+                    newImage.style.cursor = 'grab';
+                    
+                    dropZone.appendChild(newImage);
+                }
+            }
+        });
+        
+        // Re-enable drag and drop after restoring state
+        enableDragDrop();
+    }, 100);
+}
+  }
+
+
+  // Previous button visibility
+  document.getElementById("prevBtn").style.display = (currentIndex > 0) ? "inline-block" : "none";
+
+  // Update progress bar
+  updateProgress();
+
+  // Enable drag and drop for matching
+  if (q.type === "matching") {
+    enableDragDrop();
+  }
+
+  // Change Next button to Submit if last question
+  const nextBtn = document.getElementById("nextBtn");
+  nextBtn.textContent = (currentIndex === currentQuestions.length - 1) ? "Submit" : "Next";
+  initializeLazyLoading();
+}
+function initializeLazyLoading() {
+  const lazyElements = document.querySelectorAll('.lazy:not(.observed)');
+  if (!lazyElements.length) return;
+
+  const observer = new IntersectionObserver(/* ... */);
+
+  lazyElements.forEach(el => {
+    el.classList.add('observed');
+    observer.observe(el);
+  });
+}
+
+function autoAdvanceQuestion() {
+  saveAnswer();
+  if (currentIndex < currentQuestions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+} else {
+    // Time ran out on last question → show submit dialog
+    const dialog = document.getElementById("submitConfirmDialog");
+    dialog.classList.remove("hidden");
+}
+}
+document.getElementById("cancelSubmitBtn").addEventListener("click", () => {
+  document.getElementById("submitConfirmDialog").classList.add("hidden");
+
+  // Make sure quiz UI is shown again
+  document.getElementById("quizContainer").style.display = "block";
+  document.getElementById("resultContainer").style.display = "none";
+
+  renderQuestion(); // Re-render current question
+});
+
+// Confirm Submit
+document.getElementById("confirmSubmitBtn").addEventListener("click", () => {
+  document.getElementById("submitConfirmDialog").classList.add("hidden");
+
+  // ✅ Go straight to results
+  showResult();
+});
+
+function saveAnswer() {
+  
+  const q = currentQuestions[currentIndex];
+  let answer = '';
+
+  if (q.type === "multiple_choice") {
+    const selected = document.querySelector('input[name="answer"]:checked');
+    answer = selected ? selected.value : '';
+  } else if (q.type === "fill_in_blank") {
+    answer = document.getElementById("blankAnswer").value.trim();
+ } else if (q.type === "matching") {
+    answer = Array.from(document.querySelectorAll('.droppable')).map((drop, index) => {
+        const match = drop.querySelector('.draggable-img');
+        const originalIndex = match ? parseInt(match.dataset.originalIndex) : -1;
+        
+        return {
+            left: match ? match.dataset.left : "",
+            right: match ? match.dataset.right : "",
+            correctRight: drop.dataset.expected,
+            originalIndex: originalIndex,
+            leftImage: match ? match.src : "",
+            // Store the drop zone index for reliable restoration
+            dropZoneIndex: index
+        };
+    });
+} else if (q.type === "text_answer") {
+  if (q.answers && q.answers.length > 1) {
+    const required = q.requiredCount || q.answers.length;
+    answer = [];
+    for (let i = 0; i < required; i++) {
+      const input = document.getElementById(`textAnswer-${i}`);
+      if (input) answer.push(input.value.trim());
+    }
+  } else {
+    answer = document.getElementById("textAnswer").value.trim();
+  }
+}
+
+userAnswers[currentIndex] = {
+  question: q.question,
+   correct: q.answers ? q.answers.map(a => a.correct) : q.answer,
+  user: answer,
+  type: q.type
+};
+}
+function resetMatchingState() {
+    const dropZones = document.querySelectorAll('.dropped-item');
+    const matchItems = document.querySelectorAll('.match-item');
+    
+    // Clear all drop zones
+    dropZones.forEach(zone => {
+        zone.innerHTML = '';
+    });
+    
+    // Reset all left containers to visible
+    matchItems.forEach(item => {
+        item.style.visibility = 'visible';
+        item.style.height = 'auto';
+        item.style.margin = '10px 0';
+        item.style.padding = '10px';
+        item.style.border = '1px solid #ddd';
+        
+        // Ensure images are draggable and in correct position
+        const img = item.querySelector('.draggable-img');
+        if (img && !item.contains(img)) {
+            item.appendChild(img);
+            img.draggable = true;
+        }
+    });
+}
+function updateProgress() {
+  const progress = ((currentIndex) / currentQuestions.length) * 100;
+  document.getElementById("progressFill").style.width = progress + "%";
+}
+
+function showResult() {
+    if (timer) clearInterval(timer);
+    document.getElementById("quizContainer").style.display = "none";
+    document.getElementById("resultContainer").style.display = "block";
+    document.getElementById("resultButtons").style.display = "block";
+
+    let totalScore = 0;
+    let maxPossibleScore = 0;
+    const review = userAnswers.map((ans, i) => {
+        let score = 0;
+        let maxScore = 1;
+        const currentQ = currentQuestions[i];
+        let isCorrect = false;
+
+       if (ans.type === "matching") {
+            maxScore = ans.user.length;
+            score = 0;
+            
+            // For each droppable zone (right side), check if the user placed the correct image
+            ans.user.forEach((userPair, index) => {
+                // Get the expected correct answer for this droppable zone
+                const expectedRight = currentQ.pairs[index].right;
+                
+                // Check if the user placed the correct image in this zone
+                if (userPair.right === expectedRight) {
+                    score++;
+                }
+            });
+            
+            isCorrect = (score === maxScore);
+            totalScore += score;
+            maxPossibleScore += maxScore;
+        }
+        else if (ans.type === "text_answer" && Array.isArray(ans.user)) {
+            // For text answers with multiple fields
+            const required = currentQ.requiredCount || currentQ.answers.length;
+            maxScore = required;
+            
+            // Case-insensitive comparison
+            const userAnswersLower = ans.user
+                .filter(a => a.trim() !== '')
+                .map(a => a.toLowerCase().trim());
+            
+            const correctAnswersLower = currentQ.answers.map(a => 
+                a.correct.toLowerCase().trim()
+            );
+
+  // Count correct answers
+            score = userAnswersLower.filter(userAns =>
+                correctAnswersLower.includes(userAns)
+            ).length;
+            
+            // Ensure they don't get more points than required
+            score = Math.min(score, required);
+            isCorrect = (score === required);
+            totalScore += score;
+            maxPossibleScore += maxScore;
+        } 
+       else if (ans.type === "fill_in_blank") {
+            // Case-insensitive comparison for fill-in-the-blank
+            isCorrect = ans.user.toString().toLowerCase().trim() === 
+                       ans.correct.toString().toLowerCase().trim();
+            score = isCorrect ? 1 : 0;
+            totalScore += score;
+            maxPossibleScore += 1;
+        }   else if (ans.type === "multiple_choice") {
+            // For multiple choice questions - exact comparison
+            isCorrect = ans.user === ans.correct;
+            score = isCorrect ? 1 : 0;
+            totalScore += score;
+            maxPossibleScore += 1;
+        }
+        else {
+            // Default case-sensitive comparison for other types
+            isCorrect = ans.user === ans.correct;
+            score = isCorrect ? 1 : 0;
+            totalScore += score;
+            maxPossibleScore += 1;
+        }
+          // Format the answer display
+        let userAnswerDisplay = ans.user;
+        let correctAnswerDisplay = ans.correct;
+
+           if (ans.type === "matching") {
+            // User answers display - show what the user actually matched
+            userAnswerDisplay = "";
+            ans.user.forEach((userPair, index) => {
+                const userImage = userPair.leftImage || (userPair.originalIndex !== -1 ? currentQ.pairs[userPair.originalIndex].leftImage : "");
+                const expectedRight = currentQ.pairs[index].right;
+                const isMatchCorrect = userPair.right === expectedRight;
+                
+                userAnswerDisplay += `
+                    <div style="display: flex; align-items: center; margin: 8px 0; padding: 8px; background: ${isMatchCorrect ? '#d4edda' : '#f8d7da'}; border-radius: 6px; border-left: 4px solid ${isMatchCorrect ? '#28a745' : '#dc3545'};">
+                        <img src="${userImage}" style="width: 50px; height: 50px; object-fit: contain; margin-right: 12px; border: 2px solid ${isMatchCorrect ? '#28a745' : '#dc3545'}; border-radius: 4px;">
+                        <div style="font-size: 1em;">
+                            <strong>${userPair.left || 'Gambar'}</strong> → 
+                            <span style="color: ${isMatchCorrect ? '#28a745' : '#dc3545'}; font-weight: bold;">
+                                ${userPair.right || '(kosong)'}
+                            </span>
+                            ${!isMatchCorrect ? `<br><small style="color: #6c757d;">Seharusnya: ${expectedRight}</small>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Correct answers display
+            correctAnswerDisplay = "";
+            currentQ.pairs.forEach(p => {
+                correctAnswerDisplay += `
+                    <div style="display: flex; align-items: center; margin: 8px 0; padding: 8px; background: #d4edda; border-radius: 6px; border-left: 4px solid #28a745;">
+                        <img src="${p.leftImage}" style="width: 50px; height: 50px; object-fit: contain; margin-right: 12px; border: 2px solid #28a745; border-radius: 4px;">
+                        <div style="font-size: 1em;">
+                            <strong>${p.left || 'Gambar'}</strong> → 
+                            <span style="color: #28a745; font-weight: bold;">${p.right}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        } else if (Array.isArray(ans.user)) {
+            // For other array types
+            userAnswerDisplay = ans.user.join(", ");
+            correctAnswerDisplay = Array.isArray(ans.correct) ? ans.correct.join(", ") : ans.correct;
+        }
+
+        return `<div class="question-result" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: white;">
+            <strong style="font-size: 1.1em;">Q${i + 1}:</strong> ${ans.question}<br><br>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1; min-width: 300px;">
+                    <strong style="color: ${isCorrect ? 'green' : 'red'}; font-size: 1.1em;">
+                        Jawaban Anda ${isCorrect ? '✔ Benar' : '✖ Salah'}:
+                    </strong><br>
+                    <div style="margin-top: 10px;">${userAnswerDisplay || "(kosong)"}</div>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <strong style="font-size: 1.1em;">Jawaban yang Benar:</strong><br>
+                    <div style="margin-top: 10px;">${correctAnswerDisplay}</div>
+                </div>
+            </div>
+            ${ans.type === "matching" || (ans.type === "text_answer" && Array.isArray(ans.user)) ? 
+              `<div style="margin-top: 15px; padding: 8px; background: #e9ecef; border-radius: 4px;">
+                <strong>Skor:</strong> ${score}/${maxScore}
+              </div>` : ''}
+        </div>`;
+    }).join("");
+
+    document.getElementById("score").innerHTML = `Score: ${totalScore} / ${maxPossibleScore}`;
+    document.getElementById("review").innerHTML = review;
+}
+
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+/// ✅ Updated enableDragDrop() — desktop + mobile drag and drop works
+function enableDragDrop() {
+  const draggableItems = document.querySelectorAll('.draggable-img');
+  const droppableZones = document.querySelectorAll('.droppable');
+
+  let draggedItem = null;
+  let draggedItemParent = null;
+  let originalParent = null;
+  let isFromLeft = false;
+
+  // --- Desktop Drag & Drop ---
+  draggableItems.forEach(item => {
+    item.draggable = true;
+    item.addEventListener('dragstart', dragStart);
+  });
+
+  droppableZones.forEach(zone => {
+    zone.addEventListener('dragover', dragOver);
+    zone.addEventListener('dragleave', dragLeave);
+    zone.addEventListener('drop', drop);
+  });
+
+  function dragStart(e) {
+    draggedItem = this;
+    isFromLeft = this.parentElement.classList.contains('match-item');
+    draggedItemParent = isFromLeft ? this.parentElement : null;
+    originalParent = this.parentElement; // 👈 store original location
+    setTimeout(() => this.classList.add('dragging'), 0);
+  }
+
+  function dragOver(e) {
+    e.preventDefault();
+    this.classList.add('highlight');
+  }
+
+  function dragLeave() {
+    this.classList.remove('highlight');
+  }
+
+  function drop(e) {
+    e.preventDefault();
+    this.classList.remove('highlight');
+    if (!draggedItem) return;
+
+    const dropZone = this.querySelector('.dropped-item');
+    if (!dropZone) return;
+
+    if (dropZone.children.length > 0) {
+      // 👇 Return dragged item to original place instead of overriding
+      if (originalParent) originalParent.appendChild(draggedItem);
+      clearDragState();
+      return;
+    }
+
+    dropZone.appendChild(draggedItem);
+    if (isFromLeft && draggedItemParent) hideContainer(draggedItemParent);
+    clearDragState();
+  }
+
+  function clearDragState() {
+    draggableItems.forEach(i => i.classList.remove('dragging'));
+    droppableZones.forEach(z => z.classList.remove('highlight'));
+    draggedItem = null;
+    draggedItemParent = null;
+    originalParent = null;
+    isFromLeft = false;
+  }
+
+  // --- Touch Support for Mobile ---
+  let mirror = null;
+  let activeTouchId = null;
+
+  draggableItems.forEach(item => {
+    item.addEventListener('touchstart', touchStart, { passive: false });
+  });
+
+  function touchStart(e) {
+    if (!e.touches.length) return;
+    e.preventDefault();
+
+    const touch = e.touches[0];
+    activeTouchId = touch.identifier;
+    draggedItem = this;
+    isFromLeft = this.parentElement.classList.contains('match-item');
+    draggedItemParent = isFromLeft ? this.parentElement : null;
+    originalParent = this.parentElement; // 👈 save the original parent
+
+    // create mirror clone
+    mirror = draggedItem.cloneNode(true);
+    mirror.classList.add('drag-mirror');
+    Object.assign(mirror.style, {
+      position: 'fixed',
+      left: `${touch.clientX}px`,
+      top: `${touch.clientY}px`,
+      transform: 'translate(-50%, -50%)',
+      width: `${draggedItem.offsetWidth}px`,
+      height: `${draggedItem.offsetHeight}px`,
+      zIndex: '9999',
+      pointerEvents: 'none'
+    });
+    document.body.appendChild(mirror);
+    draggedItem.classList.add('dragging');
+
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd);
+    document.addEventListener('touchcancel', cleanupTouch);
+  }
+
+  function onTouchMove(e) {
+    const touch = [...e.touches].find(t => t.identifier === activeTouchId);
+    if (!touch) return;
+    e.preventDefault();
+
+    if (mirror) {
+      mirror.style.left = `${touch.clientX}px`;
+      mirror.style.top = `${touch.clientY}px`;
+    }
+
+    droppableZones.forEach(z => z.classList.remove('highlight'));
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const zone = el?.closest?.('.droppable');
+    if (zone) zone.classList.add('highlight');
+  }
+
+  function onTouchEnd(e) {
+    const touch = [...e.changedTouches].find(t => t.identifier === activeTouchId);
+    if (!touch || !draggedItem) return cleanupTouch();
+    e.preventDefault();
+
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const zone = el?.closest?.('.droppable');
+
+    if (zone) {
+      const dropZone = zone.querySelector('.dropped-item');
+      if (dropZone) {
+        if (dropZone.children.length > 0) {
+          // 👇 return dragged image to origin if drop zone already occupied
+          if (originalParent) originalParent.appendChild(draggedItem);
+        } else {
+          dropZone.appendChild(draggedItem);
+          if (isFromLeft && draggedItemParent) hideContainer(draggedItemParent);
+        }
+      }
+    } else if (originalParent) {
+      originalParent.appendChild(draggedItem);
+    }
+
+    cleanupTouch();
+  }
+
+  function cleanupTouch() {
+    if (mirror?.parentNode) mirror.remove();
+    mirror = null;
+    activeTouchId = null;
+    if (draggedItem) draggedItem.classList.remove('dragging');
+    droppableZones.forEach(z => z.classList.remove('highlight'));
+    draggedItem = null;
+    draggedItemParent = null;
+    originalParent = null;
+    isFromLeft = false;
+
+    document.removeEventListener('touchmove', onTouchMove);
+    document.removeEventListener('touchend', onTouchEnd);
+    document.removeEventListener('touchcancel', cleanupTouch);
+  }
+
+  // helpers
+  function hideContainer(container) {
+    Object.assign(container.style, {
+      visibility: 'hidden',
+      height: '0',
+      margin: '0',
+      padding: '0',
+      border: 'none'
+    });
+  }
+
+  function showContainer(container) {
+    Object.assign(container.style, {
+      visibility: 'visible',
+      height: 'auto',
+      margin: '10px 0',
+      padding: '10px',
+      border: '1px solid #ddd'
+    });
+  }
+}
+
+function showResultButtons() {
+  document.getElementById("resultButtons").style.display = "block";
+}
+
+
+
+document.getElementById("backToMenuBtn").addEventListener("click", () => {
+  
+    if (timer) clearInterval(timer);
+  
+  // Reset and return to setup screen
+  currentIndex = 0;
+  userAnswers = [];
+  currentQuestions = [];
+  document.getElementById("questionArea").innerHTML = "";
+
+  document.getElementById("resultContainer").style.display = "none";
+  document.getElementById("resultButtons").style.display = "none";
+   document.getElementById("quizContainer").style.display = "none";
+  document.getElementById("setup").style.display = "block";
+});
+
+function resetQuiz() {
+  document.getElementById("resetQuizBtn").addEventListener("click", () => {
+   
+     if (timer) clearInterval(timer);
+   
+    currentIndex = 0;
+  userAnswers = [];
+  currentQuestions = [];
+  document.getElementById("resultContainer").style.display = "none";
+  document.getElementById("resultButtons").style.display = "none";
+  document.getElementById("setup").style.display = "block";
+  
+});
+}
+function showMainMenu() {
+  currentIndex = 0;
+  userAnswers = [];
+  document.getElementById("resultContainer").style.display = "none";
+   document.getElementById("resultButtons").style.display = "none";
+  document.getElementById("setup").style.display = "block";
+}
+
+// Debug function to check if quiz files exist
+async function checkQuizFiles() {
+  const subjects = ['math', 'english', 'bahasaIndo', 'science'];
+  
+  for (const subject of subjects) {
+    try {
+      const response = await fetch(`bank/data/${subject}.json`);
+      console.log(`${subject}.json: ${response.ok ? 'FOUND' : 'MISSING'}`);
+    } catch (error) {
+      console.log(`${subject}.json: ERROR - ${error.message}`);
+    }
+  }
+}
+
+
+window.checkQuizFiles = checkQuizFiles;
+// ----------------- Admin Check -----------------
+// Improved admin check
+async function isUserAdmin() {
+  try {
+    // URL parameter override for testing
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('admin')) {
+      console.log("Admin override via URL parameter");
+      return true;
+    }
+    
+    // Local storage override for testing
+    if (localStorage.getItem('isAdmin') === 'true') {
+      console.log("Admin override via localStorage");
+      return true;
+    }
+    
+    // Firebase admin check
+    if (typeof firebase !== 'undefined' && firebase.auth().currentUser) {
+      const user = firebase.auth().currentUser;
+      // Add your actual Firebase admin verification here
+      // This is just a placeholder - implement your actual admin check
+      const token = await user.getIdTokenResult();
+      return !!token.claims.admin;
+    }
+    
+    return false;
+  } catch (error) {
+    console.log("Admin check error, defaulting to false:", error);
+    return false;
+  }
+}
+
+ 
+ 
+ 
+ </script>
+
+   
+</body>
+     <footer>
+       
+    </footer>
+</html>

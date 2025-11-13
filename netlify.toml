@@ -1,0 +1,9 @@
+[build]
+
+  publish = "."          
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/lynk-webhook"
+  to = "/.netlify/functions/lynk-webhook"
+  status = 200

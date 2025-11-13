@@ -1,0 +1,40 @@
+.locked-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: white;
+  text-align: center;
+  pointer-events: auto;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: inherit; /* ✅ match button shape */
+ overflow: visible; /* 👈 allow “Buka Akses” button to extend outside */
+}
+
+.locked-overlay .lock-icon { font-size: 0.5em; margin-bottom: 2px; }
+.locked-overlay .lock-text { font-size: 0.5em; }
+.locked-overlay .unlock-btn {
+  margin-top: 2px;
+  padding: 6px 10px;
+  background: #ff6b35;
+  color: #fff;
+  border: none;
+  border-radius: 999px; /* rounded button style */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+.locker-wrapper {
+  position: relative;
+  display: inline-block; /* ✅ keeps overlay same size as button */
+  width: fit-content;
+  height: fit-content;
+}
+.locked-overlay .unlock-btn {
+  transform: translateY(15%);
+}

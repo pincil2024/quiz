@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex">
+  <meta name="description" content="Kuis matematika interaktif untuk anak SD dari penjumlahan dasar hingga pembagian panjang. Belajar jadi menyenangkan di Pincil.">
+<meta name="keywords" content="Kuis Matematika, Penjumlahan, Pengurangan, Perkalian, Pembagian, Latihan Soal SD, Matematika Interaktif, Pincil">
+<meta property="og:title" content="Pincil – Kuis Matematika SD" />
+<meta property="og:description" content="Asah kemampuan matematika dengan kuis seru dari Pincil, mulai dari hitungan dasar sampai soal pembagian panjang." />
+<meta property="og:url" content="https://pincil.id/mathquiz.html" />
+<meta property="og:type" content="website" />
+<link rel="canonical" href="https://pincil.id/mathquiz.html" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz Game</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/navbar.css">
+    <link rel="stylesheet" href="/static/css/lazy-header.css">
+
+       <script src="assets/js/lazy-header.js" defer></script> <!-- Link the external JavaScript -->
+  
+   <script>
+            fetch('meta.html').then(res => res.text()).then(html => {
+            document.head.insertAdjacentHTML('beforeend', html);
+            });
+        </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .container {
+        margin: auto; /* Center the quiz container */
+        margin-top: 15px; /* Remove top margin */
+        background-color: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 3px solid #f0f0f0;
+        align-items: center;
+        width: 40%;
+        max-width: 100%; /* Ensure container does not overflow */
+        overflow: hidden; /* Prevent overflow outside the container */
+        padding: 10px;
+        box-sizing: border-box;
+         border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            color: #0b0a0a;
+        }
+
+        label {
+            color: #000;
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .question {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .score {
+            font-size: 20px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .equation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .column-equation, .row-equation {
+            display: none;
+        }
+
+       
+
+        .input-cell {
+            width: 30px;
+            text-align: center;
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        .inline-equation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .inline-equation span {
+            align-items: center;
+            font-weight: bold;
+            font-size: 3rem;
+            color: rgb(19, 164, 177);
+            text-shadow: #0b0a0a;
+        }
+
+        .inline-equation input {
+            width: 60px;
+            text-align: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 3rem;
+            color: rgb(19, 164, 177);
+            text-shadow: #0b0a0a;
+        }
+        
+          /* Additional styles for proper alignment */
+      /* Additional styles for proper alignment */
+    .equation-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Align to the right */
+        margin-top: 20px;
+    }
+
+    .column-equation {
+    display: flex;
+    flex-direction: column;
+        
+    margin-top: 10px;
+}
+
+.carry-row,
+.input-row {
+    display: flex;
+    padding-left: 35px;
+    justify-content: flex-end; /* Align horizontally */
+    gap: 10px; /* Add spacing between digits */
+}
+
+.carry-row input,
+.input-row input {
+    
+    width: 30px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.divider { 
+   
+    margin-left: auto; 
+    margin-bottom: 5px; 
+    padding-left: 15px; 
+    width: 70%; 
+    border-bottom: 2px solid #000; 
+}
+
+.row-two {
+   
+    display: flex;
+    align-items: end;
+    align-items: center;
+    font-weight: bold;
+    font-size: 3rem;
+    color: rgb(19, 164, 177);
+    text-shadow: #0b0a0a;
+    
+    
+}
+.row-two span{
+    margin-left: 30px;
+}
+
+
+
+.first-row {
+    padding-left: 35px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    align-items: center;
+    font-weight: bold;
+    font-size: 3rem;
+    color: rgb(19, 164, 177);
+    text-shadow: #0b0a0a;
+    
+}
+   
+    /* Action Buttons */
+.action-btn {
+    display: none;
+    margin: 10px 5px;
+    padding: 10px ;
+    background-color: #4caf50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+/* Quiz Page Background */
+#math-quiz {
+    background-color: rgb(47, 156, 207);; /* Light yellow */
+}
+.carry-rowmultiplication{
+    padding-right: 45px; /* Add exclusive padding */
+}
+.partial-row {
+    display: flex; /* Arrange inputs in a row */
+    justify-content: flex-end; /* Align the row's contents to the right */
+    margin-bottom: 8px; /* Add some spacing between rows if needed */
+}
+
+.input-cell {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    text-align: center; /* Center the text within the input */
+    margin: 0 2px; /* Add some spacing between cells */
+}
+
+.shifted-cell {
+    background-color: #f0f0f0; /* Optional: Different background for disabled cells */
+    border: 1px solid #ccc;
+}
+
+#long-division-container {
+    margin-top: 50px;
+    position: relative;
+  font-family: Arial, sans-serif;
+  display: inline-block;
+  position: relative;
+  padding: 10px;
+}
+
+.quotient-row {
+   
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 70px;
+  position: relative;
+  top: -15px;
+}
+
+.quotient-row input {
+  width: 20px;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.division-row {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.divisor {
+    color: #a57676;
+    font-size: 70px;
+    margin-right: 5px;
+    margin-top: -10px;
+}
+
+.dividend {
+    position:absolute;
+    color: #000;
+    display: flex;
+     font-size: 70px;
+     border-left: 2px solid #000;
+     padding-left: 5px;
+     gap: 10px;
+     margin-left: 70px;
+     margin-top: -10px;
+}
+
+
+.step-row{
+    display: block;
+    margin-left: 70px;
+}
+
+
+
+.span-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+}
+
+.span-container {
+    margin-top: 10px; /* Optional spacing from the previous row */
+    display: inline-block;
+
+}
+
+.remainder-input, .bring-down-input,.step-input {
+    width: 40px; /* Adjust as needed for input size */
+    text-align: center; /* Center text within the inputs */
+    font-size: 40px;
+    align-items: left;
+    
+}
+.remainder-input{
+    margin-left: 70px;
+}
+
+
+.bring-down-row {
+    display: flex;
+    align-items: center;
+   
+}
+
+
+.step-row input {
+ margin-left: 50px;
+  width: 30px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.subtraction-divider {
+  border-top: 2px solid #000;
+  margin: 5px 0;
+  width: 100%;
+  margin-top: 5px;
+  margin-left: 70px;
+}
+.division-bar {
+    display: none;
+   position:absolute;
+    border-top: 2px solid #000;
+    margin-top: -10px;
+    width: 100%;
+    margin-left: 70px;
+}
+
+
+
+ 
+    </style>
+</head>
+<body id="math-quiz">
+    <div id="navbar"></div>
+    <!-- Header -->
+    <div id="header1" class="lazyHeader">
+        <div class="header-group">
+            <span class="welcome-to">Main</span>
+            <svg class="pincil" xmlns="http://www.w3.org/2000/svg" width="500" height="150">
+                <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" 
+                      font-family="Pacifico, cursive" font-size="40" fill="none" stroke="#333" 
+                      stroke-width="1" letter-spacing="5">
+                      Matematika Dasar
+                </text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Secondary Header -->
+    <div class="secondaryHeader">
+        <p>Selamat datang di Pincil – Pusat Pembelajaran Interaktif Anda!</p>
+    </div>
+
+    <h2>Math Quiz Game</h2>
+    <div class="container">
+        <div id="setup">
+            <div class="form-group">
+                <label for="numQuestions">Number of Questions:</label>
+                <input type="number" id="numQuestions" min="1" value="10">
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="timerToggle" checked> Pakai Waktu
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="timeLimit">Limit Waktu (menit):</label>
+                <input type="number" id="timeLimit" min="1" value="1">
+            </div>
+
+            <div>
+                <label for="operation">Pilih Operasi:</label>
+                <select id="operation">
+                    <option value="addition">Tambahan</option>
+                    <option value="subtraction">Pengurangan</option>
+                    <option value="multiplication">Perkalian</option>
+                    <option value="division">Pembagian</option>
+                    <option value="mix">Campur</option>
+                </select>
+            
+            </div>
+            <div id="level-selected" class="form-group">
+                <label for="level">Level:</label>
+                <select id="level">
+                    <option value="1">Level 1: Basic</option>
+                    <option value="2">Level 2: Advanced</option>
+                    <option value="3">Level 3: Algebra</option>
+                </select>
+            </div>
+                      
+           
+           <div class="form-group" id="layoutOption" style="display: none;">
+                <label for="layout">Choose Layout:</label>
+                <select id="layout">
+                    <option value="column">Column</option>
+                    <option value="row">Row</option>
+                </select>
+            </div>
+
+           
+        </div>
+        <div id="options-container" style="display: none;">
+            <label for="division-options">Choose a Division Mode:</label>
+            <select id="division-options">
+                <optgroup label="Basic">
+
+                    <option value="basic2">Divisor: 6-10, Dividend < 100</option>
+                    <option value="basic1">Divisor: 1-5, Dividend < 50</option>
+                              
+                </optgroup>
+                <optgroup label="Advanced">
+                    <option value="advanced1">Divisor: 1-9, Dividend < 1000</option>
+                    <option value="advanced2">Divisor: 11-99, Dividend < 10000</option>
+                    <option value="advanced3">Divisor: 100-999, Dividend < 10000</option>
+                </optgroup>
+            </select>
+           
+           
+         
+        </div>
+        <button id="startGame">Mulai</button>
+        <button id="go-back-btn" class="action-btn" >Quiz Matematika</button>
+
+        <div id="quiz" style="display: none;">
+            <div id="timer" class="status">Waktu Sisa: <span id="time">00:00</span></div>
+            <div id="progress" class="status">Progress: <span id="current">0</span>/<span id="total">0</span></div>
+            <div id="question" class="question"></div>
+
+            <button id="check-answer">Check Answer</button>
+
+            
+            <div class="quiz-container">         
+            
+            <div class="equation-container">
+                <div id="column-layout" class="column-equation">
+                    <div id="carry-row" class="carry-row"></div>
+                    <div id="first-row" class="first-row"></div>
+                    <div class="row-two">
+                    <span id="operator-row"></span>
+                    <span id="second-row" style="gap: 30px;"></span>
+                    </div>
+                     <div id="divider" class= "divider"></div>
+                     <div id="partialResultsRow" class="row"></div>
+                    <div id="input-row" class="carry-row"></div>
+                </div>
+
+                <div id="row-layout" class="row-equation">
+                    <div class="inline-equation">
+                        <span id="first-number"></span>
+                        <span id="operator"></span>
+                        <span id="second-number"></span>
+                        <span>=</span>
+                        <input type="text" id="inline-answer" placeholder="?">
+                    </div>
+                </div>
+            </div>
+           
+            
+            <div id="long-division-container">
+                <div class="quotient-row">
+                  <!-- Input boxes for quotient -->
+                </div>
+                <div class="division-bar"></div>
+                <div class="division-row">
+                  <div class="divisor">
+                    <!-- Divisor -->
+                  </div>
+                  <div class="dividend">
+                    <!-- Dividend -->
+                  </div>
+                </div>
+                <div class="steps-container">
+                  <!-- Input boxes for intermediate steps -->
+                </div>
+
+            </div> 
+              
+            </div>
+                         
+              
+            <button id="submit-division" style="display: none;">Submit Answer</button>
+   
+            <button id="submitAnswer" style="display: none;">Submit Answer</button>
+        </div>
+       
+        <div id="result" style="display: none;">
+            <div class="score">Hasil: <span id="score">0</span></div>
+            <div class="explanation" id="explanation"></div>
+            <button id="restartGame">Ulangi Quiz</button>
+        </div>
+    </div>
+<script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/navbar.js"></script>
+
+
+<!-- ✅ Lazy loading images (independent of others) -->
+<script src="assets/js/lazy-loading.js"></script>
+
+    <script src="assets/js/mathQuiz.js"></script>
+    <footer>
+       
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1060 @@
+/* ========================
+   NAVBAR
+======================== */
+.navbar {
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #333;
+  color: #fff;
+  position: relative;
+  z-index: 10000;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo img {
+  margin-right: 10px;
+  height: 30px;
+  width: auto;
+  display: inline-flex;
+}
+
+.brand-logo {
+  color: rgb(35, 139, 203);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logo {
+  text-decoration: none;
+  color: aliceblue;
+}
+.logo:hover {
+  text-decoration: underline;
+}
+
+/* Nav links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.nav-links li {
+  padding: 10px;
+}
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+.nav-links a.active {
+  color: #69dbfb;
+}
+.nav-links a.active::after,
+.nav-links a:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background: #2ad362;
+  transition: width 0.3s ease-in-out;
+}
+.nav-links a:hover::after {
+  background: #c1dc49;
+}
+
+/* Dropdown */
+.nav-links .dropdown {
+  position: relative;
+}
+.nav-links .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 150px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10001;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.nav-links .dropdown-menu li a {
+  display: block;
+  padding: 10px;
+  color: #333;
+}
+.nav-links .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Hamburger Menu */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background: white;
+  margin: 3px 0;
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    width: 150px;
+    background: #333;
+    border: 1px solid #444;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+}
+
+/* Large screens */
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex !important;
+  }
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* ========================
+   FOOTER
+======================== */
+footer {
+  margin-top: auto;
+  width: 100%;
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9rem;
+}
+
+/* ========================
+   SPINNER
+======================== */
+.spinner {
+  display: none; /* Hidden initially */ 
+  margin: auto;
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 6px solid transparent;
+  border-top-color: #5471e5;
+  border-right-color: #3336da;
+  border-bottom-color: #191b75;
+  border-left-color: #2f5f86;
+  
+  animation: spin 1.2s linear infinite, rainbow 3s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+
+/* ========================
+   ACCESS OVERLAY / MODAL
+======================== */
+#accessOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: auto;
+}
+
+#accessOverlay .modal {
+  background: white;
+  border-radius: 12px;
+  padding: 40px 30px 30px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal {
+  position: relative; /* <-- this is essential */
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+  .modal h2 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #333;
+  }
+
+  .modal p {
+    font-size: 16px;
+    color: #555;
+   
+  }
+
+  .modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 2px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+  .modal button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .modal button:hover {
+    background-color: #45a049;
+  }
+
+  #msg {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+/* Make overlay smaller on small devices */
+@media (max-width: 480px) {
+  #accessOverlay .modal {
+    padding: 25px 20px 20px;
+    max-width: 60%;
+    font-size: 0.5rem;
+  }
+  #accessOverlay input,
+  #accessOverlay button {
+    padding: 10px;
+    font-size: 10px;
+  }
+  #welcomeBackSection img {
+    max-width: 60px;
+  }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Modal close button */
+.modal-close-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  color: #666;
+}
+.modal-close-btn:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+/* ========================
+   USER MENU
+======================== */
+#userMenuContainer .dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
+}
+#userMenuContainer .dropdown-menu {
+  right: 0;
+  left: auto;
+  min-width: 200px;
+}
+#userMenuContainer .dropdown-menu li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+#userEmail { color: #666; font-size: 0.9em; }
+.logout-button {
+  background: none;
+  border: none;
+  color: #ff4444;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: left;
+  width: 100%;
+}
+.logout-button:hover { color: #cc0000; }
+
+/* ========================
+   ADMIN USER
+======================== */
+.admin-only {
+  border-top: 1px solid #eee;
+  margin-top: 5px;
+  padding-top: 5px;
+}
+.admin-only a {
+  color: #e74c3c;
+  text-decoration: none;
+  display: block;
+  padding: 8px 15px;
+}
+.admin-only a:hover {
+  background: #f5f5f5;
+  color: #c0392b;
+}
+.admin-badge { animation: pulse 2s infinite; }
+@keyframes pulse {
+  0%,100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+.admin-user .dropdown-menu { border-left: 3px solid #e74c3c; }
+.admin-user .user-initials { background: #e74c3c !important; }
+/* Force modal form sections to stack in rows */
+
+/* Force modal form sections to stack in rows */
+#registerSection,
+#loginSection,
+#resetSection,
+#downloadSection,
+#welcomeBackSection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* spacing between rows */
+  width: 100%; /* ensures full row */
+}
+
+#accessOverlay input
+ {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.pincillogosmall{
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+/* Floating Claim Button - Cool Redesign */
+#claim-floating-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 
+    0 8px 25px rgba(102, 126, 234, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 9999;
+  display: none;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(10px);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+#claim-floating-btn:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 
+    0 12px 35px rgba(102, 126, 234, 0.6),
+    0 6px 20px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+#claim-floating-btn:active {
+  transform: scale(0.95);
+  transition: all 0.1s ease;
+}
+
+/* Dialog Overlay - Glass Morphism */
+#claim-dialog-overlay {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px) saturate(180%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Dialog Box - Modern Glass Design */
+.claim-dialog {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(255, 255, 255, 0.88) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 32px;
+  border-radius: 24px;
+  width: 440px;
+  max-width: 90vw;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.claim-dialog::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    #667eea, #764ba2, #f093fb, #f5576c);
+  background-size: 400% 400%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Title Styling */
+.claim-dialog h2 {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+/* Content Area */
+.claim-dialog > div:not(.claim-card) {
+  margin-bottom: 24px;
+}
+
+.claim-dialog p {
+  color: #4a5568;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Claim Cards - Modern Card Design */
+.claim-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.claim-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.claim-card span {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Countdown Text - Futuristic Style */
+.countdown-text {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  animation: pulseGlow 2s ease-in-out infinite;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  }
+  50% { 
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.6);
+  }
+}
+
+/* Buttons - Modern 3D Style */
+.btn-book, .btn-close {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-book {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  box-shadow: 
+    0 6px 20px rgba(72, 187, 120, 0.4),
+    0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-book::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.btn-book:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(72, 187, 120, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-book:hover::before {
+  left: 100%;
+}
+
+.btn-book:active {
+  transform: translateY(0);
+  transition: all 0.1s ease;
+}
+
+.btn-close {
+  background: linear-gradient(135deg, #718096, #4a5568);
+  color: white;
+  box-shadow: 
+    0 6px 20px rgba(113, 128, 150, 0.3),
+    0 3px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-close:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(113, 128, 150, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #4a5568, #718096);
+}
+
+.btn-close:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .claim-dialog {
+    padding: 24px 20px;
+    border-radius: 20px;
+    margin: 20px;
+  }
+  
+  .claim-dialog h2 {
+    font-size: 24px;
+  }
+  
+  .claim-card {
+    padding: 16px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  
+  .btn-book, .btn-close {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  
+  #claim-floating-btn {
+    width: 56px;
+    height: 56px;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .claim-dialog {
+    background: linear-gradient(135deg, 
+      rgba(45, 55, 72, 0.95) 0%, 
+      rgba(74, 85, 104, 0.88) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .claim-dialog p {
+    color: #e2e8f0;
+  }
+  
+  .claim-card {
+    background: rgba(45, 55, 72, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .claim-card span {
+    color: #f7fafc;
+  }
+  
+  .claim-card:hover {
+    border-color: rgba(102, 126, 234, 0.5);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  #claim-floating-btn,
+  .claim-dialog,
+  .claim-card,
+  .btn-book,
+  .btn-close {
+    animation: none;
+    transition: none;
+  }
+  
+  #claim-floating-btn:hover,
+  .btn-book:hover,
+  .btn-close:hover,
+  .claim-card:hover {
+    transform: none;
+  }
+}
+
+/* Loading State for Buttons */
+.btn-book.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn-book.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#countdown-text {
+  background: linear-gradient(135deg, #fff9c4, #ffeb3b);
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #7d6608;
+  border: 2px solid #ffd54f;
+  margin: 20px 0 !important;
+  font-size: 15px;
+  box-shadow: 0 4px 12px rgba(255, 213, 79, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 12px rgba(255, 213, 79, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 213, 79, 0.5);
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(255, 213, 79, 0.3);
+  }
+}
+
+.user-glow-warning {
+  box-shadow: 
+    0 0 25px 8px gold,
+    0 0 40px 15px rgba(255, 215, 0, 0.6);
+  animation: dramatic-pulse-gold 2s infinite;
+  border: 3px solid gold !important;
+  background: linear-gradient(135deg, #fff9c4 0%, #ffeb3b 50%, #fbc02d 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.user-glow-expired {
+  box-shadow: 
+    0 0 25px 8px #ff4444,
+    0 0 40px 15px rgba(255, 68, 68, 0.6);
+  animation: dramatic-pulse-red 2s infinite;
+  border: 3px solid #ff4444 !important;
+  background: linear-gradient(135deg, #ffcdd2 0%, #ef5350 50%, #d32f2f 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes dramatic-pulse-gold {
+  0%, 100% { 
+    box-shadow: 
+      0 0 20px 5px gold,
+      0 0 35px 12px rgba(255, 215, 0, 0.5);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 30px 10px gold,
+      0 0 50px 20px rgba(255, 215, 0, 0.8);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes dramatic-pulse-red {
+  0%, 100% { 
+    box-shadow: 
+      0 0 20px 5px #ff4444,
+      0 0 35px 12px rgba(255, 68, 68, 0.5);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 30px 10px #ff4444,
+      0 0 50px 20px rgba(255, 68, 68, 0.8);
+    transform: scale(1.1);
+  }
+}
+
+/* Add a shimmer effect */
+.user-glow-warning::before,
+.user-glow-expired::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+/* Welcome Dialog Styles */
+.welcome-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.welcome-dialog {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  color: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-dialog::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+}
+
+.welcome-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  animation: bounce 2s infinite;
+}
+
+.welcome-dialog h2 {
+  margin: 0 0 15px 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.welcome-dialog p {
+  margin: 10px 0;
+  line-height: 1.5;
+  font-size: 1rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.welcome-close-btn {
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #333;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.welcome-close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+.welcome-close-btn:active {
+  transform: translateY(0);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: rotate(45deg) translateX(-100%);
+  }
+  100% {
+    transform: rotate(45deg) translateX(100%);
+  }
+}
+/* Lazy loading styles */
+.lazy {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.lazy.loaded {
+    opacity: 1;
+}
+
+/* Optional: Add loading animation */
+.lazy:not(.loaded) {
+    background: #f0f0f0;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Book item styles */
+.book-item {
+    position: relative;
+    margin: 10px;
+    text-align: center;
+}
+
+.book-cover {
+    position: relative;
+    display: inline-block;
+}
+
+.book-cover img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.premium-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: gold;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.locked-indicator {
+    color: #ff4757;
+}

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex">
+  <link rel="manifest" href="/bank/manifest.json">
+<meta name="theme-color" content="#4CAF50">
+<!-- For iOS Web App support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" href="assets/icons/favicon.png" type="image/svg+xml">
+
+  <meta name="description" content="Halaman mewarnai digital gratis untuk anak-anak. Kembangkan kreativitas mereka bersama Pincil!">
+<meta name="keywords" content="Mewarnai, Halaman Mewarnai Anak, Pincil, Kreativitas Anak, TK, PAUD, Game Mewarnai">
+<meta property="og:title" content="Pincil – Halaman Mewarnai Anak" />
+<meta property="og:description" content="Biarkan anak bebas berkreasi dengan halaman mewarnai dari Pincil!" />
+<meta property="og:url" content="https://pincil.id/coloring-app.html" />
+<meta property="og:type" content="website" />
+
+ <link rel="stylesheet" href="/static/css/navbar.css">
+ 
+  <link rel="stylesheet" href="/static/css/secondaryheader.css">
+  <link rel="stylesheet" href="/static/css/fullscreen-toggle.css">
+<script src="/assets/js/navbar.js" defer></script> 
+
+  <meta charset="UTF-8">
+  <title>SVG Coloring App</title>
+  <style>
+    body {
+     height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+   max-width: 100%;
+  font-family: Arial, sans-serif;
+
+
+  overflow-x: hidden;
+}
+    h1 {
+      margin-top: 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .palette, .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .color-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .eraser {
+      background: linear-gradient(45deg, white 50%, lightgray 50%);
+      border: 1px solid #ccc;
+    }
+
+    #svgContainer {
+      max-width: 90vw;
+      margin: auto;
+    }
+
+    #svgContainer svg {
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+      border: 1px solid #ccc;
+    }
+
+    .volume-toggle {
+      background-color: #ddd;
+      border: 1px solid #888;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      margin-left: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  
+      <div id="navbar"></div>
+
+   <!-- Secondary Header -->
+  <div id="secondaryHeader" class="secondaryHeader">
+    <a href="tk.html">
+      <img class="lazy"  alt="Description" title="Kembali" src="assets/image-mainsukukata/gobackbutton.png" width="80vw" height="80vw" >
+    </a>
+         <p>Belajar Membaca</p>
+         <a href="index.html">
+          <img class="lazy"  alt="Description" title="Home" src="assets/icons/favicon.png" width="80vw" height="80vw" >
+      </a>
+  </div>
+   <h1>🎨 Fun Coloring App</h1>
+
+
+
+  <div class="controls">
+    <div class="palette">
+      <button class="color-btn" style="background-color: red;" data-color="red"></button>
+      <button class="color-btn" style="background-color: blue;" data-color="blue"></button>
+      <button class="color-btn" style="background-color: yellow;" data-color="yellow"></button>
+      <button class="color-btn" style="background-color: green;" data-color="green"></button>
+      <button class="color-btn" style="background-color: pink;" data-color="pink"></button>
+      <button class="color-btn eraser" data-color="white">Eraser</button>
+    </div>
+
+    <div class="actions">
+      <button id="undoBtn">Undo</button>
+      <button id="resetBtn">Reset</button>
+      <button id="saveBtn">Save</button>
+      <select id="imageSelect">
+        <option value="house">House</option>
+        <option value="flower">Flower</option>
+        <option value="fish">Fish</option>
+        <option value="tree">Tree</option>
+      </select>
+      <label class="volume-toggle" id="volumeToggle">🔊 Sound On</label>
+      <input type="file" id="uploadSvg" accept=".svg" />
+    </div>
+  </div>
+
+  <div id="svgContainer"></div>
+
+  <audio id="clickSound" src="https://www.soundjay.com/button/button-29.mp3" preload="auto"></audio>
+  <audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-buddy.mp3" autoplay loop></audio>
+
+  <script>
+    let currentColor = 'red';
+    let historyStack = [];
+    let soundOn = true;
+
+    const svgContainer = document.getElementById('svgContainer');
+    const clickSound = document.getElementById('clickSound');
+    const bgMusic = document.getElementById('bgMusic');
+    const volumeBtn = document.getElementById('volumeToggle');
+
+    const images = {
+      house: `<svg id="drawing" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="50" y="80" width="100" height="80" fill="white" stroke="#333"/>
+        <polygon points="50,80 100,30 150,80" fill="white" stroke="#333"/>
+        <rect x="90" y="120" width="20" height="40" fill="white" stroke="#333"/>
+      </svg>`,
+      flower: `<svg id="drawing" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="20" fill="white" stroke="#333"/>
+        <circle cx="100" cy="60" r="20" fill="white" stroke="#333"/>
+        <circle cx="140" cy="100" r="20" fill="white" stroke="#333"/>
+        <circle cx="100" cy="140" r="20" fill="white" stroke="#333"/>
+        <circle cx="60" cy="100" r="20" fill="white" stroke="#333"/>
+      </svg>`,
+      fish: `<svg id="drawing" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="75" rx="80" ry="40" fill="white" stroke="#333"/>
+        <polygon points="230,75 270,45 270,105" fill="white" stroke="#333"/>
+        <circle cx="120" cy="65" r="5" fill="black"/>
+      </svg>`,
+      tree: `<svg id="drawing" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="90" y="100" width="20" height="60" fill="white" stroke="#333"/>
+        <circle cx="100" cy="80" r="30" fill="white" stroke="#333"/>
+      </svg>`
+    };
+
+    function loadImage(name) {
+      svgContainer.innerHTML = images[name];
+      addClickEvents();
+      historyStack = [];
+    }
+
+    function addClickEvents() {
+      document.querySelectorAll('#drawing *').forEach(part => {
+        part.style.cursor = 'pointer';
+
+        part.addEventListener('click', () => {
+          if (!part.hasAttribute('fill')) return; // only color fillable parts
+
+          if (soundOn) {
+            clickSound.currentTime = 0;
+            clickSound.play();
+          }
+          const prevColor = part.getAttribute('fill');
+          historyStack.push({ element: part, prevColor });
+          part.setAttribute('fill', currentColor);
+        });
+      });
+    }
+
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentColor = btn.dataset.color;
+      });
+    });
+
+    document.getElementById('undoBtn').addEventListener('click', () => {
+      const last = historyStack.pop();
+      if (last) last.element.setAttribute('fill', last.prevColor);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      document.querySelectorAll('#drawing *').forEach(part => {
+        if (part.hasAttribute('fill')) {
+          historyStack.push({ element: part, prevColor: part.getAttribute('fill') });
+          part.setAttribute('fill', 'white');
+        }
+      });
+    });
+
+    document.getElementById('imageSelect').addEventListener('change', e => {
+      loadImage(e.target.value);
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const svgElement = document.querySelector('#drawing');
+      const svgData = new XMLSerializer().serializeToString(svgElement);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      const img = new Image();
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+
+      canvas.width = 400;
+      canvas.height = 400;
+
+      img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+        const png = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = png;
+        a.download = 'colored-drawing.png';
+        a.click();
+      };
+      img.src = url;
+    });
+
+    volumeBtn.addEventListener('click', () => {
+      soundOn = !soundOn;
+      bgMusic.muted = !soundOn;
+      volumeBtn.textContent = soundOn ? '🔊 Sound On' : '🔇 Sound Off';
+    });
+
+    document.getElementById('uploadSvg').addEventListener('change', function () {
+      const file = this.files[0];
+      if (file && file.type === 'image/svg+xml') {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          svgContainer.innerHTML = e.target.result;
+          svgContainer.querySelector('svg').setAttribute('id', 'drawing');
+          addClickEvents();
+          historyStack = [];
+        };
+        reader.readAsText(file);
+      } else {
+        alert('Please upload a valid .svg file');
+      }
+    });
+
+    // Load default
+    loadImage('house');
+  </script>
+</body>
+</html>

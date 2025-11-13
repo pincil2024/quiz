@@ -1,0 +1,81 @@
+{
+  
+  "levels": {
+    "level_1": {
+      "multiple_choice": [
+        {
+          "question": "What is 2 + 2?",
+          "options": ["3", "4", "5", "6"],
+          "answer": "4",
+          "image": "images/addition_2plus2.png"
+        }
+      ],
+      "fill_in_blank": [
+        {
+          "question": "5 + __ = 10",
+          "answer": "5",
+          "image": "images/fill_blank_math1.png"
+        }
+      ],
+      "matching": [
+        {
+          "question": "Match the number to its word",
+          "pairs": [
+            { "left": "1", "right": "One" },
+            { "left": "2", "right": "Two" }
+          ],
+          "answer": [
+            { "left": "1", "right": "One" },
+            { "left": "2", "right": "Two" }
+          ],
+          "image": "images/numbers_words_match.png"
+        }
+      ],
+      "text_answer": [
+        {
+          "question": "Explain why 6 is an even number.",
+          "answer": "Because it can be divided by 2 without a remainder.",
+          "image": "images/even_number.png"
+        }
+      ]
+    },
+    "level_2": {
+      "multiple_choice": [
+        {
+          "question": "What is 12 × 12?",
+          "options": ["124", "144", "154", "134"],
+          "answer": "144",
+          "image": "images/multiplication_chart.png"
+        }
+      ],
+      "fill_in_blank": [
+        {
+          "question": "√49 = __",
+          "answer": "7",
+          "image": "images/square_root_49.png"
+        }
+      ],
+      "matching": [
+        {
+          "question": "Match expressions to their values",
+          "pairs": [
+            { "left": "3×3", "right": "9" },
+            { "left": "2×5", "right": "10" }
+          ],
+          "answer": [
+            { "left": "3×3", "right": "9" },
+            { "left": "2×5", "right": "10" }
+          ],
+          "image": "images/match_expressions.png"
+        }
+      ],
+      "text_answer": [
+        {
+          "question": "Describe how to find the area of a triangle.",
+          "answer": "Use the formula: 0.5 × base × height",
+          "image": "images/area_triangle.png"
+        }
+      ]
+    }
+  }
+}

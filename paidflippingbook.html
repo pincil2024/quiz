@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Buku Interaktif - Pilih Buku</title>
+
+ 
+     <meta name="description" content="Bacaan interaktif dan buku digital untuk anak-anak! Putar halaman dan nikmati belajar sambil membaca.">
+    <meta name="keywords" content="Buku Digital Anak, Buku Cerita, Buku Interaktif, Literasi Anak, Pincil, Buku Edukasi">
+    <meta property="og:title" content="Pincil – Buku Interaktif Anak" />
+    <meta property="og:description" content="Ajak anak membaca dengan cara baru menggunakan buku digital interaktif dari Pincil." />
+    <meta property="og:url" content="https://pincil.id/paidflippingbook.html" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://pincil.id/paidflippingbook.html" />
+    <link rel="stylesheet" href="/static/css/locked.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+    <link rel="stylesheet" href="/static/css/navbar.css">
+
+    
+    <script src="/assets/js/fullscreen-toggle.js"></script>
+
+  <script src="/assets/js/booklist.js"  ></script>
+  
+  <script src="/assets/js/lazy-loading.js"  ></script>
+  
+
+<script>
+            fetch('meta.html').then(res => res.text()).then(html => {
+            document.head.insertAdjacentHTML('beforeend', html);
+            });
+        </script>
+   
+   
+    
+    <style>
+  :root {
+    --primary-color: #FF6B6B;
+    --secondary-color: #4ECDC4;
+    --accent-color: #FFE66D;
+    --dark-color: #292F36;
+    --light-color: #F7FFF7;
+    --book-cover: #FF9F1C;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Marker Felt', 'Arial Rounded MT Bold', sans-serif;
+    background: linear-gradient(135deg, #84fab0, #8fd3f4);
+    min-height: 100vh;
+    overflow-x: hidden;
+    touch-action: manipulation;
+    color: var(--dark-color);
+}
+
+/* Header Styles */
+.app-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 100;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#pincillogo {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Main Container */
+.container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 150px);
+}
+
+/* Book Carousel */
+.carousel-wrapper {
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px 0;
+    position: relative;
+}
+
+.carousel-title {
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.book-carousel {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 15px 0;
+    scrollbar-width: none;
+}
+
+.book-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-container {
+    display: inline-flex;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+/* UPDATED: Book cover styles with lazy loading */
+.book-cover {
+    scroll-snap-align: center;
+    width: 140px;
+    height: 200px;
+    background: linear-gradient(145deg, var(--book-cover), #FFBF69);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border: 4px solid white;
+    position: relative;
+    overflow: hidden;
+}
+
+.book-cover-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.book-cover img.lazy-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border: 2px solid #ddd;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.book-cover img.lazy-img.loaded {
+    opacity: 1;
+}
+
+.book-cover .book-icon {
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px;
+    border: 2px dashed rgba(255,255,255,0.3);
+}
+
+.book-cover .book-icon.hidden {
+    display: none;
+}
+
+.book-title {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Loading animation for lazy images */
+.lazy-img:not(.loaded) {
+    background: rgba(255,255,255,0.1);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.book-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: rgba(255,255,255,0.3);
+}
+
+.book-cover:hover, .book-cover:active {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 8px 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Book Viewer */
+.book-viewer {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    perspective: 2000px;
+    position: relative;
+}
+
+/* NEW: Special styling for fullImage books on desktop */
+@media (min-width: 769px) {
+    .book-viewer.full-image-book {
+        max-width: 200px; /* Narrower for portrait orientation */
+    }
+}
+
+.default-message {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+.default-message img {
+    width: 150px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+.default-message p {
+    font-size: 1.2rem;
+    color: var(--dark-color);
+    font-weight: bold;
+}
+
+/* FIXED: Book layout with proper spine alignment */
+.book {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 500px;
+    transform-style: preserve-3d;
+    display: none;
+    margin-left: 25px; /* Space for spine */
+}
+
+/* NEW: Special height for fullImage books on desktop */
+@media (min-width: 769px) {
+    .book.full-image-book {
+        height: 80vh; /* Taller for portrait images */
+        width: 70vw;
+        min-height: 600px;
+    }
+}
+
+/* FIXED: Spine alignment - same height and position as pages */
+ .spine {
+         
+            position: absolute;
+            left: -15px;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(to right, #8B5A2B, #A67C52);
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset -5px 0 10px rgba(0,0,0,0.3);
+            z-index: 10;
+        
+}
+
+/* NEW: Spine for fullImage books */
+@media (min-width: 769px) {
+    .book.full-image-book .spine {
+        height: 100%; /* Match the taller book height */
+    }
+}
+
+.pages {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform-origin: left center;
+    transition: transform 0.8s ease-in-out;
+    backface-visibility: hidden;
+    overflow-y: auto;
+}
+
+.page:nth-child(odd) {
+    background-color: var(--light-color);
+}
+
+.page.flipped {
+    transform: rotateY(-180deg);
+}
+
+.page-image {
+    max-width: 80%;
+    max-height: 60%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
+.page-text {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--dark-color);
+    line-height: 1.5;
+}
+
+.canvas-wrapper {
+    margin: auto;
+    margin-top: 0;
+    display: block;
+    text-align: center;
+    overflow: auto;
+    width: 90%;
+    height: auto;
+    background-color: white;
+    padding: 25px;
+    padding-bottom: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-controls {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 40px;
+    padding-top: 40px;
+}
+
+.nav-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+.nav-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.nav-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-color);
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* FIXED: Fullscreen styles with proper proportions */
+:fullscreen {
+    overflow-x: hidden !important;
+    background: linear-gradient(135deg, #84fab0, #8fd3f4);
+}
+
+:fullscreen body {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+:fullscreen .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    max-width: 100vw;
+}
+
+:fullscreen .book-viewer {
+    max-width: 90vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* NEW: Fullscreen adjustments for fullImage books on desktop */
+@media (min-width: 769px) {
+    :fullscreen .book-viewer.full-image-book {
+        max-width: 60vh; /* Portrait aspect ratio */
+        height: 80vh;
+    }
+}
+
+:fullscreen .book {
+    height: 100% !important;
+    min-height: unset;
+    margin-left: 30px;
+    transform: scale(1);
+    max-width: 100%;
+}
+
+/* NEW: Fullscreen fullImage books */
+@media (min-width: 769px) {
+    :fullscreen .book.full-image-book {
+        height: 100% !important;
+    }
+}
+
+:fullscreen .spine {
+  margin-top: 22px;
+    left: -30px; /* Match the margin-left */
+    height: 100%; /* Same height as pages */
+    top: 0; /* Ensure perfect alignment */
+}
+
+:fullscreen .pages {
+    height: 100%;
+}
+
+:fullscreen .page {
+    height: 100%;
+}
+
+/* FIXED: Hide navigation controls on mobile fullscreen, show on desktop */
+:fullscreen .nav-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin-top: 0;
+    padding-top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.9);
+    padding: 15px;
+    border-radius: 25px;
+    width: auto;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Hide nav controls on mobile in fullscreen */
+@media (max-width: 768px) {
+    :fullscreen .nav-controls {
+        display: none;
+    }
+}
+
+/* Show nav controls on desktop in fullscreen */
+@media (min-width: 769px) {
+    :fullscreen .nav-controls {
+        display: flex;
+    }
+}
+
+:fullscreen .nav-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+}
+
+/* Book without spine - fullscreen adjustment */
+:fullscreen .book.no-spine {
+    margin-left: 0;
+}
+
+:fullscreen .book.no-spine .page {
+    border-radius: 15px;
+}
+
+/* Full image pages in fullscreen */
+:fullscreen .page.full-image .page-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* NEW: Full image pages styling - enhanced for portrait */
+.page.full-image {
+    padding: 0;
+    justify-content: stretch;
+}
+
+.page.full-image .page-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Changed from 'fill' to 'contain' for better proportions */
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.page.full-image .page-text {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+/* NEW: Desktop-specific full image styling */
+@media (min-width: 769px) {
+    .page.full-image .page-image {
+        object-fit: contain; /* Ensure full image is visible without cropping */
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .book-cover {
+        width: 120px;
+        height: 170px;
+    }
+    
+    .book-cover img.lazy-img,
+    .book-cover .book-icon {
+        height: 120px;
+    }
+    
+    .book {
+        height: 60vh;
+        min-height: 400px;
+        margin-left: 20px;
+    }
+    
+    .spine {
+        left: -20px;
+        width: 20px;
+    }
+    
+    .page-text {
+        font-size: 1rem;
+    }
+    
+    .nav-btn {
+        width: 50px;
+        height: 50px;
+    }
+    
+    /* Mobile fullscreen adjustments */
+    :fullscreen .book {
+        margin-left: 25px;
+        height: 75vh !important;
+    }
+    
+    :fullscreen .spine {
+        left: -25px;
+        width: 25px;
+    }
+    
+    /* Ensure swipe works properly on mobile */
+    :fullscreen .book-viewer {
+        touch-action: pan-y pinch-zoom;
+    }
+    
+    :fullscreen .pages {
+        touch-action: pan-y;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-cover {
+        width: 100px;
+        height: 150px;
+        font-size: 0.8rem;
+    }
+    
+    .book-cover img.lazy-img,
+    .book-cover .book-icon {
+        height: 100px;
+    }
+    
+    .book {
+        height: 50vh;
+        min-height: 350px;
+        margin-left: 15px;
+    }
+    
+    .spine {
+        left: -15px;
+        width: 15px;
+    }
+    
+    .page {
+        height: 100%;
+    }
+    
+    .page-image {
+        max-width: 90%;
+    }
+    
+    .page-text {
+        font-size: 0.7rem;
+    }
+    
+    .carousel-title {
+        font-size: 1.2rem;
+    }
+    
+    /* Mobile fullscreen adjustments */
+    :fullscreen .book {
+        margin-left: 20px;
+        height: 70vh !important;
+    }
+    
+    :fullscreen .spine {
+        left: -20px;
+        width: 20px;
+    }
+}
+
+/* Touch enhancements */
+.book-cover {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Loading animation */
+.loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.loader-text {
+    font-size: 1.2rem;
+    color: var(--dark-color);
+    font-weight: bold;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Book without spine */
+.book.no-spine {
+    margin-left: 0;
+    transform-style: preserve-3d;
+}
+
+.book.no-spine .page {
+    border-radius: 10px;
+}
+
+/* Dialog styles */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dialog-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.dialog-btn.primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Locked book styling */
+.book-cover.locked {
+    position: relative;
+    opacity: 0.8;
+}
+
+.lock-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: gold;
+    font-size: 1.2rem;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+.book-cover.locked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.3) 100%
+    );
+    border-radius: 6px;
+}
+
+.carousel-wrapper {
+    display: block;
+}
+
+.special-book-view .carousel-wrapper {
+    display: none;
+}
+
+.loading-books {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    color: #d32f2f;
+}
+    </style>
+     <script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/auth-manager.js"></script>
+
+<script type="module" src="assets/js/navbar.js"></script>
+
+ 
+</head>
+
+<body class="book-viewer-page">
+      <div id="navbar"></div>
+    <header class="app-header">
+        <div class="logo-container">
+            <img id="pincillogo" src="assets/icons/favicon.png" alt="Pincil Logo">
+        </div>
+        <h1>Buku Interaktif</h1>
+    </header>
+    
+    <main class="container">
+        <!-- Book Carousel Section -->
+        <div class="carousel-wrapper">
+            <h2 class="carousel-title">Pilih Buku Kamu!</h2>
+            <div class="book-carousel">
+                <div class="carousel-container" id="carouselContainer"></div>
+            </div>
+        </div>
+        <div id="myCanvas1" class="canvas-wrapper">  
+        <!-- Book Viewer Section -->
+        <div class="book-viewer">
+            <div class="default-message" id="defaultMessage">
+                <img src="assets/icons/favicon.png" alt="Pincil">
+                <p>Pilih buku dari rak di atas untuk mulai membaca!</p>
+            </div>
+           
+            <div class="book" id="book">
+           <!-- In your book viewer page only -->
+<!-- In your book viewer page -->
+<label class="fullscreen-toggle">
+  <input type="checkbox" id="fullscreenToggle1"> (Android)
+  <span class="slider"></span> Layar lebar
+  <div id="pointer-hand" class="pointer-hand">👈</div>
+</label>
+     <div class="spine"></div>
+                <div class="pages" id="pages"></div>
+            </div>
+        </div>
+            <div class="nav-controls">
+                <button class="nav-btn" id="prev" onclick="prevPage()" disabled>
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="page-indicator" id="pageIndicator">0/0</div>
+                <button class="nav-btn" id="next" onclick="nextPage()" disabled>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+        <audio id="flipSound" src="assets/audio/turnpage.mp3"></audio>
+        <audio id="selectSound" src="assets/sounds/yay-success.mp3"></audio>
+    </main>
+    
+    <footer>
+        © 2023 Buku Interaktif Anak - Belajar sambil Bermain
+    </footer>
+    
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Memuat Buku...</div>
+    </div>
+    <!-- Purchase Dialog -->
+<div id="purchaseDialog" class="dialog-overlay">
+    <div class="dialog-content">
+        <h3 id="dialogTitle">Buka Buku Premium</h3>
+        <p id="dialogMessage">Buku ini adalah buku premium. Anda perlu membeli akses untuk dapat membacanya.</p>
+        <div class="dialog-actions">
+            <button id="cancelPurchase" class="dialog-btn">Nanti Saja</button>
+            <a id="confirmPurchase" class="dialog-btn primary" href="#" target="_blank">Beli Sekarang</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Wait for Firebase to load
+    function checkFirebase() {
+        if (typeof firebase === 'undefined') {
+            console.log("Firebase not loaded yet, waiting...");
+            setTimeout(checkFirebase, 500);
+            return;
+        }
+        console.log("Firebase is loaded");
+        createBookCovers(); // Load books now that Firebase is ready
+    }
+
+    // Start checking when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(checkFirebase, 1000);
+        initializeLazyLoading(); // Initialize lazy loading
+    });
+
+    // Book data
+    const books = bookList;
+    
+    // App state
+    let currentIndex = 0;
+    let totalPages = 0;
+    let currentBook = null;
+    const pagesContainer = document.getElementById("pages");
+    const bookElement = document.getElementById("book");
+    const defaultMessage = document.getElementById("defaultMessage");
+    const flipSound = document.getElementById("flipSound");
+    const selectSound = document.getElementById("selectSound");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+    const pageIndicator = document.getElementById("pageIndicator");
+    const loader = document.getElementById("loader");
+    const carouselContainer = document.getElementById("carouselContainer");
+
+    // Check access using token manager
+    function hasTokenAccess(contentId) {
+        return window.tokenManager && window.tokenManager.hasAccessTo && window.tokenManager.hasAccessTo(contentId);
+    }
+
+    // Lazy loading initialization for book covers
+    function initializeLazyLoading() {
+        const lazyElements = document.querySelectorAll('.lazy-img');
+        
+        const lazyLoad = (entry) => {
+            const target = entry.target;
+            console.log('Lazy loading book cover:', target.dataset.src);
+            
+            if (target.dataset.src) {
+                const img = new Image();
+                img.src = target.dataset.src;
+                img.onload = () => {
+                    target.src = target.dataset.src;
+                    target.classList.add('loaded');
+                    console.log('✅ Book cover loaded:', target.dataset.src);
+                };
+                img.onerror = () => {
+                    console.error('❌ Failed to load book cover:', target.dataset.src);
+                    // Fallback to icon
+                    target.style.display = 'none';
+                    // Show the icon instead
+                    const icon = target.closest('.book-cover').querySelector('.book-icon');
+                    if (icon) icon.style.display = 'block';
+                };
+            }
+        };
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    lazyLoad(entry);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '100px',
+            threshold: 0.1
+        });
+
+        lazyElements.forEach(el => observer.observe(el));
+    }
+
+    // SAFE VERSION - Updated createBookCovers with lazy loading
+    async function createBookCovers() {
+        if (!carouselContainer) {
+            console.error("Carousel container not found");
+            return;
+        }
+
+        // Show loading state
+        carouselContainer.innerHTML = '<div class="loading-books">Memuat buku...</div>';
+
+        // Check if we have books
+        if (!books || books.length === 0) {
+            console.error("No books found in bookList");
+            carouselContainer.innerHTML = '<div class="error-message">Tidak ada buku yang tersedia</div>';
+            return;
+        }
+
+        console.log(`Creating covers for ${books.length} books`);
+
+        // Clear previous content
+        carouselContainer.innerHTML = '';
+
+        // Process books with error handling
+        for (const book of books) {
+            const bookElement = document.createElement("div");
+            bookElement.className = "book-cover";
+
+            if (book.contentId) {
+                bookElement.setAttribute("data-content-id", book.contentId);
+            }
+
+            let isLocked = book.locked; // Default to book's locked property
+            
+            try {
+                // Try to check lock status, but don't fail if it errors
+                isLocked = await isBookLocked(book);
+                console.log("Book", book.title, "is locked:", isLocked);
+            } catch (err) {
+                console.error("Error in isBookLocked for", book.title, err);
+                // If error occurs, fall back to the book's original locked property
+                isLocked = book.locked;
+            }
+
+            if (isLocked) {
+                bookElement.innerHTML = `
+                    <div class="book-cover-content">
+                        ${book.image ? `
+                            <img 
+                                class="lazy-img" 
+                                data-src="${book.image}" 
+                                alt="${book.title}"
+                                width="120" 
+                                height="180"
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180' viewBox='0 0 120 180'%3E%3Crect width='120' height='180' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E"
+                            >
+                        ` : ''}
+                        <i class="fas ${book.icon} book-icon ${book.image ? 'hidden' : ''}"></i>
+                        <span class="book-title">${book.title}</span>
+                        <div class="lock-icon"><i class="fas fa-lock"></i></div>
+                    </div>
+                `;
+                bookElement.classList.add("locked");
+                bookElement.onclick = () => showPurchaseDialog(book);
+            } else {
+                bookElement.innerHTML = `
+                    <div class="book-cover-content">
+                        ${book.image ? `
+                            <img 
+                                class="lazy-img" 
+                                data-src="${book.image}" 
+                                alt="${book.title}"
+                                width="120" 
+                                height="180"
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180' viewBox='0 0 120 180'%3E%3Crect width='120' height='180' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='12' fill='%23999'%3ELoading...%3C/text%3E%3C/svg%3E"
+                            >
+                        ` : ''}
+                        <i class="fas ${book.icon} book-icon ${book.image ? 'hidden' : ''}"></i>
+                        <span class="book-title">${book.title}</span>
+                    </div>
+                `;
+                bookElement.onclick = () => selectBook(book.file);
+            }
+
+            carouselContainer.appendChild(bookElement);
+        }
+
+        // Initialize lazy loading for the newly created book covers
+        setTimeout(initializeLazyLoading, 100);
+    }
+
+  // SIMPLE VERSION - Show purchase dialog
+function showPurchaseDialog(book) {
+    const dialog = document.getElementById("purchaseDialog");
+    const cancelBtn = document.getElementById("cancelPurchase");
+    const confirmBtn = document.getElementById("confirmPurchase");
+    
+    // Determine purchase URL
+    let purchaseUrl = book.purchaseLink || "#";
+    
+    // If no direct purchaseLink but has contentId and tokenManager, use tokenManager
+    if (!book.purchaseLink && book.contentId && window.tokenManager) {
+        purchaseUrl = window.tokenManager.generatePurchaseUrl(
+            book.contentId, 
+            book.title, 
+            window.location.href
+        );
+    }
+    
+    // Set up the confirm button
+    if (purchaseUrl !== "#") {
+        confirmBtn.href = purchaseUrl;
+        confirmBtn.target = "_blank";
+        confirmBtn.onclick = null;
+    } else {
+        confirmBtn.href = "#";
+        confirmBtn.onclick = (e) => {
+            e.preventDefault();
+            alert(`Tautan pembelian untuk "${book.title}" tidak tersedia.`);
+        };
+    }
+    
+    // Show dialog
+    dialog.style.display = "flex";
+    
+    // Close dialog handlers
+    cancelBtn.onclick = () => {
+        dialog.style.display = "none";
+    };
+    
+    dialog.onclick = (e) => {
+        if (e.target === dialog) {
+            dialog.style.display = "none";
+        }
+    };
+}
+
+ // In your selectBook function, add this after loading the book data:
+function selectBook(bookFile) {
+    if (loader) loader.style.display = "flex";
+    if (selectSound) playSound(selectSound);
+    
+    fetch(bookFile)
+        .then(response => response.json())
+        .then(data => {
+            currentBook = data;
+            currentIndex = 0;
+            totalPages = data.pages.length;
+
+            // NEW: Apply full-image-book class if book has fullImage property
+            const bookViewer = document.querySelector('.book-viewer');
+            const bookElement = document.getElementById("book");
+            
+            if (bookViewer && bookElement) {
+                if (currentBook.fullImage) {
+                    bookViewer.classList.add('full-image-book');
+                    bookElement.classList.add('full-image-book');
+                } else {
+                    bookViewer.classList.remove('full-image-book');
+                    bookElement.classList.remove('full-image-book');
+                }
+            }
+
+            // Set spine visibility
+            if (bookElement) {
+                const showSpine = currentBook.hasSpine !== false;
+                bookElement.classList.toggle("no-spine", !showSpine);
+            }
+            
+            renderBook();
+            updateNavigation();
+            if (loader) loader.style.display = "none";
+            
+            // Hide default message and show book
+            if (defaultMessage) defaultMessage.style.display = "none";
+            if (bookElement) bookElement.style.display = "block";
+            
+            // Hide carousel if we're viewing a special book
+            if (window.location.search.includes('unlock=') || window.location.search.includes('access_token=')) {
+                const carouselWrapper = document.querySelector('.carousel-wrapper');
+                if (carouselWrapper) carouselWrapper.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            if (loader) loader.style.display = "none";
+            alert("Maaf, buku tidak dapat dimuat. Silakan coba lagi.");
+            console.error("Error loading book:", error);
+        });
+}
+
+    // Render book pages
+    function renderBook() {
+        if (!pagesContainer || !currentBook) return;
+        
+        pagesContainer.innerHTML = "";
+
+        // Check if current book should have spine
+        const showSpine = currentBook.hasSpine !== false;
+        
+        // Create spine if needed
+        if (showSpine && bookElement) {
+            const spine = document.createElement("div");
+            spine.className = "spine";
+            bookElement.insertBefore(spine, pagesContainer);
+        }
+        
+        // List of books that should have full-page images
+        const fullImageBooks = ["The Forest Teamwork Day", "Mimpiku, Sekolah untuk Semua", "Gadis Kecil dan Jendela ke Dunia"];
+        const isFullImageBook = fullImageBooks.includes(currentBook.title);
+        
+        currentBook.pages.forEach((page, index) => {
+            const pageElement = document.createElement("div");
+            pageElement.className = "page";
+            pageElement.style.zIndex = totalPages - index;
+            
+            if (isFullImageBook && page.image) {
+                pageElement.classList.add("full-image");
+            }
+            
+            let contentHTML = '';
+            
+            if (page.image) {
+                contentHTML += `<img src="${page.image}" alt="Page Image" class="page-image">`;
+            }
+            
+            if (page.text) {
+                contentHTML += `<p class="page-text">${page.text}</p>`;
+            }
+            
+            pageElement.innerHTML = contentHTML;
+            pagesContainer.appendChild(pageElement);
+        });
+        
+        updatePagePositions();
+    }
+    
+    // Update page positions based on currentIndex
+    function updatePagePositions() {
+        const pages = document.querySelectorAll(".page");
+        pages.forEach((page, index) => {
+            if (index < currentIndex) {
+                page.classList.add("flipped");
+            } else {
+                page.classList.remove("flipped");
+            }
+        });
+    }
+    
+    // Navigate to next page
+    function nextPage() {
+        if (currentIndex < totalPages - 1) {
+            currentIndex++;
+            updatePagePositions();
+            updateNavigation();
+            if (flipSound) playSound(flipSound);
+        }
+    }
+    
+    // Navigate to previous page
+    function prevPage() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updatePagePositions();
+            updateNavigation();
+            if (flipSound) playSound(flipSound);
+        }
+    }
+    
+    // Update navigation controls
+    function updateNavigation() {
+        if (prevBtn) prevBtn.disabled = currentIndex === 0;
+        if (nextBtn) nextBtn.disabled = currentIndex === totalPages - 1;
+        if (pageIndicator) pageIndicator.textContent = `${currentIndex + 1}/${totalPages}`;
+    }
+    
+    // Play sound effect
+    function playSound(sound) {
+        if (sound) {
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Audio play failed:", e));
+        }
+    }
+    
+    // Setup swipe gestures for mobile
+    function setupSwipeGestures() {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (Math.abs(touchEndX - touchStartX) < 50) return;
+            
+            if (touchEndX < touchStartX) {
+                nextPage();
+            } else {
+                prevPage();
+            }
+        }
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!defaultMessage || defaultMessage.style.display === "none") {
+            if (e.key === "ArrowRight") nextPage();
+            else if (e.key === "ArrowLeft") prevPage();
+        }
+    });
+    
+    // Check URL for access
+    function checkSpecialAccess() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessCode = urlParams.get('unlock');
+        const accessToken = urlParams.get('access_token');
+        const contentId = urlParams.get('content_id');
+        
+        if (accessCode) {
+            // Handle legacy access codes
+            const unlockedBook = books.find(book => book.accessCode === accessCode);
+            
+            if (unlockedBook) {
+                // Temporarily unlock the book
+                unlockedBook.locked = false;
+                selectBook(unlockedBook.file);
+                
+                // Hide carousel and default message
+                document.querySelector('.carousel-wrapper').style.display = 'none';
+                if (defaultMessage) defaultMessage.style.display = 'none';
+                return true;
+            }
+        } else if (accessToken && contentId && window.tokenManager) {
+            // Handle token-based access
+            window.tokenManager.addContentAccess(contentId, accessToken);
+            
+            // Find book by contentId
+            const unlockedBook = books.find(book => book.contentId === contentId);
+            if (unlockedBook) {
+                selectBook(unlockedBook.file);
+                if (document.querySelector('.carousel-wrapper')) {
+                    document.querySelector('.carousel-wrapper').style.display = 'none';
+                }
+                if (defaultMessage) defaultMessage.style.display = 'none';
+                return true;
+            }
+        }
+        return false;
+    }
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        console.log("DOM loaded, initializing book viewer");
+
+        // First check for special access
+        const isShowingSpecialBook = checkSpecialAccess();
+        
+        if (!isShowingSpecialBook) {
+            // Wait for auth state to be determined
+            if (window.tokenManager && typeof window.tokenManager.onReady === 'function') {
+                window.tokenManager.onReady(async () => {
+                    console.log("TokenManager ready, creating book covers");
+                    await createBookCovers();
+                    setupSwipeGestures();
+                });
+            } else {
+                // If no token manager, wait a bit for auth to initialize
+                setTimeout(async () => {
+                    console.log("Creating book covers after timeout");
+                    await createBookCovers();
+                    setupSwipeGestures();
+                }, 1000);
+            }
+        }
+
+        // Add a fallback in case token manager doesn't fire the ready event
+        setTimeout(async () => {
+            if (document.querySelectorAll('.book-cover').length === 0) {
+                console.log("Fallback: Creating book covers after timeout");
+                await createBookCovers();
+            }
+        }, 3000);
+    });
+
+    async function isBookLocked(book) {
+        console.log("Checking book lock:", book.title);
+        
+        // 1. URL parameter override
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('admin')) {
+            console.log("🔓 Admin override via URL");
+            return false;
+        }
+        
+        // 2. Check if user is admin (SIMPLE VERSION)
+        const isAdmin = await isUserAdmin();
+        if (isAdmin) {
+            console.log("🔓 Admin access - book unlocked");
+            return false;
+        }
+        
+        // 3. If book is free or public, never lock it
+        if (!book.locked && !book.premium) {
+            console.log("📖 Book is free/public");
+            return false;
+        }
+        
+        // 4. Check token access for premium books
+        if (book.contentId && window.tokenManager && typeof window.tokenManager.hasAccessTo === "function") {
+            try {
+                const hasAccess = window.tokenManager.hasAccessTo(book.contentId);
+                console.log("🔐 Token access:", hasAccess);
+                return !hasAccess;
+            } catch (error) {
+                console.error("Token check failed:", error);
+            }
+        }
+        
+        // 5. Default to book's locked property
+        console.log("🔒 Default lock status:", book.locked);
+        return book.locked;
+    }
+
+    async function isUserAdmin() {
+        console.log("🛡️ Simple admin check");
+        
+        // 1. URL parameter override
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('admin')) {
+            console.log("✅ Admin access granted via URL parameter");
+            localStorage.setItem('isAdmin', 'true');
+            return true;
+        }
+        
+        // 2. Local storage cache
+        if (localStorage.getItem('isAdmin') === 'true') {
+            console.log("✅ Admin access granted via cache");
+            return true;
+        }
+        
+        // 3. Hardcoded admin emails (SIMPLE VERSION)
+        const adminEmails = [
+                       "pincil.pintarsikecil@gmail.com"
+        ];
+        
+        // Get current user email
+        let userEmail = null;
+        try {
+            if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+                userEmail = firebase.auth().currentUser.email.toLowerCase();
+            }
+        } catch (error) {
+            console.log("⚠️ Firebase auth not available:", error);
+        }
+        
+        // Check if user email is in admin list
+        if (userEmail && adminEmails.includes(userEmail)) {
+            console.log("✅ Admin access granted via email:", userEmail);
+            localStorage.setItem('isAdmin', 'true');
+            return true;
+        }
+        
+        console.log("❌ User is not an admin");
+        localStorage.setItem('isAdmin', 'false');
+        return false;
+    }
+
+    // Add this function to find your UID
+    function findMyUID() {
+        try {
+            if (typeof firebase !== 'undefined' && firebase.auth) {
+                const user = firebase.auth().currentUser;
+                if (user) {
+                    console.log("🔍 Your UID:", user.uid);
+                    console.log("📧 Your email:", user.email);
+                    alert(`Your UID: ${user.uid}\nYour email: ${user.email}`);
+                    return user.uid;
+                } else {
+                    console.log("⚠️ No user logged in");
+                    alert("Please login first to find your UID");
+                    return null;
+                }
+            } else {
+                console.log("⚠️ Firebase not available");
+                alert("Firebase not loaded");
+                return null;
+            }
+        } catch (error) {
+            console.error("Error finding UID:", error);
+            return null;
+        }
+    }
+
+    // Make available globally
+    window.findMyUID = findMyUID;
+</script>
+</body>
+</html>

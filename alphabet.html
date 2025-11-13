@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Belajar Membaca</title>
+        
+           <meta name="description" content="Belajar huruf dengan cara menyenangkan! Pincil menyediakan permainan interaktif untuk anak mengenal alfabet.">
+        <meta name="keywords" content="Belajar Huruf, Alfabet, TK, PAUD, Pincil, Huruf Anak, Pendidikan Anak, Game Alfabet">
+        <meta property="og:title" content="Pincil – Belajar Huruf" />
+        <meta property="og:description" content="Yuk kenalkan huruf kepada si kecil dengan game interaktif dari Pincil!" />
+        <meta property="og:url" content="https://pincil.id/alphabet.html" />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://pincil.id/alphabet.html" />
+
+        <link rel="stylesheet" href="/static/css/styles.css">
+             <link rel="stylesheet" href="/static/css/alphabet.css">
+        <link rel="stylesheet" href="/static/css/navbar.css">
+       
+              <link rel="stylesheet" href="/static/css/secondaryheader.css">
+       <script src="https://bernardo-castilho.github.io/dragdroptouch/DragDropTouch.js"></script>
+
+     <script>
+            fetch('meta.html').then(res => res.text()).then(html => {
+            document.head.insertAdjacentHTML('beforeend', html);
+            });
+        </script>
+        
+  
+<script src="/assets/js/main.js" defer></script> 
+<script src="/assets/js/premium/global-locking.js"></script>
+<script type="module" src="assets/js/firebase-init.js"></script>
+<script type="module" src="assets/js/token-manager.client.js"></script>
+<script type="module" src="assets/js/navbar.js"></script>
+
+</head>
+
+
+
+<body id="math-quiz">
+
+      <div id="navbar"></div>
+
+   <!-- Secondary Header -->
+  <div id="secondaryHeader" class="secondaryHeader">
+    <a href="tk.html">
+      <img class="lazy"  alt="Description" title="Kembali" src="assets/image-mainsukukata/gobackbutton.png" width="80vw" height="80vw" >
+    </a>
+         <p>Belajar Membaca</p>
+         <a href="index.html">
+          <img class="lazy"  alt="Description" title="Home" src="assets/icons/favicon.png" width="80vw" height="80vw" >
+      </a>
+  </div>
+
+ 
+    <div class="main-menu">
+        <button id="showAbcSong">ABC Song</button>
+        <button id="showAlphabet">Huruf Alfabet</button>
+        <button id="showVokal">Vokal</button>
+        <button id="showSukukata">Suku Kata</button>
+        <button id="showGames">Games</button>
+        
+       
+</div>
+
+<div id = "mainContainer" class="mainContainer">
+   <div class="mainButtons" style="display: none;"> 
+        <button id="backToMenu" class="back-to-menu-container" > 🔙'</button>
+       
+        <div class="sound-controls"><div >
+            <div id="sound-Display"> 🔇/🔊</div>
+            <span class="label-text">Musik</span>
+        <label class="switch">
+            <input type="checkbox" id="bgMusicToggle" >
+            <span class="slider round"></span>
+        </label>
+     
+        <label class="switch">
+            <input type="checkbox" id="effectsToggle" checked>
+            <span class="slider round"></span>
+        </label>
+            <span class="label-text">Suara</span>
+     </div>
+    </div>
+    </div>
+
+    <section class="section" id="abcSong" >
+           
+        <h2>ABC Song</h2>
+        <div class="loading-spinner"></div>
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/pV9t7hU72yI" 
+                title="ABC Song" frameborder="0" allowfullscreen></iframe>
+    </section>
+    
+
+    <section class="section" id="alphabet">
+      <button  class="mainContainer" data-fullscreen="alphabet">🔲</button>
+         <h2>Huruf Alfabet</h2>
+        <div class="option">
+            <button id="showAlphabetCarouselBtn">📖</button>
+            <button id="showAlphabetGridBtn">📚</button>
+        </div>
+        <div id="carousel" class="carousel">
+            <button id="prevAlphabetBtn">&lt;</button>
+            <div id="alphabetDisplay">A</div>
+            <div id="emojiDisplay" class="emojiDisplay">🍎 Apel</div>
+            <button id="nextAlphabetBtn">&gt;</button>
+        </div>
+        <div id="alphabetGrid" class="grid-container" >
+            <!-- Clickable letters with animation will load here -->
+        </div>
+        
+    </section>
+
+    <section class="section" id="vokal">
+           <button  class="mainContainer" data-fullscreen="vokal">🔲</button>
+                      
+        <h2>Vokal</h2>
+        <div class="option">
+            <button id="showVokalCarouselBtn">📖</button>
+             <button id="showVokalGridBtn">📚</button>
+    </div>
+    <div id="vokalCarousel" class="vokalCarousel">
+        <button id="prevVokalBtn">&lt;</button>
+        <div id="vokalDisplay">A</div>
+        <button id="nextVokalBtn">&gt;</button>
+    </div>
+        <div id="vokalGrid" class="grid-container">
+            <!-- Vokal buttons will be dynamically loaded here -->
+        </div>
+    </section>
+       
+
+    <section class="section" id="sukukata" style="display: none;">
+      <button  class="mainContainer" data-fullscreen="sukukata">🔲</button>
+
+        <h2>Suku Kata</h2>
+        <div class="grid-container" id="sukukata-Syllables">
+            <div class="grid-item" data-syllable="Ba">BA</div>
+            <div class="grid-item" data-syllable="Ca">CA</div>
+            <div class="grid-item" data-syllable="Da">DA</div>
+            <div class="grid-item" data-syllable="Fa">FA</div>
+            <div class="grid-item" data-syllable="Ga">GA</div>
+            <div class="grid-item" data-syllable="Ha">HA</div>
+            <div class="grid-item" data-syllable="Ja">JA</div>
+            <div class="grid-item" data-syllable="Ka">KA</div>
+            <div class="grid-item" data-syllable="La">LA</div>
+            <div class="grid-item" data-syllable="Ma">MA</div>
+            <div class="grid-item" data-syllable="Na">NA</div>
+            <div class="grid-item" data-syllable="Pa">PA</div>
+            <div class="grid-item" data-syllable="Ra">RA</div>
+            <div class="grid-item" data-syllable="Sa">SA</div>
+            <div class="grid-item" data-syllable="Ta">TA</div>
+            <div class="grid-item" data-syllable="Va">VA</div>
+            <div class="grid-item" data-syllable="Wa">WA</div>
+            <div class="grid-item" data-syllable="Ya">YA</div>
+            <div class="grid-item" data-syllable="Za">ZA</div>
+            <div class="grid-item" data-syllable="Ang">ANG</div>
+            <div class="grid-item" data-syllable="Nga">NGA</div>
+            <div class="grid-item" data-syllable="Nya">NYA</div>
+            <div class="grid-item" data-syllable="Ia">IA</div>
+            <div class="grid-item" data-syllable="Ua">UA</div>
+          
+                 </div>
+                 <div class="option" id="sukukataOptions" style="display: none;">
+                       <button id="gobackSukukata" >👈</button>
+                    <button id="showSukukataCarouselBtn">📖</button>
+                    <button  id="showSukukataGridBtn">📚</button>
+                    <button   id="showSukukataEquationBtn">📘</button>
+                </div>
+            <!-- Carousel Section -->
+            <div id="carouselSection" class="section-container" >
+                <img id="carouselImage" class="carouselImage" src="" alt="Carousel Image">
+                <div id="sukukataCarousel" class="carousel">
+                    <div class="carousel-content">
+                        <button id="prevSyllableBtn">&lt;</button>
+                        <div id="sukukataDisplay">ba</div>
+                        <button id="nextSyllableBtn">&gt;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Section -->
+            <div id="gridSection" class="section-container">
+                <img id="gridImage" class="section-image" src="" alt="Grid Image">
+                <div id="sukukataGrid" class="grid-container">
+                    <!-- Grid items will be dynamically loaded here -->
+                </div>
+            </div>
+
+       
+              <!-- Equation Section -->
+            <div id="equationSection"  class="section-container">
+                <img id="equationImage" class="section-image" src="" alt="Equation Image">
+                
+                <div id="sukukataEquation" class="grid-container">
+                    <!-- Equation items will be dynamically loaded here -->
+                </div>
+            </div>
+
+   </section>
+
+  <section class="section" id="sectionGames" style="display: none; background-color: rgb(31, 84, 183);">
+  <!-- Enhanced Fullscreen Button -->
+  
+  <button id='back-to-menu-container' class="back-to-menu-container" title="Kembali" style="display: none;">
+  <span class="back-icon">🔙</span>
+</button>
+  <button class="mainContainer" data-fullscreen="sectionGames" title="Toggle Fullscreen">
+    <span class="fullscreen-icon">🔲</span>
+  </button>
+  
+  
+<div class="post-grid">
+        <div id="post" >
+              <button id="showSukukataGame" class="buttonGame lazy" style="background-image: url('assets/img/mainsukukata.jpg');">
+             <span class="button-label">Suku Kata</span>
+            </button>
+          
+        </div>
+   
+        <div id="post2" >
+                      <button id="showMatchingGame" class="buttonGame lazy" style="background-image: url('assets/img/matchinggame.png');">
+             <span class="button-label">Mencocokkan Kartu</span>
+            </button>
+             
+        </div>
+
+        <div id="post3">
+                 <button id="showBubbleGame" class="buttonGame lazy" style="background-image: url('assets/img/bubblepop.png');">
+                  <span class="button-label">Bubble Pop Game</button>
+           </div>
+
+        <div id="post4" >
+           
+            <button id="showFillBlanksGame" class="buttonGame lazy" style="background-image: url('assets/img/fillinblanks.png');">
+             <span class="button-label">Isi Huruf yang Hilang</button>
+        </div>
+</div>
+        <!-- Bubble Game Section -->
+        
+        <div id="bubbleGameContainer" class="section"  style="display: none;"  >
+        
+            <div id="miniGame" class="mini-game">
+                <div class="bubble-game">
+                    <h3>Pop the Bubbles!</h3>
+                    <p>Click on the bubbles to hear the sounds of the letters.</p>
+                    <canvas id="bubbleCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+         <!-- end of Bubble Game Section -->
+
+<!-- Fill in the Blanks Game Section -->
+<div id="fillBlanksGameContainer" class="section"  style="display: none;">
+
+  <!-- Subject Selector (visible first) -->
+  <div id="subjectSelectorPanel">
+    <div id="subjectSelector" class="subject-grid">
+      <div class="subject-card" data-subject="animals" >
+        
+        <img src="assets/image-mainsukukata/elang.png" alt="Animals" />
+        <span>Hewan</span>
+      </div>
+      <div class="subject-card" data-lock-type="premium-content" data-subject="english">
+        <img src="assets/image-mainsukukata/film.png" alt="English" />
+        <span>Bahasa Inggris</span>
+      </div>
+      <div class="subject-card" data-subject="fruits">
+        <img src="assets/image-mainsukukata/apel.png" alt="Fruits" />
+        <span>Buah</span>
+      </div>
+      <div class="subject-card" data-lock-type="premium-content" data-subject="countries">
+        <img src="assets/image-mainsukukata/qatar.png" alt="Countries" />
+        <span>Negara</span>
+      </div>
+    </div>
+
+    <button id="startFillBlanksBtn" class="fun-btn start-btn" disabled>✅ Mulai!</button>
+  </div>
+
+  <!-- The actual game content (hidden initially) -->
+  <div id="fillBlanksGameArea" class="fill-blanks-game" style="display: none;" >
+   <button id="backToSubjectsBtn" class="fun-btn small-btn">🔙 Kembali</button>
+ 
+   
+    <h3>Isi Huruf yang Hilang!</h3>
+
+    <p class="highscore">High Score: <span id="hsVal">0</span></p>
+    <p id="fillBlanksTimer" class="timer-text">⏰ 60s</p>
+    <p id="fillBlanksProgress" class="progress-text">0 / 0</p>
+
+  <div id="imageWrapper" style="position: relative; text-align: center;">
+  <div id="spinner" class="spinner"></div>
+  <img id="fillBlanksImage" class="hint-image lazy" alt="Question image" />
+</div>
+
+   <div id="wordWithBlanks" class="blank-word"></div>
+    <div id="letterChoices" class="letter-choices"></div>
+    <div id="fillBlanksFeedback" class="feedback-message"></div>
+
+ <div class="button-row">
+  <button id="fillBlanksSubmit" class="fun-btn" style="display:none;">🚀 Kirim Jawaban!</button>
+  <button id="nextFillBlanksQuestion" class="fun-btn next-btn" style="display:none;">👉 Soal Berikutnya</button>
+</div>
+  </div>
+</div>
+
+
+        <!-- Matching Game Section -->
+        <div id="gameContainer" class="section" style="display: none;">
+                <div>Game Mencocokkan Kartu</div>
+                <div id="matchingGame" class="game-board"></div>
+                <h3 id="levelTitle">Level 1: Match Emojis & Words</h3>
+        </div>
+             
+  
+        <!-- Main Content Main Sukukata -->
+    
+        <div id="main-suku-kata" class="container" style="display: none;">
+ 
+            <div id= "main-container"  class="main-container">
+                    <!-- Loading Spinner -->
+                 <div class="loading-spinner"></div>
+                    <!-- Level Selection -->
+                
+                <div id="level-selection">
+  <h1>Main Suku Kata</h1>
+  <h2>Pilih Level</h2>
+  <button id="level1-btn">Level 1</button>
+  <button id="level2-btn" data-lock-type="premium-content">Level 2</button>
+</div>
+
+
+                <!-- Game Container -->
+                
+                <div id="game-container" style="display: none;">
+                
+                    <!-- Question Section -->
+                    <div id="progress-tracker" class="progress-tracker">
+                        <p id="progress">Question 0 of 0</p>
+                    </div>
+                        
+                    <div id="hint-image" class="image-container"></div>
+                
+
+                    <!-- Drag-and-Drop Elements -->
+                    <div id="syllable-bank"></div>
+                    <div id="drop-area"></div>
+                </div><!-- Game Container -->
+            </div><!-- Main CContainer -->
+        </div><!-- end Main Content Main Sukukata -->
+
+    <!-- Popup Modal -->
+    <div id="popup-modal">
+        <div id="popup-content" class="popup-message"></div>
+    </div>
+
+    <!-- Play Again Button -->
+    <img id="popup-button" class="lazy" src="assets/image-mainsukukata/play-again.svg" alt="Play Again"/>
+      
+    
+
+   </section>
+
+   <!-- 🔍 Game Description Modal -->
+<div id="gameInfoModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <span id="closeGameInfoModal" class="modal-close">&times;</span>
+    <div id="gameInfoContent" class="modal-content"></div>
+  </div>
+</div>
+
+   <div id="fillBlanksEndModal" class="end-modal" style="display:none;">
+  <div class="end-card">
+      <h2 id="fillBlanksEndTitle">🎉 Selesai!</h2>
+      <p id="fillBlanksEndText"></p>
+   <img id="resultImage" src="" alt="" style="display: none; max-width: 200px; margin: 1rem auto;" />
+     <button id="fillBlanksPlayAgain">Main Lagi</button>
+
+  </div>
+</div>
+<div id="confirmOverlay" class="confirm-overlay" style="display:none;">
+  <div class="confirm-box">
+    <p id="confirmText">Yakin mau kirim jawaban?</p>
+    <button id="confirmYes" class="fun-btn next-btn">Ya</button>
+    <button id="confirmNo" class="fun-btn">Batal</button>
+  </div>
+</div>
+
+    <!-- Dialog Box for Syllables -->
+    <div id="syllableDialog" class="sukukata-dialog">
+    <div class="dialog-content">
+        <span id="syllableText"></span>
+        <div><button id="closeDialog-sukukata">Close</button></div>
+
+    </div>
+    </div>
+    <audio id="syllableAudio" preload="none"></audio> <!-- Hidden audio player -->
+
+<!-- Equation Dialog -->
+<div id="equationDialog" style="display: none;">
+    <div id="equationText"></div>
+    <button id="closeDialogEquation">Close</button>
+</div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="dialog" id="dialog">
+        <p id="dialogContent"></p>
+        <button id="closeDialog">Close</button>
+    </div>
+     <!-- Balloon Effects -->
+     <div id="balloon-container" class="balloon-hidden"></div>
+    <div id="confettiContainer"></div>
+
+       
+     <!-- Pop Sound -->
+     <audio id="pop-sound" src="assets/sounds/balloon-pop.mp3" preload="auto"></audio>
+</div> 
+</div>
+     <footer>
+       
+    </footer>
+
+<script src="assets/js/lazy-loading.js"></script> <!-- optional, load non-critical -->
+
+
+
+<script src="assets/js/alphabet.js"defer> </script>
+
+</body>
+
+</html>

@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+      <meta name="robots" content="noindex">
+    <div id="navbar"></div>
+    <script src="/assets/js/navbar.js"></script>
+    <link rel="icon" href="assets/icons/pincillogo.png" type="image/svg+xml">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Results</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/css/results.css">
+    <link rel="stylesheet" href="/static/css/navbar.css">
 </head>
-<body>
+<body id="resultsPage">
+     
     <h1 id="resultsTitle">Quiz Results</h1> <!-- Title for the results page -->
     <div id="scoreMessage"></div> <!-- Score message will be displayed here -->
     <div id="resultsList"></div>
@@ -14,11 +20,14 @@
     
     <dialog id="explanationDialog">
         <div id="dialogContent"></div>
+      
         <button id="closeDialog">Close</button>
-    </dialog>
+      </dialog>
 
-    <script src="results.js"></script>
-    
+          <script src="assets/js/results.js"></script>
+          <div id="navbar"></div>
+          
+          
    
 </body>
 </html>

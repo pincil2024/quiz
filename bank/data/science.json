@@ -1,0 +1,81 @@
+{
+
+  "levels": {
+    "level_1": {
+      "multiple_choice": [
+        {
+          "question": "What do plants need to make food?",
+          "options": ["Sunlight", "Rocks", "Wind", "Moonlight"],
+          "answer": "Sunlight",
+          "image": "images/photosynthesis.png"
+        }
+      ],
+      "fill_in_blank": [
+        {
+          "question": "Humans breathe in __ and breathe out carbon dioxide.",
+          "answer": "oxygen",
+          "image": "images/breathing.png"
+        }
+      ],
+      "matching": [
+        {
+          "question": "Match animal to its sound",
+          "pairs": [
+            { "left": "Dog", "right": "Bark" },
+            { "left": "Cat", "right": "Meow" }
+          ],
+          "answer": [
+            { "left": "Dog", "right": "Bark" },
+            { "left": "Cat", "right": "Meow" }
+          ],
+          "image": "images/animal_sounds.png"
+        }
+      ],
+      "text_answer": [
+        {
+          "question": "Why is water important for living things?",
+          "answer": "It helps them stay alive and grow.",
+          "image": "images/water_cycle.png"
+        }
+      ]
+    },
+    "level_2": {
+      "multiple_choice": [
+        {
+          "question": "What gas do plants release during photosynthesis?",
+          "options": ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"],
+          "answer": "Oxygen",
+          "image": "images/plant_gas_exchange.png"
+        }
+      ],
+      "fill_in_blank": [
+        {
+          "question": "The Earth revolves around the __.",
+          "answer": "Sun",
+          "image": "images/solar_system.png"
+        }
+      ],
+      "matching": [
+        {
+          "question": "Match body parts to function",
+          "pairs": [
+            { "left": "Eyes", "right": "See" },
+            { "left": "Ears", "right": "Hear" }
+          ],
+          "answer": [
+            { "left": "Eyes", "right": "See" },
+            { "left": "Ears", "right": "Hear" }
+          ],
+          "image": "images/body_parts.png"
+        }
+      ],
+      "text_answer": [
+        {
+          "question": "Explain how rain forms.",
+          "answer": "Water vapor cools and condenses into droplets, which fall as rain.",
+          "image": "images/rain_formation.png"
+        }
+      ]
+    }
+  }
+}

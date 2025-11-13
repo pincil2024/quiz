@@ -1,0 +1,279 @@
+{
+
+  "levels": {
+    "level_1": {
+      "multiple_choice": [
+        {
+          "question": "Where is the park?",
+          "options": ["a. In front of the police station", "b. Beside the school", "c. Behind the zoo"],
+          "answer": "b. Beside the school",
+          "image": "/assets/img/englishquiz/englishquiz13.png"
+        },
+         {
+          "question": "The monkey is a(n)..",
+          "options": ["a. Fruit", "b. Animal","c. Place"],
+          "answer": "b. Animal",
+          "image": ""
+        },
+        {
+          "question": "Look at the elephants. How many do you see?",
+          "options": ["a. One","b. Three","c. Five"],
+          "answer": "b. Three",
+          "image": "/assets/img/englishquiz/englishquiz14.png"
+        },
+        {
+          "question": "The cinema is ____ the bus stop",
+          "options": ["a. beside","b. behind","c. in front"],
+          "answer": "a. beside",
+          "image": "/assets/img/englishquiz/englishquiz10.png"
+        },
+        {
+          "question": "What animal has black and white stripes?",
+          "options": ["a. Giraffe","b. Zebra","c. Elephant"],
+          "answer": "b. Zebra",
+          "image": ""
+        },
+        {
+          "question": "The ____is beside the post office.",
+          "options": ["a. Bank","b. Hospital","c. School"],
+          "answer": "a. Bank",
+          "image": "/assets/img/englishquiz/englishquiz15.png"
+        },
+                {
+          "question": "How many lions are there?",
+          "options": ["a. Four","b. Two","c. Ten"],
+          "answer": "a. Four",
+          "image": "/assets/img/englishquiz/englishquiz16.png"
+        },
+                {
+          "question": "What place is this?",
+          "options": ["a. Library","b. Bank","c. Hospital"],
+          "answer": "a. Library",
+          "image": "/assets/img/englishquiz/englishquiz17.png"
+        },
+                {
+          "question": "This animal lives in the water. It is a...",
+          "options": ["a. Dog","b. Fish","c. Parrot"],
+          "answer": "b. Fish",
+          "image": ""
+        },
+                {
+          "question": "The school is ______ the Museum.",
+          "options": ["a. beside","b. behind","c. in front"],
+          "answer": "a. beside",
+          "image": "/assets/img/englishquiz/englishquiz18.png"
+        },
+                {
+          "question": "What is beside the zoo?",
+          "options": ["a. Restaurant","b. Bank","c. Hospital"],
+          "answer": "a. Restaurant",
+          "image": "/assets/img/englishquiz/englishquiz19.png"
+        },
+                {
+          "question": "The school is _____the bank.",
+          "options": ["a. beside","b. behind","c. in front"],
+          "answer": "b. behind",
+          "image": "/assets/img/englishquiz/englishquiz20.png"
+        },
+                {
+          "question": "Which animal can fly?",
+          "options": ["a. Fish","b. Parrot","c. Turtle "],
+          "answer": "b. Parrot",
+          "image": ""
+        },
+                {
+          "question": "Which is not an animal?",
+          "options": ["a. Giraffe","b. Train","c. Monkey "],
+          "answer": "b. Train",
+          "image": ""
+        },
+                {
+          "question": "Where can you borrow books?",
+          "options": ["a. Supermarket","b. Library","c. Hospital"],
+          "answer": "b. Library",
+          "image": ""
+        }
+      ],
+      "fill_in_blank": [
+        {
+          "question": "The hospital is _____ the bank.",
+          "answer": "beside",
+          "image": "/assets/img/englishquiz/englishquiz1.png"
+        }, 
+        {
+          "question": "The post office is _____ the supermarket.",
+          "answer": "behind",
+          "image": "/assets/img/englishquiz/englishquiz2.png"
+        }, 
+        {
+          "question": " It is an _______. ",
+          "answer": "elephant",
+          "image": "/assets/image-mainsukukata/gajah.png"
+        }, 
+        {
+          "question": " The park is _______of the police station.",
+          "answer": "in front",
+          "image": "/assets/img/englishquiz/englishquiz3.png"
+        }, 
+        {
+          "question": "This animal has a long neck. It is a ________.",
+          "answer": "girrafe",
+          "image": "/assets/img/englishquiz/giraffe.png"
+        }, 
+        {
+          "question": " The bank is _______ the Library",
+          "answer": "beside",
+          "image": "/assets/img/englishquiz/englishquiz5.png"
+        }, 
+        {
+          "question": " It is a ___________.",
+          "answer": "lion",
+          "image": "/assets/img/englishquiz/lion.png"
+        }, 
+        {
+          "question": "The fire station is ________the police station.",
+          "answer": "beside",
+          "image": "/assets/img/englishquiz/englishquiz7.png"
+        }, 
+        {
+          "question": "This animal has a big mouth. It is a ______",
+          "answer": "hippopotamus",
+          "image": "/assets/img/englishquiz/hippo.png"
+        }, 
+        {
+          "question": " The ________ is beside the bus stop.",
+          "answer": "library",
+          "image": "/assets/img/englishquiz/englishquiz9.png"
+        }, 
+        {
+          "question": " It is a black and white animal. It is a _______.",
+          "answer": "zebra",
+          "image": ""
+        }, 
+        {
+          "question": "Where is the bus stop? It is ______the cinema.",
+          "answer": "beside",
+          "image": "/assets/img/englishquiz/englishquiz10.png"
+        }, 
+        {
+          "question": "This is a ___________. ",
+          "answer": "monkey",
+          "image": "/assets/image-mainsukukata/monyet.png"
+        }, 
+        {
+          "question": " The ___________ is beside the fire station.",
+          "answer": "shop",
+          "image": "/assets/img/englishquiz/englishquiz11.png"
+        }, 
+        {
+          "question": "This bird can talk. It is a _____________.",
+          "answer": "parrot",
+          "image": "/assets/img/englishquiz/parrot.png"
+        }
+
+
+      ],
+     "matching": [
+    {
+      "question": "Match the image to its category",
+      "shuffle": true, 
+      "pairs": [
+        { 
+          "leftImage": "/assets/image-mainsukukata/monyet.png", 
+          "right": "Monkey"              
+        },
+        { 
+          "leftImage": "/assets/img/englishquiz/parrot.png",  
+          "right": "Parrot"              
+        },
+        { 
+          "leftImage": "/assets/image-mainsukukata/domba.png",  
+          "right": "Sheep"              
+        },
+        { 
+          "leftImage": "/assets/image-mainsukukata/harimau.png",  
+          "right": "Tiger"              
+        }
+      ],
+      "answer": [
+        { "left": "Monkey", "right": "Monkey" },
+        { "left": "Parrot", "right": "Parrot" },
+        { "left": "Sheep", "right": "Sheep" },
+        { "left": "Tiger", "right": "Tiger" }
+      ]
+    }
+],
+      "text_answer": [
+        {
+          "image": "/assets/img/englishquiz/englishquiz21.png",
+          "question": "Look at the zoo picture. How many elephants and giraffes do you see?",
+           "answers": [
+      {"correct": "3"},
+      {"correct": "4"}
+    ],
+    
+                "instruction": ""
+
+        }, 
+        {
+          "type": "text_answer",
+  "question": "Name 3 animals you see in this picture",
+  "image": "/assets/img/englishquiz/englishquiz21.png",
+  "answers": [
+    {"correct": "Lion"},
+    {"correct": "Elephant"},
+    {"correct": "Giraffe"},
+    {"correct": "Zebra"},
+    {"correct": "Monkey"},
+     {"correct": "Kangaroo"},
+      {"correct": "Fish"},
+       {"correct": "Bird"},
+        {"correct": "Parrot"}
+
+  ],
+  "requiredCount": 3,
+  "instruction": "List any 3 animals from the possible options"
+}
+        
+      ]
+    },
+    "level_2": {
+      "multiple_choice": [
+        {
+          "question": "What is the synonym of 'big'?",
+          "options": ["Large", "Small", "Short", "Thin"],
+          "answer": "Large",
+          "image": "images/synonym_big.png"
+        }
+      ],
+      "fill_in_blank": [
+        {
+          "question": "She __ going to school.",
+          "answer": "is",
+          "image": "images/she_is_going.png"
+        }
+      ],
+      "matching": [
+        {
+          "question": "Match word with its opposite",
+          "pairs": [
+            { "left": "Hot", "right": "Cold" },
+            { "left": "Fast", "right": "Slow" }
+          ],
+          "answer": [
+            { "left": "Hot", "right": "Cold" },
+            { "left": "Fast", "right": "Slow" }
+          ],
+          "image": "images/opposites.png"
+        }
+      ],
+      "text_answer": [
+        {
+          "question": "Describe your favorite book.",
+          "answer": "Answers may vary.",
+          "image": "images/books_stack.png"
+        }
+      ]
+    }
+  }
+}

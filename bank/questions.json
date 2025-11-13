@@ -1,0 +1,1105 @@
+[
+    {
+        "id": 1,
+        "question": " Berapakah nilai dari 15 × (4+6)÷2?",
+        "options": ["A. 45","B. 75","C. 85","D. 50","E. 60"],
+        "correct": "B. 75",
+        "explanation": {
+
+            "sederhana": [
+                    "<p><strong>Soal:</strong></p>",
+                    "<p>Berapakah nilai dari 15 × (4+6)÷2?</p>", 
+                    "<p>Penjelasan:</p>", 
+                    "<p>15×(4+6)÷2=</p>",
+                    "<p>15×10÷2=</p>",
+                    "<p>150÷2=75</p>"],
+            "rinci": [
+                    "<p><strong>Soal:</strong></p>",
+                    "<p>Berapakah nilai dari 15 × (4+6)÷2?", 
+                    "Penjelasan rinci:",
+                    "<p><strong>  1. Kerjakan tanda kurung terlebih dahulu:</strong></p>",
+                    "<p>    4+6=10</p>",
+                    "<p><strong>  2. Kalikan hasil dalam tanda kurung dengan angka di luar kurung:</strong></p>",
+                    "<p>    15×10=150</p>",
+                    "<p><strong>  3. Bagikan hasilnya dengan angka setelah tanda bagi (÷):</strong></p>",
+                    "<p>    150÷2=75</p>",
+                    "<p><strong>Jawaban yang benar adalah: B. 75</strong></p>"
+                ],
+
+            "video_url": "https://www.youtube.com/embed/Jw2t7wcVVhw"
+         }
+    },
+{
+        "id": 2,
+        "question": "Seorang pedagang membeli 50 kilogram apel dengan harga Rp20.000 per kilogram. Dia menjual apel tersebut dengan harga Rp25.000 per kilogram. Berapakah keuntungan yang diperoleh pedagang tersebut?",
+        "options": ["A. Rp150.000","B. Rp200.000","C. Rp250.000","D. Rp300.000", "E. Rp350.000"],
+        "correct": "C. Rp250.000",
+        "explanation": {
+            "sederhana": ["<p><strong>Soal:</strong></p>",
+             "Seorang pedagang membeli 50 kilogram apel dengan harga Rp20.000 per kilogram. Dia menjual apel tersebut dengan harga Rp25.000 per kilogram. Berapakah keuntungan yang diperoleh pedagang tersebut?",
+             "<hr>",
+             "<strong>Penjelasan:</strong>",
+             "<strong>1. Harga Beli Total:</strong>",
+             "      50 x Rp20.000 = Rp1.000.000",
+             "<strong>2. Harga Jual Total:</strong>",
+             "      50 x Rp25.000 = Rp1.250.000",
+             "<strong>3. Keuntungan:</strong>",
+             "      Rp1.250.000 - Rp1.000.000 = Rp250.000",
+             "<strong>Jawaban: C. Rp250.000</strong>"],
+        "rinci": "",
+        "video_url": ""
+        }
+},
+{
+    "id": 3,
+    "question": "Jika x² + 5x + 6 = 0, berapakah nilai x?",
+    "options": ["A. -1 dan -3","B. 2 dan -3","C. 1 dan -3","D. -2 dan 3", "E. -2 dan -3"],
+    "correct": "E. -2 dan -3",
+    "explanation": {
+        "sederhana": [
+          "<p><strong>Soal:</strong></p>",
+          "<p>Jika x² + 5x + 6 = 0, berapakah nilai x?</p>",
+          "<p><strong>Jawab:</strong></p>",
+          "<p>Faktorkan persamaan kuadrat: (x + 2)(x + 3) = 0.</p>",
+          "<p>Jadi, x = -2 atau x = -3.</p>"
+        ],
+        "rinci": [
+          "<p><strong>Penjelasan rinci:</strong></p>",
+          "<p>1. Kita memiliki persamaan kuadrat: x² + 5x + 6 = 0.</p>",
+          "<p>2. Untuk menyelesaikannya, gunakan metode faktorisasi.</p>",
+          "<p>   * Cari dua angka yang jika dikalikan hasilnya adalah 6 (konstanta), dan jika dijumlahkan hasilnya adalah 5 (koefisien x).</p>",
+          "<p>   * Angka tersebut adalah 2 dan 3.</p>",
+          "<p>3. Faktorkan persamaan menjadi: (x + 2)(x + 3) = 0.</p>",
+          "<p>4. Dari faktor tersebut, kita peroleh:</p>",
+          "<p>   * x + 2 = 0, maka x = -2.</p>",
+          "<p>   * x + 3 = 0, maka x = -3.</p>",
+          "<p>5. Jadi, solusi dari persamaan tersebut adalah x = -2 dan x = -3.</p>"
+        ],
+        "video_url": ""
+        
+}
+},
+{
+    "id": 4,
+    "question": "Sebuah kolam berbentuk lingkaran memiliki diameter 14 meter. Berapa luas kolam tersebut? (Gunakan 𝜋 = 22/7)",
+    "options": ["A. 154 m²", "B. 196 m²", "C. 308 m²", "D. 616 m²", "E. 180 m²"],
+    "correct": "A. 154 m²",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Sebuah kolam berbentuk lingkaran memiliki diameter 14 meter. Berapa luas kolam tersebut? (Gunakan 𝜋 = 22/7)</p>",
+        "<p>Jawab:</p>",
+        "<p>Gunakan rumus luas lingkaran: L = 𝜋 × r².</p>",
+        "<p>Jari-jari (r) = diameter ÷ 2 = 14 ÷ 2 = 7 meter.</p>",
+        "<p>L = 22/7 × 7² = 22/7 × 49 = 154 m².</p>",
+        "<p>Jadi, luas kolam tersebut adalah 154 m².</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Kita diminta menghitung luas kolam berbentuk lingkaran. Rumus luas lingkaran adalah:</p>",
+        "<p>&emsp;L = 𝜋 × r²</p>",
+        "<p>   Di mana:</p>",
+        "<p>&emsp;&emsp;L = luas lingkaran</p>",
+        "<p>&emsp;&emsp;𝜋 = konstanta (22/7 dalam soal ini)</p>",
+        "<p>&emsp;&emsp;r = jari-jari lingkaran</p>",
+        "<p>2. Cari jari-jari lingkaran:</p>",
+        "<p>&emsp;Diameter kolam = 14 meter, maka jari-jari (r) = diameter ÷ 2 = 14 ÷ 2 = 7 meter.</p>",
+        "<p>3. Substitusi nilai ke rumus luas:</p>",
+        "<p>&emsp;L = 𝜋 × r²</p>",
+        "<p>&emsp;L = 22/7 × 7²</p>",
+        "<p>&emsp;L = 22/7 × 49</p>",
+        "<p>&emsp;L = 154 m²</p>",
+        "<p>4. Kesimpulan:</p>",
+        "<p>&emsp;Luas kolam tersebut adalah 154 m².</p>"],
+    "video_url": "https://www.youtube.com/embed/XfyKBVZf4is"
+
+   }
+},
+{
+    "id": 5,
+  "question": "Rata-rata dari lima bilangan adalah 12. Jika salah satu bilangan adalah 15, berapa rata-rata dari empat bilangan lainnya?",
+  "options": ["A. 10,25", "B. 11", "C. 11,25", "D. 12,5", "E. 12"],
+  "correct": "C. 11,25",
+  "explanation": {
+    "sederhana": [
+      "<p><strong>Soal:</strong></p>",
+      "<p>Rata-rata dari lima bilangan adalah 12. Jika salah satu bilangan adalah 15, berapa rata-rata dari empat bilangan lainnya?</p>",
+      "<p>Jawab:</p>",
+      "<p>Total lima bilangan = rata-rata × jumlah bilangan = 12 × 5 = 60.</p>",
+      "<p>Salah satu bilangan = 15, maka total empat bilangan lainnya = 60 - 15 = 45.</p>",
+      "<p>Rata-rata empat bilangan lainnya = total ÷ jumlah bilangan = 45 ÷ 4 = 11,25.</p>",
+      "<p>Jadi, rata-rata dari empat bilangan lainnya adalah 11,25.</p>"
+    ],
+    "rinci": [
+      "<p><strong>Penjelasan rinci:</strong></p>",
+      "<p>1. Diketahui rata-rata dari lima bilangan adalah 12.</p>",
+      "<p>&emsp;- Rumus rata-rata adalah:</p>",
+      "<p>&emsp;&emsp;Rata-rata = total bilangan ÷ jumlah bilangan.</p>",
+      "<p>&emsp;- Maka, total lima bilangan = rata-rata × jumlah bilangan = 12 × 5 = 60.</p>",
+      "",
+      "<p>2. Diketahui salah satu bilangan adalah 15. Jadi:</p>",
+      "<p>&emsp;- Total empat bilangan lainnya = total lima bilangan - bilangan tersebut.</p>",
+      "<p>&emsp;- Total empat bilangan lainnya = 60 - 15 = 45.</p>",
+      "",
+      "<p>3. Hitung rata-rata dari empat bilangan lainnya:</p>",
+      "<p>&emsp;- Rata-rata = total ÷ jumlah bilangan.</p>",
+      "<p>&emsp;- Rata-rata = 45 ÷ 4 = 11,25.</p>",
+      "",
+      "<p>4. Kesimpulan:</p>",
+      "<p>&emsp;- Rata-rata dari empat bilangan lainnya adalah 11,25.</p>"
+    ],
+        "video_url": "https://www.youtube.com/embed/64cnFCljUsw"
+    }
+},
+{
+    "id": 6,
+    "question": "Dua angka yang hasil kali adalah 72 dan hasil penjumlahan adalah 17. Berapakah kedua angka tersebut?",
+    "options": ["A. 7 dan 9", "B. 6 dan 12", "C. 9 dan 8", "D. 10 dan 7", "E. 8 dan 9"],
+    "correct": "E. 8 dan 9",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Dua angka yang hasil kali adalah 72 dan hasil penjumlahan adalah 17. Berapakah kedua angka tersebut?</p>",
+        "<p>Jawab:</p>",
+        "<p>Angka yang memenuhi adalah 8 dan 9, karena 8 × 9 = 72 dan 8 + 9 = 17.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Kita mencari dua angka yang memenuhi:</p>",
+        "<p>&emsp;- Hasil kali = 72</p>",
+        "<p>&emsp;- Hasil penjumlahan = 17</p>",
+        "<p>2. Cari pasangan faktor dari 72: (1, 72), (2, 36), (3, 24), (4, 18), (6, 12), (8, 9).</p>",
+        "<p>3. Pasangan faktor (8, 9) memenuhi karena:</p>",
+        "<p>&emsp;- 8 × 9 = 72</p>",
+        "<p>&emsp;- 8 + 9 = 17</p>",
+        "<p>4. Jadi, kedua angka tersebut adalah 8 dan 9.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 7,
+    "question": "Sebuah mobil menempuh jarak 240 km dalam waktu 4 jam. Berapa kecepatan rata-rata mobil tersebut?",
+    "options": ["A. 40 km/jam", "B. 50 km/jam", "C. 60 km/jam", "D. 70 km/jam", "E. 80 km/jam"],
+    "correct": "C. 60 km/jam",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Sebuah mobil menempuh jarak 240 km dalam waktu 4 jam. Berapa kecepatan rata-rata mobil tersebut?</p>",
+        "<p>Jawab:</p>",
+        "<p>Kecepatan rata-rata = total jarak ÷ total waktu = 240 ÷ 4 = 60 km/jam.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus kecepatan rata-rata adalah:</p>",
+        "<p>&emsp;Kecepatan rata-rata = total jarak ÷ total waktu.</p>",
+        "<p>2. Diketahui:</p>",
+        "<p>&emsp;- Total jarak = 240 km</p>",
+        "<p>&emsp;- Total waktu = 4 jam</p>",
+        "<p>3. Substitusi nilai ke rumus:</p>",
+        "<p>&emsp;Kecepatan rata-rata = 240 ÷ 4 = 60 km/jam.</p>",
+        "<p>4. Jadi, kecepatan rata-rata mobil tersebut adalah 60 km/jam.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 8,
+    "question": "Jika 3𝑥 + 7 = 25, berapakah nilai 𝑥?",
+    "options": ["A. 4", "B. 5", "C. 6", "D. 7","E. 9"],
+    "correct": "C. 6",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Jika 3𝑥 + 7 = 25, berapakah nilai 𝑥?</p>",
+        "<p>Jawab:</p>",
+        "<p>Kurangi 7 dari kedua sisi: 3𝑥 = 25 - 7 = 18.</p>",
+        "<p>Bagi kedua sisi dengan 3: 𝑥 = 18 ÷ 3 = 6.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Diketahui persamaan: 3𝑥 + 7 = 25.</p>",
+        "<p>2. Kurangi 7 dari kedua sisi:</p>",
+        "<p>&emsp;3𝑥 = 25 - 7 = 18.</p>",
+        "<p>3. Bagi kedua sisi dengan 3:</p>",
+        "<p>&emsp;𝑥 = 18 ÷ 3 = 6.</p>",
+        "<p>4. Jadi, nilai 𝑥 adalah 6.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 9,
+    "question": "Jika sebuah bilangan dikalikan dengan 7, hasilnya 91. Berapakah bilangan tersebut?",
+    "options": ["A. 11", "B. 12", "C. 13", "D. 14", "E. 15"],
+    "correct": "C. 13",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Jika sebuah bilangan dikalikan dengan 7, hasilnya 91. Berapakah bilangan tersebut?</p>",
+        "<p>Jawab:</p>",
+        "<p>Bilangan = 91 ÷ 7 = 13.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Diketahui:</p>",
+        "<p>&emsp;- Sebuah bilangan dikalikan 7 menghasilkan 91.</p>",
+        "<p>2. Untuk mencari bilangan tersebut, gunakan operasi pembagian:</p>",
+        "<p>&emsp;Bilangan = 91 ÷ 7 = 13.</p>",
+        "<p>3. Jadi, bilangan tersebut adalah 13.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 10,
+    "question": "Sebuah persegi panjang memiliki panjang 8 cm dan lebar 5 cm. Berapa keliling persegi panjang tersebut?",
+    "options": ["A. 20 cm", "B. 26 cm", "C. 30 cm", "D. 36 cm", "E. 40 cm"],
+    "correct": "B. 26 cm",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Sebuah persegi panjang memiliki panjang 8 cm dan lebar 5 cm. Berapa keliling persegi panjang tersebut?</p>",
+        "<p>Jawab:</p>",
+        "<p>Keliling = 2 × (panjang + lebar) = 2 × (8 + 5) = 2 × 13 = 26 cm.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus keliling persegi panjang adalah:</p>",
+        "<p>&emsp;Keliling = 2 × (panjang + lebar).</p>",
+        "<p>2. Substitusi nilai panjang dan lebar:</p>",
+        "<p>&emsp;Keliling = 2 × (8 + 5).</p>",
+        "<p>3. Hitung:</p>",
+        "<p>&emsp;Keliling = 2 × 13 = 26 cm.</p>",
+        "<p>4. Jadi, keliling persegi panjang tersebut adalah 26 cm.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 11,
+    "question": "Jika 𝑦 = 2𝑥 + 3, berapakah nilai 𝑦 jika 𝑥 = 4?",
+    "options": ["A. 9", "B. 10", "C. 11", "D. 12", "E. 13"],
+    "correct": "C. 11",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Jika 𝑦 = 2𝑥 + 3, berapakah nilai 𝑦 jika 𝑥 = 4?</p>",
+        "<p>Jawab:</p>",
+        "<p>𝑦 = 2 × 4 + 3 = 8 + 3 = 11.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Diketahui persamaan: 𝑦 = 2𝑥 + 3.</p>",
+        "<p>2. Substitusi nilai 𝑥 = 4 ke dalam persamaan:</p>",
+        "<p>&emsp;𝑦 = 2 × 4 + 3.</p>",
+        "<p>3. Hitung:</p>",
+        "<p>&emsp;𝑦 = 8 + 3 = 11.</p>",
+        "<p>4. Jadi, nilai 𝑦 adalah 11.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 12,
+    "question": "Sebuah toko memberikan diskon 15% pada harga sepatu yang awalnya Rp400.000. Berapa harga sepatu tersebut setelah diskon?",
+    "options": ["A. Rp320.000", "B. Rp340.000", "C. Rp350.000", "D. Rp370.000", "E. Rp380.000"],
+    "correct": "B. Rp340.000",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Sebuah toko memberikan diskon 15% pada harga sepatu yang awalnya Rp400.000. Berapa harga sepatu tersebut setelah diskon?</p>",
+        "<p>Jawab:</p>",
+        "<p>Diskon = 15% × Rp400.000 = Rp60.000.</p>",
+        "<p>Harga setelah diskon = Rp400.000 - Rp60.000 = Rp340.000.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Diketahui:</p>",
+        "<p>&emsp;- Harga awal sepatu = Rp400.000.</p>",
+        "<p>&emsp;- Diskon = 15% dari harga awal.</p>",
+        "<p>2. Hitung diskon:</p>",
+        "<p>&emsp;Diskon = 15% × Rp400.000 = 0,15 × Rp400.000 = Rp60.000.</p>",
+        "<p>3. Hitung harga setelah diskon:</p>",
+        "<p>&emsp;Harga setelah diskon = Rp400.000 - Rp60.000 = Rp340.000.</p>",
+        "<p>4. Jadi, harga sepatu setelah diskon adalah Rp340.000.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 13,
+    "question": "Dua sudut pada segitiga adalah 35° dan 65°. Berapa besar sudut ketiga?",
+    "options": ["A. 50°", "B. 60°", "C. 70°", "D. 80°", "E. 90°"],
+    "correct": "D. 80°",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Dua sudut pada segitiga adalah 35° dan 65°. Berapa besar sudut ketiga?</p>",
+        "<p>Jawab:</p>",
+        "<p>Sudut ketiga = 180° - (35° + 65°) = 180° - 100° = 80°.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Diketahui:</p>",
+        "<p>&emsp;- Sudut segitiga total adalah 180°.</p>",
+        "<p>&emsp;- Sudut pertama = 35°.</p>",
+        "<p>&emsp;- Sudut kedua = 65°.</p>",
+        "<p>2. Hitung sudut ketiga:</p>",
+        "<p>&emsp;Sudut ketiga = 180° - (35° + 65°).</p>",
+        "<p>3. Hitung:</p>",
+        "<p>&emsp;Sudut ketiga = 180° - 100° = 80°.</p>",
+        "<p>4. Jadi, besar sudut ketiga adalah 80°.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 14,
+    "question": "Seorang petani memiliki tanah berbentuk persegi dengan luas 400 m². Berapa panjang sisi tanah tersebut?",
+    "options": ["A. 10 m", "B. 15 m", "C. 20 m", "D. 25 m", "E. 30 m"],
+    "correct": "C. 20 m",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Seorang petani memiliki tanah berbentuk persegi dengan luas 400 m². Berapa panjang sisi tanah tersebut?</p>",
+        "<p>Jawab:</p>",
+        "<p>Luas persegi = sisi × sisi. Sisi = √400 = 20 m.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus luas persegi adalah:</p>",
+        "<p>&emsp;Luas = sisi × sisi.</p>",
+        "<p>2. Substitusi nilai luas:</p>",
+        "<p>&emsp;400 = sisi × sisi.</p>",
+        "<p>3. Hitung sisi:</p>",
+        "<p>&emsp;sisi = √400 = 20 m.</p>",
+        "<p>4. Jadi, panjang sisi tanah tersebut adalah 20 m.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 15,
+    "question": "Jika 𝑝 = 3𝑞 + 7 dan 𝑝 = 13 berapakah nilai 𝑞?",
+    "options": ["A. 1", "B. 2", "C. 3", "D. 4", "E. 5"],
+    "correct": "B. 2",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Jika 𝑝 = 3𝑞 + 7 dan 𝑝 = 13, berapakah nilai 𝑞?</p>",
+        "<p>Jawab:</p>",
+        "<p>3𝑞 + 7 = 13 → 3𝑞 = 13 - 7 → 3𝑞 = 6 → 𝑞 = 2.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Diketahui persamaan:</p>",
+        "<p>&emsp;𝑝 = 3𝑞 + 7.</p>",
+        "<p>2. Substitusi nilai 𝑝 = 13:</p>",
+        "<p>&emsp;13 = 3𝑞 + 7.</p>",
+        "<p>3. Selesaikan persamaan:</p>",
+        "<p>&emsp;3𝑞 = 13 - 7.</p>",
+        "<p>&emsp;3𝑞 = 6.</p>",
+        "<p>&emsp;𝑞 = 6 ÷ 3 = 2.</p>",
+        "<p>4. Jadi, nilai 𝑞 adalah 2.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 16,
+    "question": "Sebuah bak mandi diisi air dengan debit 10 liter per menit. Berapa waktu yang dibutuhkan untuk mengisi bak yang berkapasitas 150 liter?",
+    "options": ["A. 10 menit", "B. 15 menit", "C. 20 menit", "D. 25 menit", "E. 30 menit"],
+    "correct": "B. 15 menit",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Sebuah bak mandi diisi air dengan debit 10 liter per menit. Berapa waktu yang dibutuhkan untuk mengisi bak yang berkapasitas 150 liter?</p>",
+        "<p>Jawab:</p>",
+        "<p>Waktu = Kapasitas ÷ Debit = 150 ÷ 10 = 15 menit.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus untuk menghitung waktu adalah:</p>",
+        "<p>&emsp;Waktu = Kapasitas ÷ Debit.</p>",
+        "<p>2. Substitusi nilai:</p>",
+        "<p>&emsp;Waktu = 150 ÷ 10.</p>",
+        "<p>3. Hitung:</p>",
+        "<p>&emsp;Waktu = 15 menit.</p>",
+        "<p>4. Jadi, waktu yang dibutuhkan adalah 15 menit.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 17,
+    "question": "Sebuah bola dilempar ke atas dengan kecepatan 20 meter per detik. Setelah berapa detik bola mencapai titik tertinggi, jika percepatan gravitasi 𝑔 = 10m/s²?",
+    "options": ["A. 1 detik", "B. 2 detik", "C. 3 detik", "D. 4 detik", "E. 5 detik"],
+    "correct": "B. 2 detik",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Sebuah bola dilempar ke atas dengan kecepatan 20 meter per detik. Berapa detik hingga bola mencapai titik tertinggi, jika 𝑔 = 10m/s²?</p>",
+        "<p>Jawab:</p>",
+        "<p>Waktu = Kecepatan Awal ÷ Gravitasi = 20 ÷ 10 = 2 detik.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus waktu untuk mencapai titik tertinggi adalah:</p>",
+        "<p>&emsp;Waktu = Kecepatan Awal ÷ Percepatan Gravitasi.</p>",
+        "<p>2. Substitusi nilai:</p>",
+        "<p>&emsp;Waktu = 20 ÷ 10.</p>",
+        "<p>3. Hitung:</p>",
+        "<p>&emsp;Waktu = 2 detik.</p>",
+        "<p>4. Jadi, waktu hingga bola mencapai titik tertinggi adalah 2 detik.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 18,
+    "question": "Dari 10 kelereng, 6 di antaranya berwarna merah. Jika diambil 1 kelereng secara acak, berapakah peluang bahwa kelereng yang diambil berwarna merah?",
+    "options": ["A. 1/6", "B. 2/3", "C. 1/2", "D. 1/5", "E. 3/5"],
+    "correct": "E. 3/5",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Dari 10 kelereng, 6 berwarna merah. Jika diambil 1 kelereng secara acak, berapakah peluang bahwa kelereng yang diambil berwarna merah?</p>",
+        "<p>Jawab:</p>",
+        "<p>Peluang = Jumlah Kelereng Merah ÷ Total Kelereng = 6 ÷ 10 = 3/5.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus peluang adalah:</p>",
+        "<p>&emsp;Peluang = Jumlah Kejadian Favorit ÷ Total Kemungkinan.</p>",
+        "<p>2. Substitusi nilai:</p>",
+        "<p>&emsp;Peluang = Jumlah Kelereng Merah ÷ Total Kelereng.</p>",
+        "<p>3. Hitung:</p>",
+        "<p>&emsp;Peluang = 6 ÷ 10 = 3/5.</p>",
+        "<p>4. Jadi, peluang mengambil kelereng merah adalah 3/5.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 19,
+    "question": "Jika sebuah segitiga siku-siku memiliki panjang alas 6 cm dan tinggi 8 cm, berapa panjang sisi miringnya?",
+    "options": ["A. 8 cm", "B. 9 cm", "C. 10 cm", "D. 11 cm", "E. 12 cm"],
+    "correct": "C. 10 cm",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Segitiga siku-siku dengan alas 6 cm dan tinggi 8 cm. Berapakah panjang sisi miringnya?</p>",
+        "<p>Jawab:</p>",
+        "<p>Gunakan teorema Pythagoras: sisi miring = √(alas² + tinggi²) = √(6² + 8²) = √(36 + 64) = √100 = 10 cm.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Teorema Pythagoras menyatakan:</p>",
+        "<p>&emsp;sisi miring² = alas² + tinggi².</p>",
+        "<p>2. Substitusi nilai:</p>",
+        "<p>&emsp;sisi miring² = 6² + 8² = 36 + 64 = 100.</p>",
+        "<p>3. Ambil akar kuadrat:</p>",
+        "<p>&emsp;sisi miring = √100 = 10 cm.</p>",
+        "<p>4. Jadi, panjang sisi miringnya adalah 10 cm.</p>"
+      ],
+      "video_url": ""
+    }
+  },
+  {
+    "id": 20,
+    "question": "Jika 2𝑥 − 3=5, berapakah nilai 𝑥?",
+    "options": ["A. 3", "B. 4", "C. 5", "D. 6", "E. 7"],
+    "correct": "B. 4",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Jika 2𝑥 − 3 = 5, berapa nilai 𝑥?</p>",
+        "<p>Jawab:</p>",
+        "<p>Tambah 3 ke kedua sisi: 2𝑥 = 8. Bagi dengan 2: 𝑥 = 4.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Persamaan awal: 2𝑥 − 3 = 5.</p>",
+        "<p>2. Tambahkan 3 ke kedua sisi:</p>",
+        "<p>&emsp;2𝑥 − 3 + 3 = 5 + 3.</p>",
+        "<p>&emsp;2𝑥 = 8.</p>",
+        "<p>3. Bagi kedua sisi dengan 2:</p>",
+        "<p>&emsp;𝑥 = 8 ÷ 2 = 4.</p>",
+        "<p>4. Jadi, nilai 𝑥 adalah 4.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 21,
+    "question": "Sebuah tangga memiliki 10 anak tangga. Berapa banyak cara seseorang bisa naik ke lantai atas jika setiap kali dia hanya bisa naik 1 atau 2 anak tangga?",
+    "options": ["A. 55", "B. 89", "C. 144", "D. 233", "E. 232"],
+    "correct": "C. 144",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Sebuah tangga memiliki 10 anak tangga. Berapa cara naik ke lantai atas jika setiap langkahnya 1 atau 2 anak tangga?</p>",
+        "<p>Jawab:</p>",
+        "<p>Ini adalah pola Fibonacci. Untuk n = 10, jumlah cara adalah 144.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Pola ini mengikuti deret Fibonacci, di mana jumlah cara mencapai anak tangga ke-n adalah:</p>",
+        "<p>&emsp;𝑇(𝑛) = 𝑇(𝑛−1) + 𝑇(𝑛−2).</p>",
+        "<p>2. Mulai dari dasar:</p>",
+        "<p>&emsp;𝑇(1) = 1, 𝑇(2) = 2.</p>",
+        "<p>3. Hitung secara berurutan hingga 𝑛 = 10:</p>",
+        "<p>&emsp;𝑇(3) = 3, 𝑇(4) = 5, 𝑇(5) = 8, ..., 𝑇(10) = 144.</p>",
+        "<p>4. Jadi, jumlah cara naik tangga adalah 144.</p>"
+      ],
+      "video_url": "https://www.youtube.com/embed/ehirmBHmEFs"
+    }
+  }
+  ,
+  {
+    "id": 22,
+    "question": "Jika 𝑥 = √(6 + √(6 + √(6 + ...))), maka nilai 𝑥 adalah ...",
+    "options": ["A. 2", "B. 3", "C. 4", "D. 5", "E. 6"],
+    "correct": "B. 3",
+    "explanation": {
+      "sederhana": [
+        "Penjelasan:",
+        "Misalkan 𝑥 = √(6 + 𝑥).",
+        "Kuadratkan kedua sisi:",
+        "𝑥² = 6 + 𝑥.",
+        "Pindahkan semua ke satu sisi untuk membentuk persamaan kuadrat:",
+        "𝑥² - 𝑥 - 6 = 0.",
+        "Faktor persamaan kuadrat:",
+        "(𝑥 - 3)(𝑥 + 2) = 0.",
+        "𝑥 = 3 atau 𝑥 = -2.",
+        "Karena nilai 𝑥 adalah panjang, maka hanya 𝑥 = 3 yang memenuhi.",
+        "Langkah 1: Kuadratkan kedua sisi persamaan. \nLangkah 2: Bentuk persamaan kuadrat dan faktorkan. \nLangkah 3: Pilih solusi positif dari hasil pemfaktoran."
+      ],
+      "rinci": [
+        "Cara tercepat untuk menyelesaikan soal ini:",
+        "1. Asumsikan bentuk umum: 𝑥 = √(6 + 𝑥).",
+        "2. Kuadratkan kedua sisi untuk menghilangkan akar:",
+        "   𝑥² = 6 + 𝑥.",
+        "3. Susun ulang persamaan menjadi bentuk kuadrat:",
+        "   𝑥² - 𝑥 - 6 = 0.",
+        "4. Gunakan pemfaktoran untuk menyelesaikan persamaan kuadrat:",
+        "   (𝑥 - 3)(𝑥 + 2) = 0.",
+        "5. Nilai solusi adalah 𝑥 = 3 dan 𝑥 = -2.",
+        "6. Karena panjang tidak bisa negatif, pilih solusi positif:",
+        "   𝑥 = 3.",
+        "Jawaban yang tepat adalah B. 3, karena solusi 𝑥 = 3 memenuhi persamaan awal dan panjang tidak bisa bernilai negatif."
+      ],
+      "video_url": ""
+    }
+    
+  }
+  
+  ,
+  {
+    "id": 23,
+    "question": "Seorang pedagang membeli 5 kilogram apel dengan harga Rp 50.000,00. Jika dia menjual apel tersebut dengan harga Rp 60.000,00, berapa persen keuntungan yang diperolehnya?",
+    "options": ["A. 10%", "B. 15%", "C. 20%", "D. 25%", "D. 30%"],
+    "correct": "C. 20%",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Seorang pedagang membeli 5 kg apel seharga Rp50.000,00, lalu menjualnya Rp60.000,00. Berapa persen keuntungan yang diperolehnya?</p>",
+        "<p>Jawab:</p>",
+        "<p>Keuntungan = (harga jual − harga beli) ÷ harga beli × 100%</p>",
+        "<p>= (60.000 − 50.000) ÷ 50.000 × 100% = 10.000 ÷ 50.000 × 100% = 20%.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Cari selisih antara harga jual dan beli:</p>",
+        "<p>&emsp;Keuntungan = Rp60.000 − Rp50.000 = Rp10.000.</p>",
+        "<p>2. Bagi dengan harga beli:</p>",
+        "<p>&emsp;Keuntungan = Rp10.000 ÷ Rp50.000 = 0,2.</p>",
+        "<p>3. Ubah menjadi persen:</p>",
+        "<p>&emsp;Keuntungan persen = 0,2 × 100% = 20%.</p>",
+        "<p>4. Jadi, persen keuntungan adalah 20%.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 24,
+    "question": "Jika 𝑥 = 7 dan 𝑦 = 3, berapakah nilai dari 2𝑥² − 𝑦³?",
+    "options": ["A. 88", "B. 85", "C. 95", "D. 98", "E. 99"],
+    "correct": "A. 88",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Soal:</strong></p>",
+        "<p>Jika 𝑥 = 7 dan 𝑦 = 3, berapakah nilai dari 2𝑥² − 𝑦³?</p>",
+        "<p>Jawab:</p>",
+        "<p>2𝑥² − 𝑦³ = 2(7²) − 3³.</p>",
+        "<p>= 2(49) − 27.</p>",
+        "<p>= 98 − 27.</p>",
+        "<p>= 88.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Substitusi nilai 𝑥 dan 𝑦:</p>",
+        "<p>&emsp;𝑥 = 7, 𝑦 = 3.</p>",
+        "<p>2. Hitung nilai kuadrat dan kubik:</p>",
+        "<p>&emsp;7² = 49, 3³ = 27.</p>",
+        "<p>3. Kalikan 2 dengan 7²:</p>",
+        "<p>&emsp;2 × 49 = 98.</p>",
+        "<p>4. Kurangkan hasilnya dengan 𝑦³:</p>",
+        "<p>&emsp;98 − 27 = 88.</p>",
+        "<p>5. Jadi, nilai dari 2𝑥² − 𝑦³ adalah 88.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 25,
+    "question": "Sebuah segitiga memiliki panjang alas 10 cm dan tinggi 8 cm. Berapa luas segitiga tersebut?",
+    "options": ["A. 20 cm²", "B. 40 cm²", "C. 80 cm²", "D. 90 cm²", "D. 100 cm²" ],
+    "correct": "B. 40 cm²",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Luas segitiga = 1⁄2 × alas × tinggi.</p>",
+        "<p>= 1⁄2 × 10 × 8.</p>",
+        "<p>= 40 cm².</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus luas segitiga:</p>",
+        "<p>&emsp;L = 1⁄2 × alas × tinggi.</p>",
+        "<p>2. Masukkan nilai alas dan tinggi:</p>",
+        "<p>&emsp;L = 1⁄2 × 10 × 8.</p>",
+        "<p>3. Hitung hasilnya:</p>",
+        "<p>&emsp;L = 40 cm².</p>",
+        "<p>Jadi, luas segitiga adalah 40 cm².</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 26,
+    "question": "Jika bilangan 𝑎 dan 𝑏 berbanding lurus, dan 𝑎 = 10 saat 𝑏 = 5, berapakah nilai 𝑏 saat 𝑎 = 20?",
+    "options": ["A. 8", "B. 10", "C. 12", "D. 15", "E. 16"],
+    "correct": "B. 10",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Karena 𝑎 dan 𝑏 berbanding lurus:</p>",
+        "<p>&emsp;𝑎 ÷ 𝑏 = konstan.</p>",
+        "<p>Maka, 10 ÷ 5 = 20 ÷ 𝑏.</p>",
+        "<p>&emsp;𝑏 = 10.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Hubungan berbanding lurus berarti:</p>",
+        "<p>&emsp;𝑎 ÷ 𝑏 = konstan.</p>",
+        "<p>2. Dari soal, 10 ÷ 5 = 2.</p>",
+        "<p>3. Saat 𝑎 = 20, nilai 𝑏 harus memenuhi:</p>",
+        "<p>&emsp;20 ÷ 𝑏 = 2.</p>",
+        "<p>4. Kalikan silang:</p>",
+        "<p>&emsp;𝑏 = 20 ÷ 2 = 10.</p>",
+        "<p>Jadi, nilai 𝑏 adalah 10.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 27,
+    "question": "Berapa akar kuadrat dari 196?",
+    "options": ["A. 12", "B. 13", "C. 14", "D. 15","E. 16"],
+    "correct": "C. 14",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Akar kuadrat dari 196 = √196 = 14.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Cari bilangan yang jika dikuadratkan menghasilkan 196.</p>",
+        "<p>2. 14 × 14 = 196.</p>",
+        "<p>3. Jadi, √196 = 14.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 28,
+    "question": "Dalam sebuah kelompok, ada 7 laki-laki dan 3 perempuan. Jika dipilih satu orang secara acak, berapa peluang terpilihnya seorang perempuan?",
+    "options": ["A. 1⁄2", "B. 1⁄3", "C. 3⁄10", "D. 7⁄10", "E. 4⁄10"],
+    "correct": "C. 3⁄10",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Peluang = jumlah perempuan ÷ total orang.</p>",
+        "<p>= 3 ÷ (7 + 3).</p>",
+        "<p>= 3 ÷ 10.</p>",
+        "<p>Jadi, peluang terpilihnya perempuan adalah 3⁄10.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Jumlah total orang:</p>",
+        "<p>&emsp;7 laki-laki + 3 perempuan = 10 orang.</p>",
+        "<p>2. Rumus peluang:</p>",
+        "<p>&emsp;Peluang = jumlah kejadian yang diinginkan ÷ total kejadian.</p>",
+        "<p>3. Masukkan nilai:</p>",
+        "<p>&emsp;Peluang = 3 ÷ 10.</p>",
+        "<p>Jadi, peluang terpilihnya seorang perempuan adalah 3⁄10.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 29,
+    "question": "Sebuah persegi panjang memiliki panjang 12 cm dan lebar 8 cm. Berapa keliling persegi panjang tersebut?",
+    "options": ["A. 40 cm", "B. 44 cm", "C. 48 cm", "D. 49 cm", "E. 50 cm"],
+    "correct": "A. 40 cm",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Keliling persegi panjang = 2 × (panjang + lebar).</p>",
+        "<p>= 2 × (12 + 8).</p>",
+        "<p>= 2 × 20.</p>",
+        "<p>= 40 cm.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Rumus keliling persegi panjang:</p>",
+        "<p>&emsp;K = 2 × (panjang + lebar).</p>",
+        "<p>2. Masukkan nilai panjang dan lebar:</p>",
+        "<p>&emsp;K = 2 × (12 + 8).</p>",
+        "<p>3. Hitung hasil:</p>",
+        "<p>&emsp;K = 2 × 20 = 40 cm.</p>",
+        "<p>Jadi, keliling persegi panjang adalah 40 cm.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 30,
+    "question": "Seorang pekerja menyelesaikan sebuah tugas dalam 6 hari. Jika pekerja tersebut bekerja 4 jam per hari, berapa lama waktu yang dibutuhkan untuk menyelesaikan tugas tersebut jika ia bekerja 8 jam per hari?",
+    "options": ["A. 2 hari", "B. 3 hari", "C. 4 hari", "D. 5 hari", "E. 6 hari"],
+    "correct": "B. 3 hari",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Pekerjaan tetap, sehingga waktu yang dibutuhkan berbanding terbalik dengan jam kerja per hari.</p>",
+        "<p>6 hari × 4 jam = 24 jam.</p>",
+        "<p>Jika bekerja 8 jam per hari:</p>",
+        "<p>24 jam ÷ 8 jam/hari = 3 hari.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Total pekerjaan dalam jam:</p>",
+        "<p>&emsp;6 hari × 4 jam/hari = 24 jam.</p>",
+        "<p>2. Jam kerja per hari baru:</p>",
+        "<p>&emsp;8 jam/hari.</p>",
+        "<p>3. Hitung waktu yang dibutuhkan:</p>",
+        "<p>&emsp;24 jam ÷ 8 jam/hari = 3 hari.</p>",
+        "<p>Jadi, waktu yang dibutuhkan adalah 3 hari.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 31,
+    "question": "Rasio antara dua bilangan adalah 2:3. Jika jumlah kedua bilangan adalah 50, berapakah bilangan yang lebih besar?",
+    "options": ["A. 10", "B. 15", "C. 20", "D. 25", "E. 30"],
+    "correct": "E. 30",
+    "explanation": { 
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Misalkan bilangan adalah 2𝑥 dan 3𝑥.</p>",
+        "<p>Jumlah kedua bilangan:</p>",
+        "<p>2𝑥 + 3𝑥 = 50.</p>",
+        "<p>5𝑥 = 50, maka 𝑥 = 10.</p>",
+        "<p>Bilangan yang lebih besar:</p>",
+        "<p>3𝑥 = 3 × 10 = 30.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Misalkan bilangan adalah 2𝑥 dan 3𝑥 (karena rasio adalah 2:3).</p>",
+        "<p>2. Jumlah kedua bilangan:</p>",
+        "<p>&emsp;2𝑥 + 3𝑥 = 50.</p>",
+        "<p>3. Selesaikan untuk 𝑥:</p>",
+        "<p>&emsp;5𝑥 = 50.</p>",
+        "<p>&emsp;𝑥 = 50 ÷ 5 = 10.</p>",
+        "<p>4. Bilangan yang lebih besar:</p>",
+        "<p>&emsp;3𝑥 = 3 × 10 = 30.</p>",
+        "<p>Jadi, bilangan yang lebih besar adalah 30.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+  {
+    "id": 32,
+    "question": "Jika suhu awal sebuah benda adalah 30°C dan suhunya meningkat sebesar 15°C setiap jam, berapa suhu benda tersebut setelah 4 jam?",
+    "options": ["A. 45°C", "B. 60°C", "C. 75°C", "D. 90°C", "E. 95°C"],
+    "correct": "C. 75°C",
+    "explanation": {
+      "sederhana": [
+        "Penjelasan:",
+        "Suhu awal = 30°C.",
+        "Peningkatan setiap jam = 15°C.",
+        "Setelah 4 jam, peningkatan = 4 × 15 = 60°C.",
+        "Suhu akhir = 30 + 60 = 75°C."
+      ],
+      "rinci": "",
+      "video_url": ""
+    }
+  }
+  ,
+{
+    "id": 33,
+    "question": "Sebuah toko memberikan diskon 20% pada barang dengan harga Rp 100.000,00. Berapakah harga akhir barang tersebut?",
+    "options": ["A. Rp 70.000,00", "B. Rp 75.000,00", "C. Rp 80.000,00", "D. Rp 85.000,00", "E. Rp 90.000,00"],
+    "correct": "C. Rp 80.000,00",
+    "explanation": {
+      "sederhana": [
+        "<p><strong>Penjelasan:</strong></p>",
+        "<p>Harga diskon = harga awal × diskon.</p>",
+        "<p>= 100.000 × 20%.</p>",
+        "<p>= 100.000 × 0,2 = 20.000.</p>",
+        "<p>Harga akhir = harga awal − harga diskon.</p>",
+        "<p>= 100.000 − 20.000 = 80.000.</p>"
+      ],
+      "rinci": [
+        "<p><strong>Penjelasan rinci:</strong></p>",
+        "<p>1. Hitung diskon:</p>",
+        "<p>&emsp;Diskon = 20% × 100.000.</p>",
+        "<p>&emsp;Diskon = 0,2 × 100.000 = 20.000.</p>",
+        "<p>2. Hitung harga setelah diskon:</p>",
+        "<p>&emsp;Harga akhir = 100.000 − 20.000.</p>",
+        "<p>&emsp;Harga akhir = 80.000.</p>",
+        "<p>Jadi, harga akhir barang tersebut adalah Rp 80.000,00.</p>"
+      ],
+      "video_url": ""
+    }
+  }
+  ,
+{
+    "id": 34,
+    "question": "Diketahui 𝑎+𝑏=10 dan 𝑎×𝑏=16. Tentukan nilai dari 𝑎²+𝑏².",
+    "options": ["A. 32", "B. 68", "C. 36", "D. 40", "E. 60"],
+    "correct": "B. 68",
+    "explanation": {
+        "sederhana":["Soal:",
+                    "Diketahui 𝑎+𝑏=10 dan 𝑎×𝑏=16. Tentukan nilai dari 𝑎²+𝑏².",
+                    "**Jawaban**",
+                    "B. 68",
+                    "Penjelasan:", 
+                    "Kita menggunakan rumus identitas: 𝑎²+𝑏² = (𝑎+𝑏)² - 2𝑎𝑏. Maka,", 
+                    "𝑎²+𝑏² = 10² - 2 x 16 = 100 - 32 = 68"],
+                    
+    "rinci":  [ 
+                    "<p><strong>Penjelasan Lebih Lengkap:</strong></p>",
+                    "<p>Mengulang Masalah</p>",
+                    "<p>Kita ingin menghitung nilai dari 𝑎²+𝑏², tapi kita akan menggunakan rumus untuk mempermudah perhitungannya daripada menghitung 𝑎² dan 𝑏² secaara terpisah.</p>",
+                    "<p>Menggunakan Rumus",
+                    "<p>Ada rumus yang membantu kita menghitung 𝑎²+𝑏² dengan lebih mudah:</p>",
+                    "<p>𝑎²+𝑏² = (𝑎+𝑏)² - 2𝑎𝑏</p>",
+                    "<p>Rumus ini berguna karena jika kita sudah tahu nilai 𝑎+𝑏 dan 𝑎𝑏, kita bisa menemukan 𝑎²+𝑏² tanpa harus menghitung setiap suku secara langsung.</p>", 
+                    "<p>Contoh Soal:</p>", 
+                    "<p>Misalkan kita tahu bahwa:</p>",
+                    "<p>𝑎+𝑏=10", 
+                    "<p>𝑎𝑏 = 16", 
+                    "<p>Kita ingin mencari 𝑎²+𝑏² menggunakan informasi ini. </p>" ],
+    
+    "video_url": ""
+}
+},
+{
+    "id": 35,
+    "question": "Berapakah jumlah dari bilangan genap antara 1 dan 10?",
+    "options": ["A. 20", "B. 30", "C. 40", "D. 50", "E. 10"],
+    "correct": "A. 20",
+    "explanation": {
+      "sederhana": [
+        "Penjelasan:",
+        "Bilangan genap antara 1 dan 10 adalah 2, 4, 6, 8, dan 10.",
+        "Jumlah = 2 + 4 + 6 + 8 + 10 = 20."
+      ],
+      "rinci": "",
+      "video_url": ""
+    }
+  },
+  {
+    "id": 36,
+    "question": "Sebuah mobil menempuh jarak 240 km dalam waktu 4 jam. Berapa kecepatan rata-rata mobil tersebut?",
+    "options": ["A. 40 km/jam", "B. 50 km/jam", "C. 60 km/jam", "D. 70 km/jam", "E. 80 km/jam"],
+    "correct": "E. 80 km/jam",
+    "explanation": {
+      "sederhana": [
+        "Penjelasan:",
+        "Kecepatan = Jarak ÷ Waktu.",
+        "Kecepatan = 240 ÷ 4 = 80 km/jam."
+      ],
+      "rinci": "",
+      "video_url": ""
+    }
+  },
+  {
+    "id": 37,
+    "question": "Berapakah hasil dari 3³ + 2²?",
+    "options": ["A. 31", "B. 33", "C. 35", "D. 37", "E. 30"],
+    "correct": "A. 31",
+    "explanation": {
+      "sederhana": [
+        "Penjelasan:",
+        "3³ = 3 × 3 × 3 = 27.",
+        "2² = 2 × 2 = 4.",
+        "Hasil = 27 + 4 = 31."
+      ],
+      "rinci": "",
+      "video_url": ""
+    }
+  },
+  {
+    "id": 38,
+    "question": "Sebuah lingkaran memiliki jari-jari 7 cm. Berapa luas lingkaran tersebut? (Gunakan π = 22/7)",
+    "options": ["A. 98 cm²", "B. 154 cm²", "C. 176 cm²", "D. 196 cm²", "E. 186 cm²"],
+    "correct": "B. 154 cm²",
+    "explanation": {
+      "sederhana": [
+        "Penjelasan:",
+        "Rumus luas lingkaran = π × r².",
+        "Luas = (22/7) × 7 × 7 = 154 cm²."
+      ],
+      "rinci": "",
+      "video_url": ""
+    }
+  },
+  {
+    "id": 39,
+    "question": "Bilangan berikut yang habis dibagi 4, tetapi tidak habis dibagi 3 adalah ….",
+    "options": ["A. 1248", "B. 1368", "C. 1720", "D. 2346", "E. 2580", "E. 2480"],
+    "correct": "C. 1720",
+    "explanation": {
+      "sederhana": [
+        "Cara tercepat untuk menjawab soal ini:",
+        "Cek pembagian dengan 4 (cek dua digit terakhir):",
+        "Hanya bilangan yang dua digit terakhirnya habis dibagi 4 yang memenuhi kriteria pertama.",
+        "Lihat dua digit terakhir dari setiap pilihan:",
+        "A. 1248 → 48 (habis dibagi 4)",
+        "B. 1368 → 68 (habis dibagi 4)",
+        "C. 1720 → 20 (habis dibagi 4)",
+        "D. 2346 → 46 (tidak habis dibagi 4)",
+        "E. 2580 → 80 (habis dibagi 4)",
+        "Cek pembagian dengan 3 (jumlahkan angka-angka):",
+        "Pilih bilangan yang dua digit terakhirnya habis dibagi 4.",
+        "Cek apakah jumlah angka-angka dalam bilangan tersebut habis dibagi 3:",
+        "A. 1248 → 1 + 2 + 4 + 8 = 15 (tidak habis dibagi 3)",
+        "B. 1368 → 1 + 3 + 6 + 8 = 18 (habis dibagi 3)",
+        "C. 1720 → 1 + 7 + 2 + 0 = 10 (tidak habis dibagi 3)",
+        "D. 2346 → 2 + 3 + 4 + 6 = 15 (tidak habis dibagi 3)",
+        "E. 2580 → 2 + 5 + 8 + 0 = 15 (tidak habis dibagi 3)",
+        "Kesimpulan:",
+        "1720 adalah satu-satunya yang memenuhi syarat, yaitu habis dibagi 4 tetapi tidak habis dibagi 3.",
+        "Jawaban: C. 1720"
+        
+      ],
+      "rinci": [
+       
+        "Memeriksa pembagian dengan 4:",
+        "Sebuah angka dapat dibagi 4 jika dua angka terakhirnya membentuk angka yang bisa dibagi 4.",
+        "Cek angka dua terakhir dari setiap pilihan:",
+        "A. 1248 → 48 (dibagi 4)",
+        "B. 1368 → 68 (dibagi 4)",
+        "C. 1720 → 20 (dibagi 4)",
+        "D. 2346 → 46 (tidak dibagi 4)",
+        "E. 2580 → 80 (dibagi 4)",
+        "Jadi, 1248, 1368, 1720, dan 2580 semuanya habis dibagi 4.",
+        "Memeriksa pembagian dengan 6:",
+        "Sebuah angka dapat dibagi 6 jika angka tersebut dibagi 2 dan 3.",
+        "Cek pembagian oleh 3 dengan menjumlahkan angka-angka dalam bilangan:",
+        "A. 1248 → 1 + 2 + 4 + 8 = 15 (tidak dibagi 3)",
+        "B. 1368 → 1 + 3 + 6 + 8 = 18 (dibagi 3)",
+        "C. 1720 → 1 + 7 + 2 + 0 = 10 (tidak dibagi 3)",
+        "D. 2346 → 2 + 3 + 4 + 6 = 15 (tidak dibagi 3)",
+        "E. 2580 → 2 + 5 + 8 + 0 = 15 (tidak dibagi 3)",
+        "1720 adalah satu-satunya bilangan yang tidak habis dibagi 3.",
+        "Kesimpulan:",
+        "Jawaban yang tepat adalah C. 1720, karena angka ini habis dibagi 4 tetapi tidak habis dibagi 3 (oleh karena itu, juga tidak habis dibagi 6)."
+      ],
+      "video_url": ""
+    }
+},
+{
+  "id": 40,
+  "question": "Kurva y = ax² + bx + c dengan a ≠ 0 memotong sumbu-x di dua titik berbeda. Jika b = 4 dan c = 3, pernyataan yang benar adalah …",
+  "options": ["A. a < 1", "B. 2a < 1", "C. a > 1", "D. 4a > 1", "E. 2a > 3"],
+  "correct": "A. a < 1",
+  "explanation": {
+    "sederhana": [
+      "Penjelasan:",
+      "Sebuah kurva y = ax² + bx + c memotong sumbu-x di dua titik berbeda jika diskriminan D > 0.",
+      "Diskriminan untuk persamaan kuadrat ax² + bx + c adalah D = b² - 4ac.",
+      "Substitusikan nilai b = 4 dan c = 3:",
+      "D = 4² - 4a(3) = 16 - 12a.",
+      "Agar D > 0, maka:",
+      "16 - 12a > 0.",
+      "12a < 16.",
+      "a < 16/12 = 4/3.",
+      "Karena nilai-nilai di opsi tidak dalam bentuk fraksi, opsi terdekat adalah a < 1."
+    ],
+    "rinci": [
+      "Cara tercepat untuk menyelesaikan soal ini:",
+      "1. Gunakan syarat pemotongan di dua titik berbeda: D > 0.",
+      "2. Hitung diskriminan: D = b² - 4ac.",
+      "3. Substitusikan nilai b = 4 dan c = 3 ke dalam persamaan diskriminan:",
+      "   D = 16 - 12a.",
+      "4. Tentukan kondisi D > 0:",
+      "   16 - 12a > 0.",
+      "   12a < 16.",
+      "   a < 4/3.",
+      "5. Pilih opsi yang memenuhi a < 4/3, yaitu a < 1."
+    ],
+    "video_url": "https://www.youtube.com/embed/HHBkzDSasHM"
+  } 
+}
+  ,
+  {
+    "id": 41,
+    "question": "Kurva y = bx² + 3x + 2 dengan b ≠ 0 memotong sumbu-x di dua titik berbeda. Pernyataan yang benar adalah ...",
+    "options": ["A. b > 2", "B. b < 2", "C. b < 3", "D. b > 1", "E. b ≠ 0"],
+    "correct": "B. b < 2",
+    "explanation": {
+        "sederhana": [
+            "Penjelasan:",
+            "Diskriminan harus lebih besar dari nol agar kurva memotong sumbu-x di dua titik berbeda.",
+            "Gunakan persamaan diskriminan: D = b² - 4ac.",
+            "Pada kurva y = bx² + 3x + 2, nilai a = b, b = 3, dan c = 2.",
+            "Maka D = 3² - 4(b)(2) = 9 - 8b.",
+            "Agar D > 0, diperlukan 9 - 8b > 0.",
+            "Selesaikan: b < 2.",
+            "Jadi, jawaban yang benar adalah B. b < 2."
+        ],
+        "rinci": [
+            "Cara tercepat untuk menyelesaikan soal ini:",
+            "1. Identifikasi bentuk umum kurva: y = bx² + 3x + 2.",
+            "2. Syarat agar kurva memotong sumbu-x di dua titik berbeda adalah diskriminan (D) > 0.",
+            "3. Gunakan rumus D = b² - 4ac, dengan a = b, b = 3, c = 2.",
+            "4. Substitusi nilai-nilai ke dalam diskriminan: D = 3² - 4(b)(2) = 9 - 8b.",
+            "5. Syarat D > 0 menjadi 9 - 8b > 0.",
+            "6. Selesaikan pertidaksamaan: b < 2.",
+            "7. Pilih jawaban sesuai hasil: B. b < 2."
+        ],
+        "video_url": "https://www.youtube.com/embed/AcpYQbzNni8"
+    }
+}
+
+                
+]
+

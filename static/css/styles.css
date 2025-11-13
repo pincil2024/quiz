@@ -1,0 +1,664 @@
+body {
+    
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    color:white;
+    text-align: center; /* Center the title and timer */
+    margin: 0; /* Remove default margin */
+    
+}
+
+/* Container */
+.container {
+    display: flex;
+    
+    margin: 20px auto;
+    gap: 20px;
+    padding: 10px;
+}
+
+
+/* Left Column */
+.left-column {
+  padding: 50px;
+    flex: 3;
+   background: linear-gradient(135deg, #fff6b7 0%, #91ab5b 100%);
+
+    margin-top: 0%; 
+     border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.left-column button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    color: white;
+    background-color: #0078d7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.left-column button:hover {
+    background-color: #005bb5;
+}
+
+/* Right Column */
+#right-column {
+    flex: 1;
+    background: linear-gradient(135deg, #fff6b7 0%, #91ab5b 100%);
+    color: rgb(7, 96, 31);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.right-column p {
+  text-align: justify;
+}
+.right-column h3 {
+  text-align: center;
+    margin-bottom: 10px;
+}
+
+.right-column ul {
+    list-style: none;
+}
+
+.right-column li {
+  text-align: left;
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.post-grid {
+  text-align: center;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  text-wrap: wrap;
+}
+.post {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+  padding: 10px;
+   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+}
+
+.post img {
+ width: 100%;
+max-width: 250px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  margin: 0 auto; /* <- this centers the image */
+    transition: transform 0.3s ease;
+
+}
+.post:hover {
+  background: #ffeaa7; /* warm, kid-friendly pastel yellow */
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.post:hover img {
+  transform: scale(1.05);
+}
+.post:hover {
+  cursor: pointer;
+}
+
+.post h3 {
+  transition: color 0.3s ease;
+}
+
+.post:hover h3 {
+  color: #d63031; /* fun red tone */
+}
+
+.postSd {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+ margin-bottom: 10px;
+  justify-content: center;
+  padding: 10px;
+}
+.postSd img {
+  width: 25vw;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+.post h3 {
+  margin: 10px 0 5px;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.post p {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 10px;
+}
+.post-content {
+  
+  margin: 0;
+  flex: 1;
+ 
+}
+.post-content1 {
+  text-align: justify;
+  margin: 0;
+    flex: 1;
+    color: #000;
+}
+
+.post-content h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.post-content p {
+    text-align: justify;
+    hyphens: auto; /* Enable word hyphenation */
+    margin: 5px 0 0;
+    font-size: 0.9em;
+    color:  rgb(4, 74, 4);
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-column, .right-column {
+        width: 80%;
+    }
+    .post-grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns on tablets/desktops */
+  }
+}
+.posts-row {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to the next row if necessary */
+  gap: 20px; /* Space between the posts */
+}
+
+/* General container styling */
+.dropdown-post {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 220px; /* Content fits the width of the image */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Header styling (image and arrow container) */
+.dropdown-header {
+  position: relative; /* Relative positioning for arrow placement */
+  cursor: pointer;
+}
+
+.dropdown-header img {
+  width: 220px; /* Fixed image width */
+  height: 220px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Arrow container on the lower part of the image */
+.dropdown-arrow-container {
+  position: absolute;
+  bottom: 10px; /* Place near the bottom of the image */
+  left: 50%;
+  transform: translateX(-50%); /* Center the arrow horizontally */
+  background-color: rgba(0, 0, 0, 0.6); /* Opaque circle */
+  border-radius: 50%; /* Circular shape */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Arrow inside the circle */
+.dropdown-arrow {
+  font-size: 1.5rem;
+  color: #fff;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Rotate arrow when open */
+.dropdown-post.open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown description styling */
+.dropdown-description {
+  text-align: justify;
+  display: none;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  width: 220px; /* Match the image width */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  overflow-wrap: break-word; /* Break long words to prevent overflow */
+  word-wrap: break-word; /* Older browser compatibility */
+  hyphens: auto; /* Hyphenate words when needed */
+  
+}
+
+.dropdown-description p {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  color: #0e0d0d;
+  line-height: 1.5; /* Increase line spacing for better readability */
+}
+.dropdown-description li {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  color: #0e0d0d;
+  line-height: 1.5; /* Increase line spacing for better readability */
+}
+
+.dropdown-description a {
+  
+  color: #007bff;
+  font-weight: bold;
+  text-decoration-line: underline;
+  word-wrap: break-word; /* Ensure the link text also wraps */
+}
+
+.dropdown-header video {
+  width: 300px; /* Fixed video width */
+  height: auto;
+  border-radius: 5px;
+  display: block;
+}
+/* Show description when open */
+.dropdown-post.open .dropdown-description {
+  display: block;
+}
+.button {
+  padding: 15px 30px;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border: 2px solid #000;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.button:hover {
+  background-color: #e0e0e0;
+}
+#thumbs-up{
+   width: 150px;       /* Adjust size as needed */
+  height: auto;
+  margin-right: 20px; /* Space between image and drop area */
+  
+   }
+ #pincillogo{
+    width: 200px;       /* Adjust size as needed */
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+  }
+ 
+#survey-floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ffcd4b;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+#survey-floating-btn:hover {
+  transform: scale(1.1);
+}
+
+#survey-dialog {
+  color: #000;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  display: none;
+  align-items: left;
+  justify-content: left;
+  padding: 10px;
+  z-index: 1000;
+}
+
+#survey-box {
+  background: white;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 12px;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+#close-survey {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#survey-message-pointer {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#survey-message-pointer::after {
+  content: '⬇️';
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+}
+
+@media (max-width: 600px) {
+  #survey-box {
+    max-width: 95%;
+  }
+  #survey-message-pointer {
+    right: 10px;
+    bottom: 90px;
+  }
+  .post-grid {
+     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+
+  }
+  
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.warning-banner {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 10px;
+  border-radius: 4px;
+  border-left: 4px solid #ffeeba;
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: left;
+}
+
+.warning-banner:before {
+  content: "⚠️";
+  margin-right: 8px;
+}
+.error {
+  color: #dc3545;
+  padding: 8px;
+  background: #f8d7da;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+/*mathematicSD*/
+/* === COOL MATH BUTTONS === */
+.math-button {
+    position: relative;
+    padding: 16px 24px;
+    margin: 12px 8px;
+    border: none;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+    min-width: 180px;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    transform-style: preserve-3d;
+    perspective: 500px;
+}
+
+.math-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.math-button:hover::before {
+    left: 100%;
+}
+
+.math-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.math-button:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Operation-specific button styles */
+.button-addition {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: 3px solid #388E3C;
+}
+
+.button-addition:hover {
+    background: linear-gradient(135deg, #45a049, #4CAF50);
+    box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+}
+
+.button-subtraction {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+    border: 3px solid #1565C0;
+}
+
+.button-subtraction:hover {
+    background: linear-gradient(135deg, #1976D2, #2196F3);
+    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.4);
+}
+
+.button-multiplication {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+    border: 3px solid #E65100;
+}
+
+.button-multiplication:hover {
+    background: linear-gradient(135deg, #F57C00, #FF9800);
+    box-shadow: 0 6px 12px rgba(255, 152, 0, 0.4);
+}
+
+.button-division {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+    border: 3px solid #6A1B9A;
+}
+
+.button-division:hover {
+    background: linear-gradient(135deg, #7B1FA2, #9C27B0);
+    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.4);
+}
+
+/* Quiz Level Buttons */
+.button-quiz {
+    background: linear-gradient(135deg, #FF5722, #E64A19);
+    color: white;
+    border: 3px solid #D84315;
+}
+
+.button-quiz:hover {
+    background: linear-gradient(135deg, #E64A19, #FF5722);
+    box-shadow: 0 6px 12px rgba(255, 87, 34, 0.4);
+}
+
+.button-challenge {
+    background: linear-gradient(135deg, #607D8B, #455A64);
+    color: white;
+    border: 3px solid #37474F;
+}
+
+.button-challenge:hover {
+    background: linear-gradient(135deg, #455A64, #607D8B);
+    box-shadow: 0 6px 12px rgba(96, 125, 139, 0.4);
+}
+
+/* Special Effects */
+.math-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.math-button:active::after {
+    width: 100px;
+    height: 100px;
+}
+
+/* Floating Animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.02); }
+}
+
+.math-button:hover {
+    animation: float 2s ease-in-out infinite;
+}
+
+/* Button Icons */
+.math-button .icon {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .math-button {
+        padding: 14px 20px;
+        font-size: 16px;
+        min-width: 160px;
+        margin: 8px 4px;
+    }
+}
+/* Enhanced post containers */
+.postSd {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.postSd::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4CAF50, #2196F3, #FF9800, #9C27B0);
+}
+
+.postSd:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.post-content h3 {
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Squirel images */
+.postSd img {
+    display: block;
+    margin: 0 auto 15px;
+    max-width: 120px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    transition: transform 0.3s ease;
+}
+
+.postSd:hover img {
+    transform: scale(1.1) rotate(5deg);
+}
+.pincillogo{
+   opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}

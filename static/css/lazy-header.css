@@ -1,0 +1,200 @@
+.lazyHeader {
+  display: flex; /* Enables Flexbox */
+  flex-direction: column; /* Stacks the children vertically */
+  align-items: center; /* Centers children horizontally */
+  justify-content: center; /* Centers children vertically */
+  height: 20vh; /* Full viewport height for demonstration */
+  width: 100vw;
+  text-align: center; /* Aligns the text content */
+  min-height: 200px; /* Ensure space is reserved */
+  background-color: #3b69b9; /* Placeholder background color */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.3s ease-in-out; /* Smooth transition */
+}
+.header-content {
+  z-index: 1; /* Ensure content is visible above the background */
+  position: relative;
+}
+
+.header-group {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: -10px; /* Reduced spacing between "Welcome to" and "Pincil" */
+  }
+  
+  .pincil {
+    display: block;
+    
+  }
+  
+  .pincil text {
+    stroke-dasharray: 800; /* Match text length */
+    stroke-dashoffset: 800;
+    fill: #065d70; /* Black text */
+    stroke: rgb(242, 245, 242); /* White outline */
+    stroke-width: 2;
+    animation: strokeAndFill 4s ease-in-out forwards;
+    opacity: 1; /* Ensure text is visible during animation */
+  }
+  
+  /* SVG "Pincil" text draws and fills */
+  @keyframes strokeAndFill {
+    0% {
+      stroke-dashoffset: 800;
+      fill: none;
+    }
+    50% {
+      stroke-dashoffset: 0;
+      fill: none;
+    }
+    100% {
+      fill: #034f7e; /* Final black text */
+      stroke-dashoffset: 0;
+    }
+  }
+  .welcome-to {
+    margin-top: 20%;
+    font-family: 'Arial', sans-serif;
+    font-size: 35px;
+    font-weight: bold; /* Bold text */
+    color: green; /* Green text */
+    text-shadow: 
+  -2px -2px 0 #fff, 
+   2px -2px 0 #fff, 
+  -2px  2px 0 #fff, 
+   2px  2px 0 #fff, 
+  -2px  0px 0 #fff, 
+   2px  0px 0 #fff, 
+   0px -2px 0 #fff, 
+   0px  2px 0 #fff; /* White outline */
+    animation: slideInFromTop 1.5s ease-in-out forwards;
+    opacity: 0; /* Hidden until animation starts */
+  }
+  
+  /* "Welcome to" slides in smoothly */
+  @keyframes slideInFromTop {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+/* Second Header */
+.secondaryHeader {
+   display: block;
+    border-top: 2px solid rgba(255, 255, 255, 0.5); /* A semi-transparent white line */
+    padding: 10px; /* Adjust padding as needed */
+    min-height: 40px; /* Shorter height */
+    background-color: #487cc4; /* Contrasting or complementary color */
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+    text-align: center;
+    margin: 0; /* Remove any spacing between headers */
+}
+.secondaryHeader p {
+  display: block;
+  margin-bottom: 1em; /* Adds spacing between paragraphs */
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+}
+.header {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   background-size: cover; /* Ensure the GIF covers the entire area */
+    background-position: center; /* Center the GIF */
+    background-repeat: no-repeat; /* Prevent repeating the GIF */
+}
+
+/* For the text styling */
+.welcome-text,
+.to-text
+ {
+    font-family: 'The Season', cursive;
+    font-size: 3rem;
+    margin: 0;
+}
+
+/* Special font styling for Pincil */
+.pincil-text {
+    font-family: 'Railey', sans-serif;
+    font-size: 4rem;
+    font-weight: bold;
+    animation: zoom-out 1s ease-out forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.zoom-out {
+    font-size: 4rem;
+    animation: zoomOutEffect 1s ease forwards;
+}
+
+@keyframes zoomOutEffect {
+    0% {
+        transform: scale(2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+#emoji-container {
+  color: #e7ebed;
+  text-shadow: #fff;
+  text-decoration: wavy;
+  font-size: 60px;
+  font-weight: bold;
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  vertical-align: center;
+ 
+} 
+@font-face {
+  font-family: 'Pacifico';
+  src: url('/assets/fonts/pacifico-v22-latin-regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

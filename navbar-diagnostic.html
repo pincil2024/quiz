@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pincil - Educational Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .issue-analysis {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .issue-analysis h2 {
+            color: #6e8efb;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .solution {
+            background: #fff4e6;
+            border-left: 4px solid #ffa94d;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #6e8efb;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background: #5a7df9;
+            transform: translateY(-2px);
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background: #fff;
+            border-radius: 50%;
+            padding: 5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 0.5rem 0;
+            min-width: 150px;
+            z-index: 1000;
+            list-style: none;
+        }
+        
+        .dropdown-menu li {
+            padding: 0;
+        }
+        
+        .dropdown-menu a {
+            color: #333;
+            display: block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            border-radius: 2px;
+        }
+        
+        /* Modal Styles */
+        #accessOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .modal {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .modal input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .modal button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal button:hover {
+            background: #5a7df9;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #6e8efb;
+                padding: 1rem;
+                border-radius: 0 0 10px 10px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background: rgba(255, 255, 255, 0.1);
+                margin-top: 0.5rem;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #777;
+            padding: 1rem;
+        }
+        
+        .log-output {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-puzzle-piece"></i> Pincil - Educational Games</h1>
+            <p>Button Functionality Issue - Analysis & Solution</p>
+        </header>
+        
+        <div class="issue-analysis">
+            <h2><i class="fas fa-bug"></i> Problem Identified</h2>
+            
+            <div class="error">
+                <p><i class="fas fa-exclamation-circle"></i> <strong>EVENT LISTENER ISSUE:</strong> Your event listeners are attached before the elements exist in the DOM.</p>
+            </div>
+            
+            <h3>Current Code Structure:</h3>
+            <div class="code-block">
+// In auth-manager.js
+document.getElementById("toLoginFromRegisterBtn")?.addEventListener("click", toggleToLogin);
+// ... other event listeners
+
+// But these elements are loaded later via fetch() in navbar.js
+fetch("navbar.html")
+  .then((res) => res.text())
+  .then((html) => {
+    navbarEl.innerHTML = html; // Elements created here
+    // Event listeners should be attached here, not before
+  });
+            </div>
+            
+            <div class="solution">
+                <h3><i class="fas fa-wrench"></i> The Solution:</h3>
+                <p>Move all event listener attachment code to <strong>after</strong> the navbar HTML is loaded.</p>
+                <p>Create an initialization function in auth-manager.js that attaches event listeners, and call it after navbar.html is loaded.</p>
+            </div>
+            
+            <h3><i class="fas fa-check-circle"></i> Implementation Fix:</h3>
+            <div class="code-block">
+// In auth-manager.js - Add this function
+export function initAuthEventListeners() {
+  // Attach listeners (safe with ?.)
+  document.getElementById("toLoginFromRegisterBtn")?.addEventListener("click", toggleToLogin);
+  document.getElementById("toRegisterFromLoginBtn")?.addEventListener("click", toggleToRegister);
+  document.getElementById("toResetFromLoginBtn")?.addEventListener("click", toggleToReset);
+  document.getElementById("toLoginFromResetBtn")?.addEventListener("click", toggleToLogin);
+  document.getElementById("closeAccessOverlayBtn")?.addEventListener("click", closeAccessOverlay);
+  document.getElementById("sendResetEmail")?.addEventListener("click", sendResetEmail);
+  
+  // Also attach form submission handlers
+  const registerForm = document.getElementById("registerSection");
+  if (registerForm) {
+    registerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Get form values and call registerUser
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const nickname = document.getElementById("nickname").value;
+      registerUser(email, password, nickname);
+    });
+  }
+  
+  const loginForm = document.getElementById("loginSection");
+  if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Get form values and call loginUser
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      loginUser(email, password);
+    });
+  }
+}
+
+// In navbar.js - Call this after loading navbar.html
+fetch("navbar.html")
+  .then((res) => res.text())
+  .then((html) => {
+    navbarEl.innerHTML = html;
+    // Initialize navbar functionality and events
+    initNavbarFunctionality();
+    initNavbarEvents();
+    
+    // Initialize auth event listeners
+    initAuthEventListeners(); // ← ADD THIS LINE
+    
+    // Setup auth state listener
+    initAuthStateListener();
+  });
+            </div>
+            
+            <button class="btn" id="testSolutionBtn">
+                <i class="fas fa-vial"></i> Test Fixed Implementation
+            </button>
+            
+            <div class="log-output" id="consoleOutput">
+                // Console output will appear here...
+            </div>
+        </div>
+        
+        <!-- This is the navbar container -->
+        <div id="navbar">
+            <!-- Navbar will be loaded here by JavaScript -->
+        </div>
+        
+        <div class="issue-analysis">
+            <h2><i class="fas fa-code"></i> Additional Fixes Needed</h2>
+            
+            <p>Your code also has these issues that need to be fixed:</p>
+            
+            <div class="code-block">
+// 1. Forms are using inline onsubmit handlers that call undefined functions
+&lt;form id="registerSection" onsubmit="event.preventDefault(); registerUser();"&gt;
+
+// Should be changed to:
+&lt;form id="registerSection"&gt;
+// And handled in initAuthEventListeners()
+
+// 2. registerUser and loginUser functions need parameters
+// Current call: registerUser() - no parameters
+// Should be: registerUser(email, password, nickname)
+
+// 3. You need to get values from form inputs
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+const nickname = document.getElementById("nickname").value;
+registerUser(email, password, nickname);
+            </div>
+        </div>
+        
+        <footer>
+            <p>Pincil.id - Fun Educational Games for Kids</p>
+            <p>© 2023 - All rights reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        // Capture console logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const consoleOutput = document.getElementById('consoleOutput');
+        
+        console.log = function() {
+            originalLog.apply(console, arguments);
+            consoleOutput.innerHTML += '<div style="color: #0f0;">' + Array.from(arguments).join(' ') + '</div>';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+        
+        console.error = function() {
+            originalError.apply(console, arguments);
+            consoleOutput.innerHTML += '<div style="color: #f00;">' + Array.from(arguments).join(' ') + '</div>';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        };
+        
+        // Test the solution
+        document.getElementById('testSolutionBtn').addEventListener('click', function() {
+            console.log('Testing fixed implementation...');
+            
+            const navbarContainer = document.getElementById('navbar');
+            
+            // Show loading state
+            navbarContainer.innerHTML = '<div style="padding: 1rem; text-align: center; color: #6e8efb;"><i class="fas fa-spinner fa-spin"></i> Loading navbar...</div>';
+            
+            // Simulate fetch delay
+            setTimeout(() => {
+                // Simulate navbar content
+                navbarContainer.innerHTML = `
+                    <nav class="navbar">
+                        <div class="nav-container">
+                            <a href="/index.html" class="logo">
+                                <img src="https://placehold.co/40x40/6e8efb/white?text=P" alt="Pincil Logo" />
+                                Pincil - Fun Educational Games for Kids
+                                <span id="navWelcome" style="font-weight:bold; color:#ff9800;"></span>
+                            </a>
+
+                            <div class="menu-toggle">
+                                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            </div>
+
+                            <ul class="nav-links">
+                                <li><a href="/index.html">Home</a></li>
+                                <li class="dropdown">
+                                    <a href="/tk.html" class="dropdown-toggle">TK</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/alphabet.html">Belajar Membaca</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/sdmath.html">Matematika Dasar</a></li>
+                                <li><a href="/paidflippingbook.html">Buku-buku</a></li>
+                                <li id="loginContainer">
+                                    <a href="#" id="loginLink">Login</a>
+                                </li>
+                                <li id="userMenuContainer" style="display:none;" class="dropdown">
+                                    <a href="#" class="dropdown-toggle" id="userMenuToggle">
+                                        <span id="userInitials">👤</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><span id="userEmail"></span></li>
+                                        <li class="admin-only" style="display:none;">
+                                            <a href="#" onclick="showAdminPanel(); return false;">
+                                                <i class="fas fa-cog"></i> Admin Panel
+                                            </a>
+                                        </li>
+                                        <li><button id="logoutBtn" class="logout-button">Logout</button></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <!-- Login/Register/Reset Modal -->
+                    <div id="accessOverlay" style="display:none;">
+                        <div class="modal">
+                            <button class="modal-close-btn" id="closeAccessOverlayBtn">❌</button>
+
+                            <!-- REGISTER -->
+                            <form id="registerSection">
+                                <img src="https://placehold.co/150x150/6e8efb/white?text=📚" alt="welcome" 
+                                    style="width:150px; height:auto; padding:20px; margin:auto">
+                                <p>Selamat datang di Pincil.id</p>
+                                <p>Pusat Pembelajaran Interaktif Anda!</p>
+
+                                <input type="email" id="email" placeholder="Email" required>
+                                <input type="text" id="nickname" placeholder="Nama Panggilan" required>
+                                <input type="password" id="password" placeholder="Kata sandi" autocomplete="new-password" required>
+                                <input type="password" id="confirmPassword" placeholder="Konfirmasi kata sandi" autocomplete="new-password" required>
+
+                                <button type="submit">Daftar</button>
+                                <span id="registerSpinner" class="spinner" style="display:none;">🌸</span>
+                                <div id="registerMsg" class="msg"></div>
+
+                                <button type="button" id="toLoginFromRegisterBtn">Sudah punya akun? Login</button>
+                            </form>
+
+                            <!-- LOGIN -->
+                            <form id="loginSection" style="display:none;">
+                                <img src="https://placehold.co/150x150/6e8efb/white?text=🔐" alt="welcome" 
+                                    style="width:150px; height:auto; padding:20px; margin:auto">
+                                <input type="email" id="loginEmail" placeholder="Email" required>
+                                <input type="password" id="loginPassword" placeholder="Kata sandi" required>
+                                <button id="loginBtn" type="submit">Login</button>
+
+                                <span id="loginSpinner" class="spinner" style="display:none;">🌸</span>
+                                <div id="loginMsg" class="msg"></div>
+
+                                <button type="button" id="toRegisterFromLoginBtn">Registrasi</button>
+                                <button type="button" id="toResetFromLoginBtn">Lupa password?</button>
+                            </form>
+
+                            <!-- RESET PASSWORD -->
+                            <div id="resetSection" style="display:none;">
+                                <img src="https://placehold.co/150x150/6e8efb/white?text=🔑" alt="welcome" 
+                                    style="width:150px; height:auto; padding:20px; margin:auto">
+                                <h2>🔐 Reset Password</h2>
+                                <p>Masukkan email Anda, kami akan kirim link untuk mengatur ulang password.</p>
+
+                                <input type="email" id="resetEmail" placeholder="Email Anda" required>
+                                <button id="sendResetEmail">Kirim Link Reset</button>
+                                <span id="resetSpinner" class="spinner" style="display:none;">🌞</span>
+                                <p id="resetMsg"></p>
+
+                                <button id="toLoginFromResetBtn">Kembali ke Login</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                console.log('Navbar loaded successfully!');
+                console.log('Now attaching event listeners...');
+                
+                // Simulate initAuthEventListeners()
+                attachEventListeners();
+                
+                // Initialize the demo navbar
+                initDemoNavbar();
+            }, 1000);
+        });
+        
+        // Simulate the initAuthEventListeners function
+        function attachEventListeners() {
+            // Toggle functions
+            function toggleToLogin() {
+                document.getElementById("registerSection").style.display = "none";
+                document.getElementById("resetSection").style.display = "none";
+                document.getElementById("loginSection").style.display = "block";
+                console.log('Switched to login form');
+            }
+
+            function toggleToRegister() {
+                document.getElementById("loginSection").style.display = "none";
+                document.getElementById("resetSection").style.display = "none";
+                document.getElementById("registerSection").style.display = "block";
+                console.log('Switched to registration form');
+            }
+
+            function toggleToReset() {
+                document.getElementById("loginSection").style.display = "none";
+                document.getElementById("registerSection").style.display = "none";
+                document.getElementById("resetSection").style.display = "block";
+                console.log('Switched to password reset form');
+            }
+
+            function closeAccessOverlay() {
+                const overlay = document.getElementById("accessOverlay");
+                if (overlay) overlay.style.display = "none";
+                console.log('Closed overlay');
+            }
+
+            function sendResetEmail() {
+                const email = document.getElementById("resetEmail").value;
+                if (!email) {
+                    document.getElementById("resetMsg").innerText = "❌ Masukkan email valid.";
+                    return;
+                }
+                document.getElementById("resetSpinner").style.display = "inline-block";
+                setTimeout(() => {
+                    document.getElementById("resetSpinner").style.display = "none";
+                    document.getElementById("resetMsg").innerText = "✅ Link reset terkirim ke " + email;
+                    console.log('Reset email sent to:', email);
+                }, 1500);
+            }
+            
+            // Attach listeners
+            document.getElementById("toLoginFromRegisterBtn")?.addEventListener("click", toggleToLogin);
+            document.getElementById("toRegisterFromLoginBtn")?.addEventListener("click", toggleToRegister);
+            document.getElementById("toResetFromLoginBtn")?.addEventListener("click", toggleToReset);
+            document.getElementById("toLoginFromResetBtn")?.addEventListener("click", toggleToLogin);
+            document.getElementById("closeAccessOverlayBtn")?.addEventListener("click", closeAccessOverlay);
+            document.getElementById("sendResetEmail")?.addEventListener("click", sendResetEmail);
+            
+            // Form submission handlers
+            const registerForm = document.getElementById("registerSection");
+            if (registerForm) {
+                registerForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    console.log('Registration form submitted');
+                    // Get values and call registerUser
+                    const email = document.getElementById("email").value;
+                    const password = document.getElementById("password").value;
+                    const nickname = document.getElementById("nickname").value;
+                    console.log('Would register:', email, nickname);
+                });
+            }
+            
+            const loginForm = document.getElementById("loginSection");
+            if (loginForm) {
+                loginForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    console.log('Login form submitted');
+                    // Get values and call loginUser
+                    const email = document.getElementById("loginEmail").value;
+                    const password = document.getElementById("loginPassword").value;
+                    console.log('Would login:', email);
+                });
+            }
+            
+            // Login link
+            const loginLink = document.getElementById("loginLink");
+            if (loginLink) {
+                loginLink.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    document.getElementById("accessOverlay").style.display = "block";
+                    toggleToLogin();
+                    console.log('Login link clicked, overlay opened');
+                });
+            }
+            
+            console.log('All event listeners attached successfully!');
+        }
+        
+        function initDemoNavbar() {
+            // Mobile menu toggle
+            const menuToggle = document.querySelector(".menu-toggle");
+            const navLinks = document.querySelector(".nav-links");
+            
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener("click", () => {
+                    navLinks.classList.toggle("active");
+                });
+            }
+            
+            // Dropdown menus
+            const dropdowns = document.querySelectorAll(".dropdown");
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener("click", (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const menu = dropdown.querySelector(".dropdown-menu");
+                        if (menu) {
+                            menu.style.display = menu.style.display === "block" ? "none" : "block";
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Initial diagnostic
+        console.log("Button functionality issue diagnostic");
+        console.log("Problem: Event listeners attached before elements exist in DOM");
+        console.log("Solution: Move event listener attachment to after navbar.html is loaded");
+    </script>
+</body>
+</html>

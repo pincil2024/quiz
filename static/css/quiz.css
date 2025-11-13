@@ -1,0 +1,272 @@
+body {
+    
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    color:white;
+    text-align: center; /* Center the title and timer */
+    margin: 0; /* Remove default margin */
+    
+}
+/* Quiz Page Background */
+#quizPage {
+    background-color: rgb(47, 156, 207);; /* Light yellow */
+}
+
+
+#quizTitle {
+    font-size: 2.5em; /* Larger font size for the title */
+    margin-bottom: 40px; /* Space between title and timer */
+}
+
+label {
+    display: block; /* Each option on a new line */
+    margin-bottom: 5px; /* Space between options */
+    color: rgb(12, 16, 21);
+}
+
+/* Style for the dialog */
+dialog {
+    margin: auto; /* Center the quiz container */
+    width: 600px; /* Set a fixed width for the dialog */
+    border-radius: 10px;
+    background-color: rgb(47, 156, 207);
+    color: antiquewhite;
+}
+
+
+#quiz {
+    margin: auto; /* Center the quiz container */
+    margin-top: 0; /* Remove top margin */
+    text-align: left; /* Align text inside the quiz container to the left */
+    width: 60%;
+    background-color: white;
+    padding: 0px 20px 20px; /* Reduce top padding */
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for each question */
+#quiz p {
+    text-align: justify;
+    font-weight: bold;
+    color: #333;
+    margin-top: 0; /* Remove top margin */
+    margin-left: 20px;
+    margin-right: 10px;
+    
+}
+
+/* Radio button label styling */
+#quiz label {
+    display: block;
+    
+    font-size: 16px;
+    text-indent: 3%;
+    margin-left: 20%;
+    margin-right: 10px;
+    cursor: pointer;
+    margin: 0; /* Remove margin */
+}
+
+
+/* Button styling */
+#cancelSubmitBtn, #confirmSubmitBtn {
+    padding: 5px;
+    background-color: #2f4d7b;
+    color: white;
+    border: 4px solid #e9ecef;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    
+}
+
+#cancelSubmitBtn:hover, #confirmSubmitBtn:hover {
+    background-color: #6fef76;
+}
+#nextBtn,#prevBtn,#submitBtn {
+    
+    margin: auto;
+    padding: 5px;
+    background-color: #0fc919;
+    color: white;
+    border: 4px solid #e9ecef;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    
+}
+ 
+#nextBtn:hover, #prevBtn:hover,#submitBtn:hover {
+    background-color: #139419;
+
+}
+
+#welcomeDialog {
+    text-align: center;
+    padding: 20px;
+}
+
+#timerOptions {
+    margin-top: 10px;
+}
+/* Centered sentences with left indentation in the dialog */
+.centered-sentence {
+    text-align: left; /* Align text to the left */
+    max-width: 80%; /* Adjust this percentage to control indentation */
+    margin: 0 auto; /* Center the div horizontally */
+    padding-left: 20px; /* Additional left padding for indentation */
+}
+.centered {
+    text-align: center;
+}
+#statusBar {
+    display: flex;
+    margin-left: 20%;
+    margin-right: 20%;
+    justify-content: space-between;
+    font-size: 2 em;
+    text-shadow: #f3f5f7 ;
+    color: #dff308; /* Darker color for better readability */
+    font-weight: bold;
+    
+}
+#navigationButtons {
+    margin-left: 40%;
+    margin-right: 40%;
+    display: flex;
+    justify-content: center;/* Space out buttons evenly */
+   
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+/* Add to your existing CSS */
+button {
+    transition: all 0.2s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.quiz-result-summary h3 {
+    color: #2c3e50;
+    font-size: 1.5em;
+}
+
+.quiz-result-summary h4 {
+    color: #27ae60;
+    font-size: 2em;
+    margin: 10px 0;
+}
+/* Question Types */
+.question-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.instruction {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Multiple Choice */
+.options-container {
+    margin: 15px 0;
+}
+
+.option {
+    display: block;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background-color: #f5f5f5;
+}
+
+.option-letter {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* Fill in Blank */
+.fillblank-container input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Essay */
+.essay-container textarea {
+    width: 100%;
+    padding: 10px;
+    font-family: inherit;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Images */
+.question-image img {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    margin: 10px auto;
+}
+
+/* Results */
+.result-question {
+    margin-bottom: 25px;
+}
+
+.result-image {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.unanswered {
+    color: #e74c3c;
+}
+
+.correct {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.incorrect {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.essay-note {
+    color: #7f8c8d;
+    font-style: italic;
+}
+.question-image {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.question-image img {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 600px) {
+    .question-image img {
+        max-height: 200px;
+    }
+}

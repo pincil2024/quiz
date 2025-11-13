@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Catch | Pincil</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* === PAGE LAYOUT === */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #f0f8ff;
+      color: #333;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* === HEADER / NAV === */
+    nav {
+      width: 100%;
+      background: #4cb5f5;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+    nav ul li a:hover {
+      opacity: 0.8;
+    }
+
+    /* === SECONDARY HEADER === */
+    .sub-header {
+      text-align: center;
+      background: #fff;
+      padding: 20px;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .sub-header h2 {
+      margin: 0;
+      color: #4cb5f5;
+      font-size: 2rem;
+    }
+    .sub-header p {
+      margin-top: 5px;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    /* === GAME AREA === */
+    .game-container {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 500px;
+      height: 500px;
+      background: #fff;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Placeholder canvas / area */
+    .game-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      color: #888;
+    }
+
+    /* === BUTTON === */
+    .start-btn {
+      margin-top: 25px;
+      background: #4cb5f5;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .start-btn:hover {
+      background: #3aa2e0;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 600px) {
+      .sub-header h2 {
+        font-size: 1.5rem;
+      }
+      .game-container {
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Pincil</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="coloring.html">Coloring</a></li>
+      <li><a href="color-catch.html" class="active">Color Catch</a></li>
+    </ul>
+  </nav>
+
+  <div class="sub-header">
+    <h2>🎨 Color Catch Game</h2>
+    <p>Catch the right colors as they fall! Learn red, blue, yellow, and green while having fun.</p>
+  </div>
+
+  <div class="game-container" id="gameContainer">
+    <div class="game-placeholder">Game area coming next...</div>
+  </div>
+
+  <button class="start-btn" id="startGameBtn">Start Game</button>
+
+  <script>
+    document.getElementById("startGameBtn").addEventListener("click", () => {
+      alert("Game logic will be added in the next step!");
+    });
+  </script>
+</body>
+</html>
